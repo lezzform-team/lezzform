@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Card } from "ui";
 import styles from "./page.module.css";
+import { Form } from "../lezzform/_generated/form";
 
 function Gradient({
   conic,
@@ -130,6 +131,8 @@ export default function Page(): JSX.Element {
             {description}
           </Card>
         ))}
+
+        <Form />
       </div>
     </main>
   );

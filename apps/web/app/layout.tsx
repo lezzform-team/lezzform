@@ -1,4 +1,5 @@
 import "./globals.css";
+import "@lezzform/react/dist/style.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
