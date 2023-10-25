@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1",
+    "type": "SingleLineText",
+    "name": "SingleLineText 1",
+    "label": "Firstname",
+    "validator": "z.string().min(5)"
+  },
+  {
+    "id": "2",
+    "type": "SingleLineText",
+    "name": "SingleLineText 2",
+    "label": "Lastname",
+    "validator": "z.string()"
+  },
+  {
+    "id": "3",
+    "type": "TextArea",
+    "name": "TextArea 1",
+    "label": "Address",
+    "validator": "z.string()"
+  },
+  {
+    "id": "4",
+    "type": "SingleLineText",
+    "name": "SGL1",
+    "label": "Nice one",
+    "validator": "z.string()"
+  }
+]
