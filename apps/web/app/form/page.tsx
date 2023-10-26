@@ -1,6 +1,6 @@
 "use client";
 
-import { Form } from "../../components/form";
+import { Form } from "../../lezzform/_generated/form";
 
 export default function FormPage() {
   return (
@@ -8,11 +8,6 @@ export default function FormPage() {
       <Form
         onSubmit={(values) => {
           console.log(values, "vls");
-        }}
-        defaultValues={{
-          "SingleLineText 1": "bla",
-          "SingleLineText 2": "cek 2",
-          "TextArea 1": "celk 333",
         }}
       />
     </div>

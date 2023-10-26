@@ -1,29 +1,22 @@
 #! /usr/bin/env node
 import fs from "fs";
 import path from "path";
-import dummyData from "./dummy-data.json";
-import { LezzformElement } from "@lezzform/types";
-import * as prettier from "prettier";
-import { Compiler } from "./compiler";
-import { formTemplate } from "./templates";
-import { uniqueStrings } from "./utils";
+import { io } from "socket.io-client";
 
-const compiler = new Compiler();
+const socket = io("http://localhost:3001");
+console.info("Listening for changes 🗲");
 
-async function main() {
-  const elements = dummyData as LezzformElement[];
-
+const generate = (content: string) => {
   const lezzformDir = path.join(process.cwd(), "lezzform/_generated");
-
   fs.mkdirSync(lezzformDir, { recursive: true });
+  fs.writeFileSync(path.join(lezzformDir, "form.tsx"), content);
+};
 
-  const types = uniqueStrings(elements.map((element) => element.type));
+socket.emit("findAllElement", {}, (response: string) => {
+  generate(response);
+});
 
-  const unformatted = compiler.compile(formTemplate, { elements, types });
-
-  const formatted = await prettier.format(unformatted, { parser: "babel-ts" });
-
-  fs.writeFileSync(path.join(lezzformDir, "form.tsx"), formatted);
-}
-
-main();
+socket.on("createElement", (response: string) => {
+  console.info("Element created ✅");
+  generate(response);
+});
