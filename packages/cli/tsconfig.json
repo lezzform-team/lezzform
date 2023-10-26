@@ -108,5 +108,6 @@
     "resolveJsonModule": true,
     "jsx": "react-jsx",
     "outDir": "./bin"
-  }
+  },
+  "exclude": ["node_modules", "lezzform"]
 }

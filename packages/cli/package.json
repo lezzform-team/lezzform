@@ -18,7 +18,9 @@
   "dependencies": {
     "axios": "^1.5.1",
     "handlebars": "^4.7.8",
-    "handlebars-helpers": "^0.10.0"
+    "handlebars-helpers": "^0.10.0",
+    "pino": "^8.16.1",
+    "socket.io-client": "^4.7.2"
   },
   "bin": {
     "lezzform": "bin/index.js"

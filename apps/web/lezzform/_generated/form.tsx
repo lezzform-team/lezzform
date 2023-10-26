@@ -1,5 +1,3 @@
-"use client";
-
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
 import { zodValidator } from "@tanstack/zod-form-adapter";
@@ -10,6 +8,7 @@ const ZodFormSchema = z.object({
   "SingleLineText 2": z.string(),
   "TextArea 1": z.string(),
   SGL1: z.string(),
+  email: z.string().email(),
 });
 
 type FormSchema = z.infer<typeof ZodFormSchema>;
@@ -108,6 +107,26 @@ export const Form = ({ onSubmit, defaultValues }: Props) => {
                 return (
                   <SingleLineText
                     label="Nice one"
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    error={field.state.meta.touchedErrors as unknown as string}
+                  />
+                );
+              }}
+            />
+          </div>
+          <div>
+            <form.Field
+              name="email"
+              onChange={z.string().email()}
+              onChangeAsyncDebounceMs={500}
+              children={(field) => {
+                // Avoid hasty abstractions. Render props are great!
+                return (
+                  <TextArea
+                    label="Email"
                     name={field.name}
                     value={field.state.value}
                     onBlur={field.handleBlur}
