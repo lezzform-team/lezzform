@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "../ui/input";
+import { Input as ShadInput } from "../ui/input";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   id?: string;
@@ -7,13 +7,13 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 }
 
-export const SingleLineText = ({ id, label, error, ...props }: Props) => {
+export const Input = ({ id, label, error, ...props }: Props) => {
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={id} className="text-sm font-medium leading-none">
         {label}
       </label>
-      <Input id={id} {...props} />
+      <ShadInput id={id} {...props} />
       {error && (
         <small className="text-sm font-medium leading-none text-red-500">
           {error}
