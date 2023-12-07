@@ -131,8 +131,6 @@ export default function Page(): JSX.Element {
             {description}
           </Card>
         ))}
-
-        <Form />
       </div>
     </main>
   );

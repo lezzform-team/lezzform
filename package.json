@@ -5,11 +5,23 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "components:build": "turbo run build --filter=react"
+    "components:build": "turbo run build --filter=react",
+    "web:dev": "turbo run dev --filter=web",
+    "types:build": "turbo run build --filter=types",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,html,css,json}": [
+      "yarn prettier --write"
+    ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
     "eslint": "^8.48.0",
-    "prettier": "^3.0.3",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.0",
     "tsconfig": "*",
     "turbo": "latest"
   },

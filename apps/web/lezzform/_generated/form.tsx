@@ -1,24 +1,10 @@
-import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
-import { zodValidator } from "@tanstack/zod-form-adapter";
-import {
-  SingleLineText,
-  TextArea,
-  TwoColumn,
-  ThreeColumn,
-} from "@lezzform/react";
+import { Lezzform, Button, Dropdown } from "@lezzform/react";
 
 const ZodFormSchema = z.object({
-  "SingleLineText 1": z.string().min(5),
-  "SingleLineText 2": z.string(),
-  "TextArea 1": z.string(),
-  SGL1: z.string(),
-  Ssdwewe: z.string().min(5),
-  zxcswe: z.string(),
-  el2: z.string().email(),
-  el2x: z.string().email(),
-  texta: z.string(),
-  texta: z.string(),
+  dropdown6: z.string(),
+  dropdown7: z.string(),
+  dropdown9: z.string(),
 });
 
 type FormSchema = z.infer<typeof ZodFormSchema>;
@@ -29,246 +15,94 @@ interface Props {
 }
 
 export const Form = ({ onSubmit, defaultValues }: Props) => {
-  const form = useForm<FormSchema, typeof zodValidator>({
-    onSubmit,
-    defaultValues,
-    validator: zodValidator,
-  });
-
   return (
-    <div>
-      <h1>Simple Form Example</h1>
-      <form.Provider>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            void form.handleSubmit();
-          }}
-        >
+    <Lezzform<FormSchema> defaultValues={defaultValues} onSubmit={onSubmit}>
+      {(form) => (
+        <>
           <div>
             <form.Field
-              name="SingleLineText 1"
-              onChange={z.string().min(5)}
-              onChangeAsyncDebounceMs={500}
-              children={(field) => {
-                return (
-                  <SingleLineText
-                    label="Firstname"
-                    name={field.name}
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    error={field.state.meta.touchedErrors as unknown as string}
-                  />
-                );
-              }}
-            />
-          </div>
-
-          <div>
-            <form.Field
-              name="SingleLineText 2"
+              name="dropdown6"
               onChange={z.string()}
               onChangeAsyncDebounceMs={500}
               children={(field) => {
                 return (
-                  <SingleLineText
-                    label="Lastname"
+                  <Dropdown
+                    label="Dropdown Static"
                     name={field.name}
                     value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(value) => field.handleChange(value)}
+                    placeholder="Select one item"
                     error={field.state.meta.touchedErrors as unknown as string}
+                    items={[
+                      { label: "Label1", value: "label1" },
+                      { label: "Label2", value: "label2" },
+                      { label: "Label3", value: "label3" },
+                    ]}
                   />
                 );
               }}
             />
           </div>
-
           <div>
             <form.Field
-              name="TextArea 1"
+              name="dropdown7"
               onChange={z.string()}
               onChangeAsyncDebounceMs={500}
               children={(field) => {
                 return (
-                  <TextArea
-                    label="Address"
+                  <Dropdown
+                    label="Dropdown Static"
                     name={field.name}
                     value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(value) => field.handleChange(value)}
+                    placeholder="Select one item"
                     error={field.state.meta.touchedErrors as unknown as string}
+                    items={[
+                      { label: "Label1", value: "label1" },
+                      { label: "Label2", value: "label2" },
+                      { label: "Label3", value: "label3" },
+                    ]}
                   />
                 );
               }}
             />
           </div>
-
           <div>
             <form.Field
-              name="SGL1"
+              name="dropdown9"
               onChange={z.string()}
               onChangeAsyncDebounceMs={500}
               children={(field) => {
                 return (
-                  <SingleLineText
-                    label="Nice one"
+                  <Dropdown
+                    label="Dropdown API"
                     name={field.name}
                     value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(value) => field.handleChange(value)}
+                    placeholder="Select one item from API"
                     error={field.state.meta.touchedErrors as unknown as string}
+                    url="https://jsonplaceholder.typicode.com/comments"
+                    path={{ label: "email", value: "email" }}
                   />
                 );
               }}
             />
           </div>
-
-          <TwoColumn>
-            {" "}
-            <div>
-              <form.Field
-                name="Ssdwewe"
-                onChange={z.string().min(5)}
-                onChangeAsyncDebounceMs={500}
-                children={(field) => {
-                  return (
-                    <SingleLineText
-                      label="Firstname"
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      error={
-                        field.state.meta.touchedErrors as unknown as string
-                      }
-                    />
-                  );
-                }}
-              />
-            </div>
-            <div>
-              <form.Field
-                name="zxcswe"
-                onChange={z.string()}
-                onChangeAsyncDebounceMs={500}
-                children={(field) => {
-                  return (
-                    <SingleLineText
-                      label="Lastname"
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      error={
-                        field.state.meta.touchedErrors as unknown as string
-                      }
-                    />
-                  );
-                }}
-              />
-            </div>
-          </TwoColumn>
-
-          <ThreeColumn>
-            {" "}
-            <div>
-              <form.Field
-                name="el2"
-                onChange={z.string().email()}
-                onChangeAsyncDebounceMs={500}
-                children={(field) => {
-                  return (
-                    <SingleLineText
-                      label="Email 2"
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      error={
-                        field.state.meta.touchedErrors as unknown as string
-                      }
-                    />
-                  );
-                }}
-              />
-            </div>
-            <div>
-              <form.Field
-                name="el2x"
-                onChange={z.string().email()}
-                onChangeAsyncDebounceMs={500}
-                children={(field) => {
-                  return (
-                    <SingleLineText
-                      label="Email 2x"
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      error={
-                        field.state.meta.touchedErrors as unknown as string
-                      }
-                    />
-                  );
-                }}
-              />
-            </div>
-            <div>
-              <form.Field
-                name="texta"
-                onChange={z.string()}
-                onChangeAsyncDebounceMs={500}
-                children={(field) => {
-                  return (
-                    <TextArea
-                      label="Tdxata 2x"
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      error={
-                        field.state.meta.touchedErrors as unknown as string
-                      }
-                    />
-                  );
-                }}
-              />
-            </div>
-            <div>
-              <form.Field
-                name="texta"
-                onChange={z.string()}
-                onChangeAsyncDebounceMs={500}
-                children={(field) => {
-                  return (
-                    <TextArea
-                      label="Tdxata 2x"
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      error={
-                        field.state.meta.touchedErrors as unknown as string
-                      }
-                    />
-                  );
-                }}
-              />
-            </div>
-          </ThreeColumn>
           <form.Subscribe
             selector={(state) => [state.canSubmit, state.isSubmitting]}
             children={([canSubmit, isSubmitting]) => (
-              <button type="submit" disabled={!canSubmit}>
-                {isSubmitting ? "..." : "Submit"}
-              </button>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={!canSubmit || isSubmitting}
+                isLoading={isSubmitting}
+              >
+                Submit
+              </Button>
             )}
-          />
-        </form>
-      </form.Provider>
-    </div>
+          />{" "}
+        </>
+      )}
+    </Lezzform>
   );
 };

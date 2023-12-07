@@ -9,11 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lezzform/react": "*",
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "ui": "*",
-    "@lezzform/react": "*"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.4.19",
