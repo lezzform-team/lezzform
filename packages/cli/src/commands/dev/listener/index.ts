@@ -17,7 +17,7 @@ export class Listener {
       this.onConnect();
     });
 
-    this.socket.on("changes", (data: OnChangesDto) => {
+    this.socket.on("element.changes", (data: OnChangesDto) => {
       this.onChanges(data);
     });
 

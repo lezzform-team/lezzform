@@ -1,7 +1,7 @@
 import { Listener } from "./listener";
 
 export class DevCommand {
-  url: string = "http://localhost:3001";
+  url: string = "http://localhost:3001/elements";
   listener: Listener;
 
   constructor() {
