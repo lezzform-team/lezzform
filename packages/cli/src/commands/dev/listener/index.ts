@@ -1,25 +1,58 @@
 import { Socket, io } from "socket.io-client";
-import { OnChangesDto, OnInitialDto } from "./dto";
+import {
+  OnApplicationInitial,
+  OnChangesDto,
+  OnFormCreateDto,
+  OnFormSaveDto,
+  OnInitialDto,
+} from "./dto";
 import { Generator } from "../generator";
 import { Spinner } from "../../../utils/spinner";
+import { toKebabCase } from "../../../utils";
 
 export class Listener {
   private socket: Socket;
   private generator: Generator;
   private spinner: Spinner;
+  private applicationId: string;
 
   constructor(url: string) {
-    this.socket = io(url);
+    this.socket = io(`${url}/cli`);
     this.generator = new Generator();
     this.spinner = new Spinner(1);
+
+    this.applicationId = "a6a83117-cfcf-4e07-acaa-45da59dd9c11";
 
     this.socket.on("connect", () => {
       this.onConnect();
     });
 
-    this.socket.on("element.changes", (data: OnChangesDto) => {
-      this.onChanges(data);
-    });
+    this.socket.emit(
+      "application.initial",
+      { applicationId: this.applicationId },
+      (data: OnApplicationInitial) => {
+        this.onApplicationInitial(data);
+      },
+    );
+
+    this.socket.on(
+      "form.save",
+      (applicationId: string, data: OnFormSaveDto) => {
+        console.log("form.save", { applicationId });
+        if (applicationId !== this.applicationId) return;
+
+        this.onFormSave(data);
+      },
+    );
+
+    this.socket.on(
+      "form.create",
+      (applicationId: string, data: OnFormCreateDto) => {
+        if (applicationId !== this.applicationId) return;
+
+        this.onFormCreate(data);
+      },
+    );
 
     this.socket.on("disconnect", () => {
       this.onDisconnect();
@@ -28,21 +61,12 @@ export class Listener {
     this.socket.on("error", (error: Error) => {
       this.onError(error);
     });
-
-    this.socket.emit("initial", (data: OnInitialDto) => {
-      this.onInitial(data);
-    });
   }
 
   private onConnect() {
     // console.log("Socket.IO connection established");
     this.spinner.start("Listening for changes...");
     // Perform any actions needed when the connection is established
-  }
-
-  private onChanges(data: OnChangesDto) {
-    console.log("Received changes, updating...");
-    this.generator.form(data);
   }
 
   private onDisconnect() {
@@ -55,12 +79,21 @@ export class Listener {
     // Handle errors
   }
 
-  private onInitial(data: OnInitialDto) {
-    this.generator.form(data);
+  private onApplicationInitial(data: OnApplicationInitial) {
+    data.forms.forEach((item) => {
+      this.generator.form({
+        name: toKebabCase(item.form.name),
+        code: item.code,
+      });
+    });
   }
 
-  sendMessage(message: string) {
-    this.socket.emit("message", message);
+  private onFormCreate(data: OnFormCreateDto) {
+    this.generator.form({ code: data.code, name: toKebabCase(data.form.name) });
+  }
+
+  private onFormSave(data: OnFormSaveDto) {
+    this.generator.form({ code: data.code, name: toKebabCase(data.form.name) });
   }
 
   closeConnection() {
