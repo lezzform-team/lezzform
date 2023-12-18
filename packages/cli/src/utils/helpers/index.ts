@@ -10,3 +10,9 @@ export async function checkFileAvailability(
     return false;
   }
 }
+
+export function toKebabCase(input: string): string {
+  return input
+    .replace(/([a-z])([A-Z])/g, "$1-$2") // Insert a dash between lowercase and uppercase letters
+    .toLowerCase(); // Convert the whole string to lowercase
+}

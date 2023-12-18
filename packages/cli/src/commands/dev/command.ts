@@ -1,14 +1,18 @@
+import { AuthCommand } from "../auth/command";
 import { Listener } from "./listener";
 
 export class DevCommand {
-  url: string = "http://localhost:3001/elements";
+  url: string;
   listener: Listener;
+  authCommand: AuthCommand;
 
-  constructor() {
+  constructor(url: string) {
+    this.url = url;
+    this.authCommand = new AuthCommand(this.url);
     this.listener = new Listener(this.url);
   }
 
-  init() {
+  async init() {
     console.log("Starting development server...");
   }
 }
