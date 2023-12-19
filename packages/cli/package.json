@@ -5,12 +5,14 @@
   "license": "MIT",
   "scripts": {
     "cmd:dev": "nodemon index.ts dev",
+    "cmd:login": "nodemon index.ts login",
     "start": "ts-node index.ts",
     "build": "tsc"
   },
   "devDependencies": {
     "@lezzform/types": "*",
     "@types/handlebars-helpers": "^0.5.5",
+    "@types/readline-sync": "^1.4.8",
     "nodemon": "^3.0.1",
     "plop": "^4.0.0",
     "ts-node": "^10.9.1",
@@ -24,6 +26,7 @@
     "handlebars-helpers": "^0.10.0",
     "pino": "^8.16.1",
     "prettier": "^3.1.0",
+    "readline-sync": "^1.4.10",
     "socket.io-client": "^4.7.2"
   },
   "bin": {
