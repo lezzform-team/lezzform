@@ -52,7 +52,6 @@ export class Listener {
     this.socket.on(
       "form.save",
       (applicationId: string, data: OnFormSaveDto) => {
-        console.log("form.save", { applicationId });
         if (applicationId !== this.applicationId) return;
 
         this.onFormSave(data);
@@ -78,14 +77,13 @@ export class Listener {
   }
 
   private onConnect() {
+    console.log(chalk.greenBright("Connected to server ✅"));
     // console.log("Socket.IO connection established");
-    ora("Listening for changes...").start();
-
     // Perform any actions needed when the connection is established
   }
 
   private onDisconnect() {
-    console.log(chalk.redBright("Disconnected"));
+    console.log(chalk.redBright("Disconnected ❌"));
     // Perform any cleanup or reconnection logic here
   }
 
@@ -104,10 +102,12 @@ export class Listener {
   }
 
   private onFormCreate(data: OnFormCreateDto) {
+    console.log(chalk.green("Form created ▶️"));
     this.generator.form({ code: data.code, name: toKebabCase(data.form.name) });
   }
 
   private onFormSave(data: OnFormSaveDto) {
+    console.log(chalk.blue("Form changes ⬇️"));
     this.generator.form({ code: data.code, name: toKebabCase(data.form.name) });
   }
 

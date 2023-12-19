@@ -34,7 +34,7 @@ export class DevCommand {
     const projectConfig = await this.getProjectConfig();
     if (!projectConfig) return console.log("Failed to get projectConfig");
 
-    console.log(chalk.greenBright("Starting development server..."));
+    console.log(chalk.yellowBright("Starting development server..."));
     this.listener = new Listener({ url: this.url, authConfig, projectConfig });
   }
 
