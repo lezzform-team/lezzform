@@ -3,12 +3,14 @@ import { zodValidator } from "@tanstack/zod-form-adapter";
 import { ReactNode } from "react";
 
 interface Props<T> {
+  id?: string;
   onSubmit?: (values: T) => unknown;
   defaultValues?: T;
   children?: (form: FormApi<T, typeof zodValidator>) => ReactNode | undefined;
 }
 
 function LezzformComponent<T = Record<string, unknown>>({
+  id,
   defaultValues,
   onSubmit,
   children,
@@ -20,7 +22,7 @@ function LezzformComponent<T = Record<string, unknown>>({
   });
 
   return (
-    <form.Provider>
+    <form.Provider key={id}>
       <form
         onSubmit={(e) => {
           e.preventDefault();

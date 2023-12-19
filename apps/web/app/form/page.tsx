@@ -1,6 +1,6 @@
 "use client";
 
-import { Form } from "../../lezzform/_generated/form";
+import { Form } from "../../lezzform/_generated/form-1";
 
 export default function FormPage() {
   return (
@@ -23,7 +23,7 @@ export default function FormPage() {
       >
         <Form
           onSubmit={(values) => {
-            console.log(values, "vls");
+            console.log(values, "values");
           }}
         />
       </div>

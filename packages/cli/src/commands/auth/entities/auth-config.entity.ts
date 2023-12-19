@@ -1,4 +1,4 @@
-export class ConfigEntity {
+export class AuthConfigEntity {
   accessToken: string;
   refreshToken: string;
   accessTokenExpiresIn: number;
