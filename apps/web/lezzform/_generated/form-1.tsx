@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { Lezzform, Button, Dropdown } from "@lezzform/react";
+import { Lezzform, Button, Input, TextArea } from "@lezzform/react";
 
 const ZodFormSchema = z.object({
-  dropdown6: z.string(),
-  dropdown7: z.string(),
-  dropdown9: z.string(),
+  emailw: z.string().email(),
+  malas: z.string(),
+  catatan: z.string(),
 });
 
 type FormSchema = z.infer<typeof ZodFormSchema>;
@@ -14,30 +14,32 @@ interface Props {
   defaultValues?: FormSchema;
 }
 
+const id = "SeUBpfY54tB8PvchsCGn";
+
 export const Form = ({ onSubmit, defaultValues }: Props) => {
   return (
-    <Lezzform<FormSchema> defaultValues={defaultValues} onSubmit={onSubmit}>
+    <Lezzform<FormSchema>
+      id={id}
+      key={id}
+      defaultValues={defaultValues}
+      onSubmit={onSubmit}
+    >
       {(form) => (
         <>
           <div>
             <form.Field
-              name="dropdown6"
-              onChange={z.string()}
+              name="emailw"
+              onChange={z.string().email()}
               onChangeAsyncDebounceMs={500}
               children={(field) => {
                 return (
-                  <Dropdown
-                    label="Dropdown Static"
+                  <Input
+                    label="Email"
                     name={field.name}
                     value={field.state.value}
-                    onChange={(value) => field.handleChange(value)}
-                    placeholder="Select one item"
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
                     error={field.state.meta.touchedErrors as unknown as string}
-                    items={[
-                      { label: "Label1", value: "label1" },
-                      { label: "Label2", value: "label2" },
-                      { label: "Label3", value: "label3" },
-                    ]}
                   />
                 );
               }}
@@ -45,23 +47,18 @@ export const Form = ({ onSubmit, defaultValues }: Props) => {
           </div>
           <div>
             <form.Field
-              name="dropdown7"
+              name="malas"
               onChange={z.string()}
               onChangeAsyncDebounceMs={500}
               children={(field) => {
                 return (
-                  <Dropdown
-                    label="Dropdown Static"
+                  <Input
+                    label="Username2"
                     name={field.name}
                     value={field.state.value}
-                    onChange={(value) => field.handleChange(value)}
-                    placeholder="Select one item"
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
                     error={field.state.meta.touchedErrors as unknown as string}
-                    items={[
-                      { label: "Label1", value: "label1" },
-                      { label: "Label2", value: "label2" },
-                      { label: "Label3", value: "label3" },
-                    ]}
                   />
                 );
               }}
@@ -69,20 +66,18 @@ export const Form = ({ onSubmit, defaultValues }: Props) => {
           </div>
           <div>
             <form.Field
-              name="dropdown9"
+              name="catatan"
               onChange={z.string()}
               onChangeAsyncDebounceMs={500}
               children={(field) => {
                 return (
-                  <Dropdown
-                    label="Dropdown API"
+                  <TextArea
+                    label="Catatan"
                     name={field.name}
                     value={field.state.value}
-                    onChange={(value) => field.handleChange(value)}
-                    placeholder="Select one item from API"
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
                     error={field.state.meta.touchedErrors as unknown as string}
-                    url="https://jsonplaceholder.typicode.com/comments"
-                    path={{ label: "email", value: "email" }}
                   />
                 );
               }}

@@ -23,10 +23,12 @@
   },
   "dependencies": {
     "axios": "^1.5.1",
+    "chalk": "4",
     "cli-spinners": "^2.9.2",
     "commander": "^11.1.0",
     "handlebars": "^4.7.8",
     "handlebars-helpers": "^0.10.0",
+    "ora": "5.4.1",
     "pino": "^8.16.1",
     "prettier": "^3.1.0",
     "prompts": "^2.4.2",

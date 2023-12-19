@@ -1,2 +1,2 @@
 export * from "./login.entity";
-export * from "./config.entity";
+export * from "./auth-config.entity";

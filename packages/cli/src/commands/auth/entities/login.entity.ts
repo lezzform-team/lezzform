@@ -1,3 +1,3 @@
-import { ConfigEntity } from "./config.entity";
+import { AuthConfigEntity } from "./auth-config.entity";
 
-export class LoginEntity extends ConfigEntity {}
+export class LoginEntity extends AuthConfigEntity {}

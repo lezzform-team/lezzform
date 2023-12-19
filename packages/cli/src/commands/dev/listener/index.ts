@@ -1,33 +1,41 @@
 import { Socket, io } from "socket.io-client";
 import { OnApplicationInitial, OnFormCreateDto, OnFormSaveDto } from "./dto";
-import { Spinner } from "@/utils/spinner";
-import { ConfigEntity } from "@/commands/auth/entities";
+import { AuthConfigEntity } from "@/commands/auth/entities";
 import { Generator } from "../generator";
 import { toKebabCase } from "@/utils";
+import { ProjectConfigEntity } from "../entities";
+import ora from "ora";
+import chalk from "chalk";
 
 export class Listener {
   private socket: Socket;
   private generator: Generator;
-  private spinner: Spinner;
   private applicationId: string;
-  private config: ConfigEntity;
+  private authConfig: AuthConfigEntity;
 
-  constructor(url: string, config: ConfigEntity) {
-    this.config = config;
+  constructor({
+    url,
+    authConfig,
+    projectConfig,
+  }: {
+    url: string;
+    authConfig: AuthConfigEntity;
+    projectConfig: ProjectConfigEntity;
+  }) {
+    this.authConfig = authConfig;
 
     this.socket = io(`${url}/cli`, {
       extraHeaders: {
-        Authorization: `Bearer ${config.accessToken}`,
+        Authorization: `Bearer ${authConfig.accessToken}`,
         ["x-auth-source"]: "cli",
       },
       auth: {
-        token: `Bearer ${config.accessToken}`,
+        token: `Bearer ${authConfig.accessToken}`,
       },
     });
     this.generator = new Generator();
-    this.spinner = new Spinner(1);
 
-    this.applicationId = "a6a83117-cfcf-4e07-acaa-45da59dd9c11";
+    this.applicationId = projectConfig.applicationId;
 
     this.socket.on("connect", () => {
       this.onConnect();
@@ -71,12 +79,13 @@ export class Listener {
 
   private onConnect() {
     // console.log("Socket.IO connection established");
-    this.spinner.start("Listening for changes...");
+    ora("Listening for changes...").start();
+
     // Perform any actions needed when the connection is established
   }
 
   private onDisconnect() {
-    console.log("Socket.IO connection disconnected");
+    console.log(chalk.redBright("Disconnected"));
     // Perform any cleanup or reconnection logic here
   }
 

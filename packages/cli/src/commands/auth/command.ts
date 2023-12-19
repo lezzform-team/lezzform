@@ -3,9 +3,11 @@ import os from "os";
 import fs from "fs/promises";
 import path from "path";
 import { LoginDto } from "./dto";
-import { ConfigEntity, LoginEntity } from "./entities";
+import { AuthConfigEntity, LoginEntity } from "./entities";
 import { api } from "@/lib";
 import prompts from "prompts";
+import ora from "ora";
+import * as prettier from "prettier";
 
 export class AuthCommand {
   url: string;
@@ -19,7 +21,7 @@ export class AuthCommand {
     this.configPath = path.join(this.configRootDirectoryPath, "config.json");
   }
 
-  async init(): Promise<ConfigEntity | null> {
+  async init(): Promise<AuthConfigEntity | null> {
     if (await this._isConfigNotExisted()) return this.login();
     if (await this._isConfigNotVerified()) return this.login();
 
@@ -28,15 +30,15 @@ export class AuthCommand {
 
   async login(): Promise<LoginEntity | null> {
     try {
-      console.log("== Login to LezzForm CLI ==");
-
       const dto = await this._initLogin();
+
+      const spinner = ora("Logging in...").start();
       const { data } = await this.api.post<LoginEntity>("/auth/login/cli", dto);
       await this._generateConfigFile(JSON.stringify(data));
 
       this._setApiToken(data.accessToken);
 
-      console.log("== Logged in successfully ==");
+      spinner.succeed("Logged in!");
 
       return data;
     } catch (error) {
@@ -46,6 +48,8 @@ export class AuthCommand {
   }
 
   private async _initLogin(): Promise<LoginDto | null> {
+    console.log("== Login to LezzForm CLI ==");
+
     try {
       const questions: prompts.PromptObject<string>[] = [
         { type: "text", name: "email", message: "Input your email: " },
@@ -76,8 +80,9 @@ export class AuthCommand {
 
   private async _generateConfigFile(config: string) {
     try {
+      const formatted = await prettier.format(config, { parser: "json" });
       await fs.mkdir(this.configRootDirectoryPath, { recursive: true });
-      await fs.writeFile(this.configPath, config);
+      await fs.writeFile(this.configPath, formatted);
     } catch (error) {
       console.error("_generateConfigFile err: ", error);
     }
@@ -98,10 +103,10 @@ export class AuthCommand {
     }
   }
 
-  private async _getConfig(): Promise<ConfigEntity | null> {
+  private async _getConfig(): Promise<AuthConfigEntity | null> {
     try {
       const strConfig: string = await fs.readFile(this.configPath, "utf-8");
-      const config: ConfigEntity = JSON.parse(strConfig);
+      const config: AuthConfigEntity = JSON.parse(strConfig);
 
       return config;
     } catch (error) {
