@@ -13,6 +13,7 @@ export async function checkFileAvailability(
 
 export function toKebabCase(input: string): string {
   return input
-    .replace(/([a-z])([A-Z])/g, "$1-$2") // Insert a dash between lowercase and uppercase letters
-    .toLowerCase(); // Convert the whole string to lowercase
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/([a-z])([A-Z])/g, "$1-$2") // Convert camelCase to kebab-case
+    .toLowerCase(); // Convert the entire string to lowercase
 }
