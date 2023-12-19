@@ -1,11 +1,11 @@
-import axios, { Axios } from "axios";
+import { Axios } from "axios";
 import os from "os";
 import fs from "fs/promises";
 import path from "path";
-import * as readlineSync from "readline-sync";
 import { LoginDto } from "./dto";
 import { ConfigEntity, LoginEntity } from "./entities";
-import { api } from "../../lib";
+import { api } from "@/lib";
+import prompts from "prompts";
 
 export class AuthCommand {
   url: string;
@@ -19,11 +19,11 @@ export class AuthCommand {
     this.configPath = path.join(this.configRootDirectoryPath, "config.json");
   }
 
-  async init() {
+  async init(): Promise<ConfigEntity | null> {
     if (await this._isConfigNotExisted()) return this.login();
     if (await this._isConfigNotVerified()) return this.login();
 
-    return true;
+    return await this._getConfig();
   }
 
   async login(): Promise<LoginEntity | null> {
@@ -47,12 +47,18 @@ export class AuthCommand {
 
   private async _initLogin(): Promise<LoginDto | null> {
     try {
-      const email: string = await readlineSync.questionEMail("Email: ");
-      const password: string = await readlineSync.question("Password: ", {
-        hideEchoBack: true,
-      });
+      const questions: prompts.PromptObject<string>[] = [
+        { type: "text", name: "email", message: "Input your email: " },
+        {
+          type: "password",
+          name: "password",
+          message: "Input your password: ",
+        },
+      ];
 
-      return { email, password };
+      const answers = (await prompts(questions)) as LoginDto;
+
+      return answers;
     } catch (error) {
       console.error("_initLogin err: ", error);
       return null;
@@ -79,17 +85,28 @@ export class AuthCommand {
 
   private async _isConfigNotVerified() {
     try {
-      const strConfig: string = await fs.readFile(this.configPath, "utf-8");
-      const config: ConfigEntity = JSON.parse(strConfig);
+      const config = await this._getConfig();
+      if (!config) return true;
 
       this._setApiToken(config.accessToken);
 
       const { data } = await this.api.get("/auth/verify");
-
       return !data;
     } catch (error) {
       console.log("_isConfigNotVerified err: ", error);
       return true;
+    }
+  }
+
+  private async _getConfig(): Promise<ConfigEntity | null> {
+    try {
+      const strConfig: string = await fs.readFile(this.configPath, "utf-8");
+      const config: ConfigEntity = JSON.parse(strConfig);
+
+      return config;
+    } catch (error) {
+      console.error("_getConfig err: ", error);
+      return null;
     }
   }
 

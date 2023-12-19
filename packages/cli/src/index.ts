@@ -1,8 +1,7 @@
 #! /usr/bin/env node
 import { Command } from "commander";
-import { DevCommand } from "./src/commands";
-import { configs } from "./src/configs";
-import { AuthCommand } from "./src/commands/auth/command";
+import { AuthCommand, DevCommand } from "./commands";
+import { configs } from "./configs";
 
 const program = new Command();
 

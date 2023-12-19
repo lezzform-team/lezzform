@@ -1,23 +1,29 @@
 import { Socket, io } from "socket.io-client";
-import {
-  OnApplicationInitial,
-  OnChangesDto,
-  OnFormCreateDto,
-  OnFormSaveDto,
-  OnInitialDto,
-} from "./dto";
+import { OnApplicationInitial, OnFormCreateDto, OnFormSaveDto } from "./dto";
+import { Spinner } from "@/utils/spinner";
+import { ConfigEntity } from "@/commands/auth/entities";
 import { Generator } from "../generator";
-import { Spinner } from "../../../utils/spinner";
-import { toKebabCase } from "../../../utils";
+import { toKebabCase } from "@/utils";
 
 export class Listener {
   private socket: Socket;
   private generator: Generator;
   private spinner: Spinner;
   private applicationId: string;
+  private config: ConfigEntity;
 
-  constructor(url: string) {
-    this.socket = io(`${url}/cli`);
+  constructor(url: string, config: ConfigEntity) {
+    this.config = config;
+
+    this.socket = io(`${url}/cli`, {
+      extraHeaders: {
+        Authorization: `Bearer ${config.accessToken}`,
+        ["x-auth-source"]: "cli",
+      },
+      auth: {
+        token: `Bearer ${config.accessToken}`,
+      },
+    });
     this.generator = new Generator();
     this.spinner = new Spinner(1);
 

@@ -1,4 +1,4 @@
-import { AuthCommand } from "../auth/command";
+import { AuthCommand } from "../auth";
 import { Listener } from "./listener";
 
 export class DevCommand {
@@ -12,8 +12,10 @@ export class DevCommand {
   }
 
   async init() {
-    await this.authCommand.init();
+    const config = await this.authCommand.init();
+    if (!config) return console.log("Failed to get config");
+
     console.log("Starting development server...");
-    this.listener = new Listener(this.url);
+    this.listener = new Listener(this.url, config);
   }
 }
