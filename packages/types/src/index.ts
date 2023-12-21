@@ -3,6 +3,7 @@ import { InputType } from "./elements/input";
 import { TextAreaType } from "./elements/textArea";
 import { ThreeColumnType } from "./elements/threeColumn";
 import { TwoColumnType } from "./elements/twoColumn";
+import { IntegerRule, StringRule } from "./rules";
 
 export type GenericLezzformElement<T = Record<string, unknown>> = {
   id: string;
@@ -30,3 +31,7 @@ export type LezzformElement =
   | DropdownType
   | TwoColumnType
   | ThreeColumnType;
+
+export type LezzformElementRule = StringRule | IntegerRule;
+
+export * from "./rules";
