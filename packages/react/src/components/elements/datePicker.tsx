@@ -55,7 +55,7 @@ export function DatePicker({
             {value ? (
               dateFnsFormat(value, format ?? "PPP")
             ) : (
-              <span>{placeholder ?? "Pick a date"}</span>
+              <span>{placeholder ?? ""}</span>
             )}
           </Button>
         </PopoverTrigger>
