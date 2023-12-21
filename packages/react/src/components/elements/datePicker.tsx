@@ -11,6 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { FormLabel } from "../shared";
 
 interface Props {
   placeholder?: string;
@@ -23,6 +24,7 @@ interface Props {
   readOnly?: boolean;
   disabled?: boolean;
   format?: string;
+  isRequired?: boolean;
 }
 
 export function DatePicker({
@@ -35,12 +37,13 @@ export function DatePicker({
   format,
   value,
   onChange,
+  isRequired,
 }: Props) {
   return (
     <div className="flex flex-col gap-2 w-full">
-      <label htmlFor={id} className="text-sm font-medium leading-none">
+      <FormLabel htmlFor={id} isRequired={isRequired}>
         {label}
-      </label>
+      </FormLabel>
       <Popover>
         <PopoverTrigger asChild disabled={disabled || readOnly}>
           <Button

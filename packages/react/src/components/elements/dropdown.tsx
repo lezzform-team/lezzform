@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/popover";
 import lodashGet from "lodash.get";
 import { ScrollArea } from "../ui/scroll-area";
+import { FormLabel } from "../shared";
 
 interface Props {
   items?: { label: string; value: string }[];
@@ -33,6 +34,7 @@ interface Props {
   name?: string;
   readOnly?: boolean;
   disabled?: boolean;
+  isRequired?: boolean;
 }
 
 export function Dropdown({
@@ -47,6 +49,7 @@ export function Dropdown({
   label,
   readOnly,
   disabled,
+  isRequired,
 }: Props) {
   const [open, setOpen] = React.useState(false);
   const [apiItems, setApiItems] = React.useState<Props["items"] | null>(null);
@@ -112,9 +115,9 @@ export function Dropdown({
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      <label htmlFor={id} className="text-sm font-medium leading-none">
+      <FormLabel htmlFor={id} isRequired={isRequired}>
         {label}
-      </label>
+      </FormLabel>
       <Popover open={open} onOpenChange={setOpen} modal>
         <PopoverTrigger asChild disabled={readOnly || disabled}>
           <Button
