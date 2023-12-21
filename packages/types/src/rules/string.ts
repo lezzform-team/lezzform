@@ -3,7 +3,7 @@ import { GeneralRules, GeneralRulesType } from ".";
 export type StringRule = {
   type: "string";
   schema: StringRuleSchema;
-  values: Record<string, unknown>;
+  values: GeneralRulesType & Record<string, unknown>;
 };
 
 export type StringRuleType = GeneralRulesType & {
