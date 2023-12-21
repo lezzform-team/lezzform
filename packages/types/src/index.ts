@@ -1,3 +1,4 @@
+import { DatePickerType } from "./elements/datePicker";
 import { DropdownType } from "./elements/dropdown";
 import { InputType } from "./elements/input";
 import { TextAreaType } from "./elements/textArea";
@@ -29,6 +30,7 @@ export type LezzformElement =
   | InputType
   | TextAreaType
   | DropdownType
+  | DatePickerType
   | TwoColumnType
   | ThreeColumnType;
 
