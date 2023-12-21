@@ -15,7 +15,7 @@ export const Input = ({ id, label, error, ...props }: Props) => {
       </label>
       <ShadInput id={id} {...props} />
       {error && (
-        <small className="text-sm font-medium leading-none text-red-500">
+        <small className="text-xs font-medium leading-none text-red-500">
           {error}
         </small>
       )}

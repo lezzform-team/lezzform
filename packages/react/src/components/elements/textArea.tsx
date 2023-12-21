@@ -16,7 +16,7 @@ export const TextArea = ({ id, label, error, ...props }: Props) => {
       <Textarea id={id} {...props} />
 
       {error && (
-        <small className="text-sm font-medium leading-none text-red-500">
+        <small className="text-xs font-medium leading-none text-red-500">
           {error}
         </small>
       )}
