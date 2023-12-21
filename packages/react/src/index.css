@@ -7,8 +7,8 @@
     --lfui-background: 0 0% 100%;
     --lfui-foreground: 0 0% 3.9%;
 
-    --lfui-card: 0 0% 100%;
-    --lfui-card-foreground: 0 0% 3.9%;
+    --lfui-lfui-card: 0 0% 100%;
+    --lfui-lfui-card-foreground: 0 0% 3.9%;
 
     --lfui-popover: 0 0% 100%;
     --lfui-popover-foreground: 0 0% 3.9%;
@@ -39,8 +39,8 @@
     --lfui-background: 0 0% 3.9%;
     --lfui-foreground: 0 0% 98%;
 
-    --lfui-card: 0 0% 3.9%;
-    --lfui-card-foreground: 0 0% 98%;
+    --lfui-lfui-card: 0 0% 3.9%;
+    --lfui-lfui-card-foreground: 0 0% 98%;
 
     --lfui-popover: 0 0% 3.9%;
     --lfui-popover-foreground: 0 0% 98%;
@@ -68,9 +68,9 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-lfui-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-lfui-background text-lfui-foreground;
   }
 }
