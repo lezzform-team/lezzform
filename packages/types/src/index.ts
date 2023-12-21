@@ -4,7 +4,7 @@ import { InputType } from "./elements/input";
 import { TextAreaType } from "./elements/textArea";
 import { ThreeColumnType } from "./elements/threeColumn";
 import { TwoColumnType } from "./elements/twoColumn";
-import { IntegerRule, StringRule } from "./rules";
+import { DateRule, IntegerRule, StringRule } from "./rules";
 
 export type GenericLezzformElement<T = Record<string, unknown>> = {
   id: string;
@@ -34,6 +34,6 @@ export type LezzformElement =
   | TwoColumnType
   | ThreeColumnType;
 
-export type LezzformElementRule = StringRule | IntegerRule;
+export type LezzformElementRule = StringRule | IntegerRule | DateRule;
 
 export * from "./rules";
