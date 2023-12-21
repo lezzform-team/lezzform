@@ -126,7 +126,7 @@ export function Dropdown({
               !displayedItem && "justify-end",
               displayedItem && "justify-between",
               readOnly && "cursor-default",
-              !value && "text-muted-foreground",
+              !value && "text-lfui-muted-foreground",
             )}
             disabled={disabled}
           >
