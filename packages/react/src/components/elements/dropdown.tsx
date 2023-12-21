@@ -70,7 +70,7 @@ export function Dropdown({
         data.map((item) => ({
           label: lodashGet(item, path?.label) as string,
           value: lodashGet(item, path?.value) as string,
-        }))
+        })),
       );
     } catch (error) {
       setApiItems(null);
@@ -82,14 +82,14 @@ export function Dropdown({
       value
         ? items.find((framework) => framework.value === value)?.label
         : placeholder,
-    [value, items, placeholder]
+    [value, items, placeholder],
   );
 
   const findValueHandler = React.useCallback(
     (value: string) => {
       return items.find((item) => item.value.toLowerCase().trim() === value);
     },
-    [items]
+    [items],
   );
 
   const onSelect = React.useCallback(
@@ -99,11 +99,11 @@ export function Dropdown({
       savedOnChange.current(
         currentValue === value
           ? ""
-          : findValueHandler(currentValue)?.value ?? ""
+          : findValueHandler(currentValue)?.value ?? "",
       );
       setOpen(false);
     },
-    [findValueHandler]
+    [findValueHandler, value],
   );
 
   React.useEffect(() => {
@@ -126,7 +126,7 @@ export function Dropdown({
               !displayedItem && "justify-end",
               displayedItem && "justify-between",
               readOnly && "cursor-default",
-              !value && "text-muted-foreground"
+              !value && "text-muted-foreground",
             )}
             disabled={disabled}
           >
@@ -149,7 +149,7 @@ export function Dropdown({
                     <Check
                       className={cn(
                         "mr-2 h-4 w-4",
-                        value === framework.value ? "opacity-100" : "opacity-0"
+                        value === framework.value ? "opacity-100" : "opacity-0",
                       )}
                     />
                     {framework.label}
@@ -161,7 +161,7 @@ export function Dropdown({
         </PopoverContent>
       </Popover>
       {error && (
-        <small className="text-sm font-medium leading-none text-red-500">
+        <small className="text-xs font-medium leading-none text-red-500">
           {error}
         </small>
       )}
