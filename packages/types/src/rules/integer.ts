@@ -3,12 +3,12 @@ import { GeneralRules, GeneralRulesType } from ".";
 export type IntegerRule = {
   type: "integer";
   schema: IntegerRuleSchema;
-  values: Record<string, unknown>;
+  values: GeneralRulesType & Record<string, unknown>;
 };
 
 export type IntegerRuleType = GeneralRulesType & {
   maximum?: number;
-  minimum?: string;
+  minimum?: number;
 };
 
 type IntegerRuleSchema = GeneralRules & {

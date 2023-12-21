@@ -8,8 +8,8 @@ export type StringRule = {
 
 export type StringRuleType = GeneralRulesType & {
   format?: string;
-  minLength?: string;
-  maxLength?: string;
+  minimum?: number;
+  maximum?: number;
 };
 
 type StringRuleSchema = GeneralRules & {
@@ -17,11 +17,11 @@ type StringRuleSchema = GeneralRules & {
     title: "Format";
     type: "string";
   };
-  minLength?: {
+  minimum?: {
     title: "Minimum Length";
     type: "integer";
   };
-  maxLength?: {
+  maximum?: {
     title: "Maximum Length";
     type: "integer";
   };
