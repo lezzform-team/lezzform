@@ -13,7 +13,7 @@ interface AttachmentProps {
   acceptedFormats: string[];
   maxSize: number;
   url: string;
-  headers?: Record<string, string>;
+  headers?: { key: string; value: string }[];
   path: { body?: string; value: string };
   value?: string;
   placeholder?: string;
@@ -38,7 +38,7 @@ export function Attachment({
 
   const onErrorRef = useRef<AttachmentProps["onError"]>();
   const onChangeRef = useRef<AttachmentProps["onChange"]>();
-  const headersRef = useRef<AttachmentProps["headers"]>({});
+  const headersRef = useRef<AttachmentProps["headers"]>([]);
 
   const accept = useMemo(
     () =>
@@ -71,12 +71,16 @@ export function Attachment({
           };
         }
 
+        const headers = headersRef.current?.reduce((acc, curr) => {
+          return { ...acc, [curr.key]: curr.value };
+        }, {});
+
         const { data } = await axios.post(
           url,
           body as File | Record<string, File>,
           {
             headers: {
-              ...headersRef.current,
+              ...headers,
               "Content-Type": "multipart/form-data",
             },
           },
