@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/popover";
 import lodashGet from "lodash.get";
 import { ScrollArea } from "../ui/scroll-area";
-import { FormLabel } from "../shared";
 
 interface Props {
   items?: { label: string; value: string }[];
@@ -28,8 +27,6 @@ interface Props {
   path?: { label: string; value: string };
   value?: string;
   onChange?: (value: string) => unknown;
-  error?: string;
-  id?: string;
   label?: string;
   name?: string;
   readOnly?: boolean;
@@ -44,12 +41,8 @@ export function Dropdown({
   onChange,
   url,
   path,
-  error,
-  id,
-  label,
   readOnly,
   disabled,
-  isRequired,
 }: Props) {
   const [open, setOpen] = React.useState(false);
   const [apiItems, setApiItems] = React.useState<Props["items"] | null>(null);
@@ -114,60 +107,50 @@ export function Dropdown({
   }, [fetchApiItems]);
 
   return (
-    <div className="flex flex-col gap-2 w-full">
-      <FormLabel htmlFor={id} isRequired={isRequired}>
-        {label}
-      </FormLabel>
-      <Popover open={open} onOpenChange={setOpen} modal>
-        <PopoverTrigger asChild disabled={readOnly || disabled}>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            className={cn(
-              "w-full",
-              !displayedItem && "justify-end",
-              displayedItem && "justify-between",
-              readOnly && "cursor-default",
-              !value && "text-lfui-muted-foreground",
-            )}
-            disabled={disabled}
-          >
-            {displayedItem}
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-full p-0">
-          <Command>
-            <CommandInput placeholder={placeholder} />
-            <CommandEmpty>No item found.</CommandEmpty>
-            <ScrollArea className="max-h-96">
-              <CommandGroup>
-                {items.map((framework) => (
-                  <CommandItem
-                    key={framework.value}
-                    value={framework.value}
-                    onSelect={onSelect}
-                  >
-                    <Check
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        value === framework.value ? "opacity-100" : "opacity-0",
-                      )}
-                    />
-                    {framework.label}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </ScrollArea>
-          </Command>
-        </PopoverContent>
-      </Popover>
-      {error && (
-        <small className="text-xs font-medium leading-none text-red-500">
-          {error}
-        </small>
-      )}
-    </div>
+    <Popover open={open} onOpenChange={setOpen} modal>
+      <PopoverTrigger asChild disabled={readOnly || disabled}>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className={cn(
+            "w-full",
+            !displayedItem && "justify-end",
+            displayedItem && "justify-between",
+            readOnly && "cursor-default",
+            !value && "text-lfui-muted-foreground",
+          )}
+          disabled={disabled}
+        >
+          {displayedItem}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-full p-0">
+        <Command>
+          <CommandInput placeholder={placeholder} />
+          <CommandEmpty>No item found.</CommandEmpty>
+          <ScrollArea className="max-h-96">
+            <CommandGroup>
+              {items.map((framework) => (
+                <CommandItem
+                  key={framework.value}
+                  value={framework.value}
+                  onSelect={onSelect}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      value === framework.value ? "opacity-100" : "opacity-0",
+                    )}
+                  />
+                  {framework.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </ScrollArea>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }

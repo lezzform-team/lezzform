@@ -1,18 +1,15 @@
-import { FormLabel, FormMessage } from "@/components/shared";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import axios, { AxiosError } from "axios";
 import lodashGet from "lodash.get";
-import { splitUrlAndFilename } from "@/lib/utils";
+import { cn, splitUrlAndFilename } from "@/lib/utils";
 
 interface AttachmentProps {
-  id?: string;
   name?: string;
   label?: string;
-  error?: string;
   isRequired?: boolean;
-  onChange: (fileUrl: string) => unknown;
-  onError: (message: string) => unknown;
+  onChange?: (fileUrl: string) => unknown;
+  onError?: (message: string) => unknown;
   acceptedFormats: string[];
   maxSize: number;
   url: string;
@@ -20,22 +17,22 @@ interface AttachmentProps {
   path: { body?: string; value: string };
   value?: string;
   placeholder?: string;
+  disabled?: boolean;
+  readonly?: boolean;
 }
 
 export function Attachment({
-  label,
-  id,
-  isRequired,
   acceptedFormats,
   maxSize,
   onChange,
   onError,
   url,
-  error,
   headers,
   path,
   value,
   placeholder,
+  disabled,
+  readonly,
 }: AttachmentProps): React.JSX.Element {
   const [isUploading, setIsUploading] = useState<boolean>(false);
 
@@ -54,10 +51,9 @@ export function Attachment({
   const { getInputProps, getRootProps, acceptedFiles, fileRejections } =
     useDropzone({
       accept,
-      //   noClick: variant !== "main",
-      //   noKeyboard: variant !== "main",
       maxFiles: 1,
       maxSize: maxSize * 1024,
+      disabled,
     });
 
   const handleUpload = useCallback(
@@ -140,46 +136,42 @@ export function Attachment({
   }, [headers, headersRef]);
 
   return (
-    <div className="flex flex-col gap-2">
-      <FormLabel htmlFor={id} isRequired={isRequired}>
-        {label}
-      </FormLabel>
+    <div
+      {...getRootProps()}
+      className={cn(
+        "p-4 border border-dashed border-lfui-border rounded-md text-center  hover:bg-lfui-muted cursor-pointer",
+        (readonly || disabled) && "cursor-not-allowed",
+        disabled && "bg-lfui-border text-black",
+      )}
+    >
+      <input {...getInputProps()} />
 
-      <div
-        {...getRootProps()}
-        className="p-4 border border-dashed border-lfui-border rounded-md text-center cursor-pointer hover:bg-lfui-muted"
-      >
-        <input {...getInputProps()} />
+      {isShowEmpty && (
+        <p className="text-sm text-lfui-muted-foreground">
+          {placeholder ?? "Upload your file here"}
+        </p>
+      )}
 
-        {isShowEmpty && (
-          <p className="text-sm text-lfui-muted-foreground">
-            {placeholder ?? "Upload your file here"}
+      {isUploading && (
+        <p className="text-sm text-lfui-muted-foreground">Uploading...</p>
+      )}
+
+      {isShowValue && (
+        <div className="flex flex-col gap-2 items-center">
+          <p className="text-sm text-lfui-muted-foreground break-words max-w-full">
+            {splitUrlAndFilename(value).filename}
           </p>
-        )}
-
-        {isUploading && (
-          <p className="text-sm text-lfui-muted-foreground">Uploading...</p>
-        )}
-
-        {isShowValue && (
-          <div className="flex flex-col gap-2 items-center">
-            <p className="text-sm text-lfui-muted-foreground break-words max-w-full">
-              {splitUrlAndFilename(value).filename}
-            </p>
-            <button
-              className="text-blue-500 underline text-xs px-4 w-fit"
-              onClick={(e) => {
-                e.stopPropagation();
-                window.open(value);
-              }}
-            >
-              Open file
-            </button>
-          </div>
-        )}
-      </div>
-
-      {error && <FormMessage>{error}</FormMessage>}
+          <button
+            className="text-blue-500 underline text-xs px-4 w-fit"
+            onClick={(e) => {
+              e.stopPropagation();
+              window.open(value);
+            }}
+          >
+            Open file
+          </button>
+        </div>
+      )}
     </div>
   );
 }
