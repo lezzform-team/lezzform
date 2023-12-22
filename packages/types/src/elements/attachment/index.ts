@@ -25,7 +25,7 @@ export type AttachmentAttributesApiType = {
     maxSize: number;
     acceptedFormats: string[];
   };
-  headers: Record<string, string>;
+  headers: { key: string; value: string }[];
 };
 
 export type AttachmentRuleType = StringRule;

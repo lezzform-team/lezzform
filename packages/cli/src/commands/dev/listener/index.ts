@@ -93,6 +93,7 @@ export class Listener {
   }
 
   private onApplicationInitial(data: OnApplicationInitial) {
+    console.log("onApplicationInitial");
     data.forms.forEach((item) => {
       this.generator.form({
         name: toKebabCase(item.form.name),
