@@ -1,3 +1,4 @@
+import { AttachmentType } from "./elements/attachment";
 import { DatePickerType } from "./elements/datePicker";
 import { DropdownType } from "./elements/dropdown";
 import { InputType } from "./elements/input";
@@ -23,6 +24,7 @@ export type GeneralAttributes = {
 export enum LezzformElementCategory {
   Field = "Field",
   Layout = "Layout",
+  Iterate = "Iterate",
 }
 
 export type LezzformElementType = LezzformElement["type"];
@@ -31,6 +33,7 @@ export type LezzformElement =
   | TextAreaType
   | DropdownType
   | DatePickerType
+  | AttachmentType
   | TwoColumnType
   | ThreeColumnType;
 
