@@ -5,3 +5,4 @@ export * from "./threeColumn";
 export * from "./button";
 export * from "./dropdown";
 export * from "./datePicker";
+export * from "./attachment";

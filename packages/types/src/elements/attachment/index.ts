@@ -3,21 +3,29 @@ import {
   GenericLezzformElement,
   LezzformElementCategory,
 } from "../..";
-import { GeneralRules } from "../../rules";
+import { StringRule } from "../../rules";
 
 export type AttachmentType = GenericLezzformElement<
   GenericFieldAttributes & AttachmentAttributesType
 > & {
-  type: "attachment";
+  type: "Attachment";
   category: LezzformElementCategory.Field;
   rule: AttachmentRuleType;
 };
 
-export type AttachmentAttributesType = {
+export type AttachmentAttributesType = AttachmentAttributesApiType;
+
+export type AttachmentAttributesApiType = {
   url: string;
   path: {
+    body?: string;
     value: string;
   };
+  settings: {
+    maxSize: number;
+    acceptedFormats: string[];
+  };
+  headers: Record<string, string>;
 };
 
-export type AttachmentRuleType = GeneralRules;
+export type AttachmentRuleType = StringRule;
