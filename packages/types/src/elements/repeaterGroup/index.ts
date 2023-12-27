@@ -1,4 +1,5 @@
 import {
+  ArrayRule,
   GenericFieldAttributes,
   GenericLezzformElement,
   LezzformElementCategory,
@@ -8,8 +9,11 @@ export type RepeaterGroupType = GenericLezzformElement<
   GenericFieldAttributes & RepeaterGroupAttributesType
 > & {
   type: "RepeaterGroup";
-  category: LezzformElementCategory.Iterate;
+  category: LezzformElementCategory.Repeater;
+  rule: RepeaterGroupRuleType;
 };
+
+export type RepeaterGroupRuleType = ArrayRule;
 
 export type RepeaterGroupAttributesType = {
   maxRepeat: number;
