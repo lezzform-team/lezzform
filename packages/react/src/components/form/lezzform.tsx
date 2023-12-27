@@ -8,6 +8,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "../ui/form";
 import { ZodType } from "zod";
+import { LezzformContainer } from "./container";
 
 interface Props<T extends FieldValues = Record<string, unknown>>
   extends UseFormProps<T> {
@@ -37,5 +38,7 @@ function LezzformComponent<T extends FieldValues = Record<string, unknown>>({
     </Form>
   );
 }
+
+LezzformComponent.Container = LezzformContainer;
 
 export const Lezzform = LezzformComponent as typeof LezzformComponent;
