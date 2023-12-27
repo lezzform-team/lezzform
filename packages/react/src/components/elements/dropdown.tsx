@@ -27,12 +27,11 @@ interface Props {
   path?: { label: string; value: string };
   value?: string;
   onChange?: (value: string) => unknown;
-  error?: string;
-  id?: string;
   label?: string;
   name?: string;
   readOnly?: boolean;
   disabled?: boolean;
+  isRequired?: boolean;
 }
 
 export function Dropdown({
@@ -42,9 +41,6 @@ export function Dropdown({
   onChange,
   url,
   path,
-  error,
-  id,
-  label,
   readOnly,
   disabled,
 }: Props) {
@@ -70,7 +66,7 @@ export function Dropdown({
         data.map((item) => ({
           label: lodashGet(item, path?.label) as string,
           value: lodashGet(item, path?.value) as string,
-        }))
+        })),
       );
     } catch (error) {
       setApiItems(null);
@@ -82,14 +78,14 @@ export function Dropdown({
       value
         ? items.find((framework) => framework.value === value)?.label
         : placeholder,
-    [value, items, placeholder]
+    [value, items, placeholder],
   );
 
   const findValueHandler = React.useCallback(
     (value: string) => {
       return items.find((item) => item.value.toLowerCase().trim() === value);
     },
-    [items]
+    [items],
   );
 
   const onSelect = React.useCallback(
@@ -99,11 +95,11 @@ export function Dropdown({
       savedOnChange.current(
         currentValue === value
           ? ""
-          : findValueHandler(currentValue)?.value ?? ""
+          : findValueHandler(currentValue)?.value ?? "",
       );
       setOpen(false);
     },
-    [findValueHandler]
+    [findValueHandler, value],
   );
 
   React.useEffect(() => {
@@ -111,60 +107,50 @@ export function Dropdown({
   }, [fetchApiItems]);
 
   return (
-    <div className="flex flex-col gap-2 w-full">
-      <label htmlFor={id} className="text-sm font-medium leading-none">
-        {label}
-      </label>
-      <Popover open={open} onOpenChange={setOpen} modal>
-        <PopoverTrigger asChild disabled={readOnly || disabled}>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            className={cn(
-              "w-full",
-              !displayedItem && "justify-end",
-              displayedItem && "justify-between",
-              readOnly && "cursor-default",
-              !value && "text-muted-foreground"
-            )}
-            disabled={disabled}
-          >
-            {displayedItem}
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-full p-0">
-          <Command>
-            <CommandInput placeholder={placeholder} />
-            <CommandEmpty>No item found.</CommandEmpty>
-            <ScrollArea className="max-h-96">
-              <CommandGroup>
-                {items.map((framework) => (
-                  <CommandItem
-                    key={framework.value}
-                    value={framework.value}
-                    onSelect={onSelect}
-                  >
-                    <Check
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        value === framework.value ? "opacity-100" : "opacity-0"
-                      )}
-                    />
-                    {framework.label}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </ScrollArea>
-          </Command>
-        </PopoverContent>
-      </Popover>
-      {error && (
-        <small className="text-sm font-medium leading-none text-red-500">
-          {error}
-        </small>
-      )}
-    </div>
+    <Popover open={open} onOpenChange={setOpen} modal>
+      <PopoverTrigger asChild disabled={readOnly || disabled}>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className={cn(
+            "w-full",
+            !displayedItem && "justify-end",
+            displayedItem && "justify-between",
+            readOnly && "cursor-default",
+            !value && "text-lfui-muted-foreground",
+          )}
+          disabled={disabled}
+        >
+          {displayedItem}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-full p-0">
+        <Command>
+          <CommandInput placeholder={placeholder} />
+          <CommandEmpty>No item found.</CommandEmpty>
+          <ScrollArea className="max-h-96">
+            <CommandGroup>
+              {items.map((framework) => (
+                <CommandItem
+                  key={framework.value}
+                  value={framework.value}
+                  onSelect={onSelect}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      value === framework.value ? "opacity-100" : "opacity-0",
+                    )}
+                  />
+                  {framework.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </ScrollArea>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }
