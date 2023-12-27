@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ReactNode } from "react";
 import {
   ArrayPath,
+  FieldArray,
   FieldValues,
   UseFieldArrayReturn,
   useFieldArray,
@@ -28,7 +29,7 @@ function RepeaterGroupWrapperComponent<T extends FieldValues>({
   });
 
   return (
-    <div className="w-full flex flex-col gap-2">
+    <div className="w-full flex flex-col gap-2 border border-lfui-border rounded-md border-dashed p-2">
       {children({ name, field })}
       <div className="mt-1">
         <Button
@@ -36,7 +37,9 @@ function RepeaterGroupWrapperComponent<T extends FieldValues>({
           variant="ghost"
           size="sm"
           className="w-full"
-          // onClick={}
+          onClick={() =>
+            field.insert(field.fields.length, {} as FieldArray<T, ArrayPath<T>>)
+          }
         >
           Add more item
         </Button>
