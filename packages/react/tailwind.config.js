@@ -17,36 +17,36 @@ module.exports = {
     },
     extend: {
       colors: {
-        border: "hsl(var(--lfui-border))",
-        input: "hsl(var(--lfui-input))",
-        ring: "hsl(var(--lfui-ring))",
-        background: "hsl(var(--lfui-background))",
-        foreground: "hsl(var(--lfui-foreground))",
-        primary: {
+        ["lfui-border"]: "hsl(var(--lfui-border))",
+        ["lfui-input"]: "hsl(var(--lfui-input))",
+        ["lfui-ring"]: "hsl(var(--lfui-ring))",
+        ["lfui-background"]: "hsl(var(--lfui-background))",
+        ["lfui-foreground"]: "hsl(var(--lfui-foreground))",
+        ["lfui-primary"]: {
           DEFAULT: "hsl(var(--lfui-primary))",
           foreground: "hsl(var(--lfui-primary-foreground))",
         },
-        secondary: {
+        ["lfui-secondary"]: {
           DEFAULT: "hsl(var(--lfui-secondary))",
           foreground: "hsl(var(--lfui-secondary-foreground))",
         },
-        destructive: {
+        ["lfui-destructive"]: {
           DEFAULT: "hsl(var(--lfui-destructive))",
           foreground: "hsl(var(--lfui-destructive-foreground))",
         },
-        muted: {
+        ["lfui-muted"]: {
           DEFAULT: "hsl(var(--lfui-muted))",
           foreground: "hsl(var(--lfui-muted-foreground))",
         },
-        accent: {
+        ["lfui-accent"]: {
           DEFAULT: "hsl(var(--lfui-accent))",
           foreground: "hsl(var(--lfui-accent-foreground))",
         },
-        popover: {
+        ["lfui-popover"]: {
           DEFAULT: "hsl(var(--lfui-popover))",
           foreground: "hsl(var(--lfui-popover-foreground))",
         },
-        card: {
+        ["lfui-card"]: {
           DEFAULT: "hsl(var(--lfui-card))",
           foreground: "hsl(var(--lfui-card-foreground))",
         },
