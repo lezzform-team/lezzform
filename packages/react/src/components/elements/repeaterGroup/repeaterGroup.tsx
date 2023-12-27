@@ -27,6 +27,7 @@ export function RepeaterGroup({
       {children}
       {!readonly && (
         <button
+          type="button"
           onClick={onDelete}
           className="px-2 py-1 text-xs rounded-sm bg-red-100 text-red-500 absolute top-1 right-1"
         >
