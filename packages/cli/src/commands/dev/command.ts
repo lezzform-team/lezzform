@@ -7,7 +7,6 @@ import { api } from "@/lib";
 import prompts from "prompts";
 import { ApplicationEntity } from "@/types";
 import { ProjectConfigEntity } from "./entities";
-import ora from "ora";
 import chalk from "chalk";
 import * as prettier from "prettier";
 
@@ -54,11 +53,11 @@ export class DevCommand {
   }
 
   private async applicationSelector() {
-    const spinner = ora("Loading your applications...").start();
+    console.log("Loading your applications...");
 
     try {
       const { data } = await this.api.get<ApplicationEntity[]>("/applications");
-      spinner.succeed("Applications loaded!");
+      console.log("Applications loaded!");
 
       const questions: prompts.PromptObject<string> = {
         type: "select",
@@ -82,7 +81,7 @@ export class DevCommand {
       return answers;
     } catch (error) {
       console.log("_initApplicationSelector err: ", error);
-      spinner.stop();
+
       return null;
     }
   }

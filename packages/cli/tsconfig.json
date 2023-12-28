@@ -16,7 +16,8 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "outDir": "./bin"
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "lezzform"]
