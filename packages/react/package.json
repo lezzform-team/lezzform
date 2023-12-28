@@ -1,7 +1,7 @@
 {
   "name": "@lezzform/react",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "main": "./dist/lezzform-react.umd.js",
   "module": "./dist/lezzform-react.es.js",
@@ -9,9 +9,10 @@
   "exports": {
     ".": {
       "import": "./dist/lezzform-react.es.js",
-      "require": "./dist/lezzform-react.umd.js"
+      "require": "./dist/lezzform-react.umd.js",
+      "types": "./dist/index.d.ts"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css"
   },
   "files": [
     "dist"
