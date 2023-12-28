@@ -6,7 +6,6 @@ import { LoginDto } from "./dto";
 import { AuthConfigEntity, LoginEntity } from "./entities";
 import { api } from "@/lib";
 import prompts from "prompts";
-import ora from "ora";
 import * as prettier from "prettier";
 
 export class AuthCommand {
@@ -32,13 +31,13 @@ export class AuthCommand {
     try {
       const dto = await this._initLogin();
 
-      const spinner = ora("Logging in...").start();
+      console.log("Logging in...");
       const { data } = await this.api.post<LoginEntity>("/auth/login/cli", dto);
       await this._generateConfigFile(JSON.stringify(data));
 
       this._setApiToken(data.accessToken);
 
-      spinner.succeed("Logged in!");
+      console.log("Logged in!");
 
       return data;
     } catch (error) {

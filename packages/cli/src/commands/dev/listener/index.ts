@@ -4,7 +4,6 @@ import { AuthConfigEntity } from "@/commands/auth/entities";
 import { Generator } from "../generator";
 import { toKebabCase } from "@/utils";
 import { ProjectConfigEntity } from "../entities";
-import ora from "ora";
 import chalk from "chalk";
 
 export class Listener {
