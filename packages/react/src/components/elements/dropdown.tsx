@@ -1,18 +1,24 @@
 "use client";
 
 import * as React from "react";
+import { Check, ChevronsUpDown } from "lucide-react";
 
-import lodashGet from "lodash.get";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { Input } from "../ui/input";
-import { useDebounce } from "use-debounce";
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import lodashGet from "lodash.get";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface Props {
   items?: { label: string; value: string }[];
@@ -38,12 +44,8 @@ export function Dropdown({
   readOnly,
   disabled,
 }: Props) {
+  const [open, setOpen] = React.useState(false);
   const [apiItems, setApiItems] = React.useState<Props["items"] | null>(null);
-
-  const [searchValue, setSearchValue] = React.useState<string>("");
-  const [debouncedSearchValue] = useDebounce(searchValue, 100);
-  const inputRef = React.useRef<HTMLInputElement>();
-
   const savedOnChange = React.useRef(onChange);
 
   const items = React.useMemo(() => {
@@ -53,22 +55,6 @@ export function Dropdown({
 
     return rawItems;
   }, [apiItems, rawItems]);
-
-  const filteredItems = React.useMemo(
-    () =>
-      items.filter(
-        (item) =>
-          item.label
-            .toLowerCase()
-            .trim()
-            .includes(debouncedSearchValue.toLowerCase().trim()) ||
-          item.value
-            .toLowerCase()
-            .trim()
-            .includes(debouncedSearchValue.toLowerCase().trim())
-      ),
-    [debouncedSearchValue, items]
-  );
 
   const fetchApiItems = React.useCallback(async () => {
     if (!url || !path?.label || !path?.value) return;
@@ -95,70 +81,83 @@ export function Dropdown({
     [value, items, placeholder]
   );
 
+  const findValueHandler = React.useCallback(
+    (value: string) => {
+      return items.find(
+        (item) =>
+          item.value
+            .toLowerCase()
+            .trim()
+            .includes(value.toLowerCase().trim()) ||
+          item.label.toLowerCase().trim().includes(value.toLowerCase().trim())
+      );
+    },
+    [items]
+  );
+
   const onSelect = React.useCallback(
     (currentValue: string) => {
       if (!savedOnChange?.current) return;
 
-      savedOnChange.current(currentValue === value ? "" : currentValue);
+      savedOnChange.current(
+        currentValue === value
+          ? ""
+          : findValueHandler(currentValue)?.value ?? ""
+      );
+      setOpen(false);
     },
-    [value]
+    [findValueHandler, value]
   );
 
   React.useEffect(() => {
     fetchApiItems();
   }, [fetchApiItems]);
 
-  React.useEffect(() => {
-    savedOnChange.current = onChange;
-  }, [onChange]);
-
   return (
-    <Select
-      defaultValue={value}
-      onValueChange={onSelect}
-      onOpenChange={(open) => {
-        if (open && inputRef.current) {
-          inputRef.current.focus();
-        }
-      }}
-    >
-      <SelectTrigger className="w-full" disabled={readOnly || disabled}>
-        <SelectValue placeholder={displayedItem} />
-      </SelectTrigger>
-      <SelectContent
-        onKeyDown={(e) => {
-          e.preventDefault();
-        }}
-        onFocus={(e) => {
-          e.preventDefault();
-          inputRef.current?.focus();
-        }}
-      >
-        <SelectGroup
-          onKeyDown={(e) => {
-            e.preventDefault();
-          }}
+    <Popover open={open} onOpenChange={setOpen} modal>
+      <PopoverTrigger asChild disabled={readOnly || disabled}>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className={cn(
+            "w-full",
+            !displayedItem && "justify-end",
+            displayedItem && "justify-between",
+            readOnly && "cursor-default",
+            !value && "text-lfui-muted-foreground"
+          )}
+          disabled={disabled}
         >
-          <div className="p-2">
-            <Input
-              ref={inputRef as React.Ref<HTMLInputElement> | undefined}
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              onKeyDown={(e) => {
-                e.stopPropagation();
-              }}
-              placeholder={placeholder ?? "Search for items"}
-              className="h-8"
-            />
-          </div>
-
-          {filteredItems.map((item, index) => (
-            <SelectItem key={item.value + index} value={item.value}>
-              {item.label}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+          {displayedItem}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="p-0">
+        <Command>
+          <CommandInput placeholder={placeholder} />
+          <CommandEmpty>No item found.</CommandEmpty>
+          <ScrollArea className="max-h-96">
+            <CommandGroup>
+              {items.map((framework) => (
+                <CommandItem
+                  key={framework.value}
+                  value={framework.value}
+                  onSelect={onSelect}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      value === framework.value ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                  {framework.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </ScrollArea>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }

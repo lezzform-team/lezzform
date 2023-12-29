@@ -1,5 +1,17 @@
 # @lezzform/react
 
+## 0.0.4
+
+### Patch Changes
+
+- better dropdown component
+
+## 0.0.3
+
+### Patch Changes
+
+- improve_dropdown_component_UI
+
 ## 0.0.2
 
 ### Patch Changes
