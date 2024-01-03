@@ -1,8 +1,12 @@
 import { Socket, io } from "socket.io-client";
-import { OnApplicationInitial, OnFormCreateDto, OnFormSaveDto } from "./dto";
+import {
+  OnApplicationInitial,
+  OnFormCreateDto,
+  OnFormSaveDto,
+  OnFormUpdateDto,
+} from "./dto";
 import { AuthConfigEntity } from "@/commands/auth/entities";
 import { Generator } from "../generator";
-import { toKebabCase } from "@/utils";
 import { ProjectConfigEntity } from "../entities";
 import chalk from "chalk";
 
@@ -45,7 +49,7 @@ export class Listener {
       { applicationId: this.applicationId },
       (data: OnApplicationInitial) => {
         this.onApplicationInitial(data);
-      },
+      }
     );
 
     this.socket.on(
@@ -54,7 +58,7 @@ export class Listener {
         if (applicationId !== this.applicationId) return;
 
         this.onFormSave(data);
-      },
+      }
     );
 
     this.socket.on(
@@ -63,7 +67,16 @@ export class Listener {
         if (applicationId !== this.applicationId) return;
 
         this.onFormCreate(data);
-      },
+      }
+    );
+
+    this.socket.on(
+      "form.update",
+      (applicationId: string, data: OnFormUpdateDto) => {
+        if (applicationId !== this.applicationId) return;
+
+        this.onFormUpdate(data);
+      }
     );
 
     this.socket.on("disconnect", () => {
@@ -94,7 +107,7 @@ export class Listener {
   private onApplicationInitial(data: OnApplicationInitial) {
     data.forms.forEach((item) => {
       this.generator.form({
-        name: toKebabCase(item.form.name),
+        fileName: item.form.fileName,
         code: item.code,
       });
     });
@@ -102,12 +115,26 @@ export class Listener {
 
   private onFormCreate(data: OnFormCreateDto) {
     console.log(chalk.green("Form created ▶️"));
-    this.generator.form({ code: data.code, name: toKebabCase(data.form.name) });
+    this.generator.form({
+      code: data.code,
+      fileName: data.form.fileName,
+    });
   }
 
   private onFormSave(data: OnFormSaveDto) {
     console.log(chalk.blue("Form changes ⬇️"));
-    this.generator.form({ code: data.code, name: toKebabCase(data.form.name) });
+    this.generator.form({
+      code: data.code,
+      fileName: data.form.fileName,
+    });
+  }
+
+  private onFormUpdate(data: OnFormUpdateDto) {
+    console.log(chalk.blue("Form updated"));
+
+    if (data.before.fileName !== data.after.fileName) {
+      this.generator.rename(data.before.fileName, data.after.fileName);
+    }
   }
 
   closeConnection() {

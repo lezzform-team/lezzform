@@ -43,3 +43,4 @@ export type LezzformElement =
 export type LezzformElementRule = StringRule | IntegerRule | DateRule;
 
 export * from "./rules";
+export * from "./form";
