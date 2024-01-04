@@ -1,12 +1,10 @@
 export type LezzformAttributes = {
-  actions: LezzformAction[];
-  defaultAction: string;
+  action: LezzformAction;
 };
 
-export type LezzformAction = LezzformApiAction;
+export type LezzformAction = LezzformApiAction | LezzformManualAction;
 
 export type LezzformApiAction = {
-  name: string;
   type: "api";
   url: string;
   headers: {
@@ -14,6 +12,10 @@ export type LezzformApiAction = {
     value: string;
   }[];
   method: HTTPMethod;
+};
+
+export type LezzformManualAction = {
+  type: "manual";
 };
 
 type HTTPMethod = "get" | "post" | "patch" | "put" | "delete";
