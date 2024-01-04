@@ -8,6 +8,7 @@
     "components:build": "turbo run build --filter=react",
     "web:dev": "turbo run dev --filter=web",
     "types:build": "turbo run build --filter=types",
+    "cli:build": "turbo run build --filter=cli",
     "prepare": "husky install"
   },
   "lint-staged": {

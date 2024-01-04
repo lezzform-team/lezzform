@@ -1,11 +1,11 @@
 import { LezzformElement } from "@lezzform/types";
 
 export class FormGenerateDto {
-  name: string;
+  fileName: string;
   code: string;
 
-  constructor({ name, code }: { name: string; code: string }) {
-    this.name = name;
+  constructor({ fileName, code }: { fileName: string; code: string }) {
+    this.fileName = fileName;
     this.code = code;
   }
 }
