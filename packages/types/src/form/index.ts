@@ -1,4 +1,4 @@
-export type LezzformAttributes = {
+export type LezzformConfiguration = {
   action: LezzformAction;
 };
 
