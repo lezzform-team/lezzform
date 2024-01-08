@@ -2,8 +2,8 @@ import { Socket, io } from "socket.io-client";
 import {
   OnApplicationInitial,
   OnFormCreateDto,
-  OnFormSaveDto,
   OnFormUpdateDto,
+  OnSaveElementEnvironmentDto,
 } from "./dto";
 import { AuthConfigEntity } from "@/commands/auth/entities";
 import { Generator } from "../generator";
@@ -46,19 +46,19 @@ export class Listener {
 
     this.socket.emit(
       "application.initial",
-      { applicationId: this.applicationId },
+      { applicationId: this.applicationId, environmentType: "DEVELOPMENT" },
       (data: OnApplicationInitial) => {
         this.onApplicationInitial(data);
-      }
+      },
     );
 
     this.socket.on(
-      "form.save",
-      (applicationId: string, data: OnFormSaveDto) => {
+      "form.environment.saveElement",
+      (applicationId: string, data: OnSaveElementEnvironmentDto) => {
         if (applicationId !== this.applicationId) return;
 
-        this.onFormSave(data);
-      }
+        this.onSaveElementEnvironment(data);
+      },
     );
 
     this.socket.on(
@@ -67,7 +67,7 @@ export class Listener {
         if (applicationId !== this.applicationId) return;
 
         this.onFormCreate(data);
-      }
+      },
     );
 
     this.socket.on(
@@ -76,7 +76,7 @@ export class Listener {
         if (applicationId !== this.applicationId) return;
 
         this.onFormUpdate(data);
-      }
+      },
     );
 
     this.socket.on("disconnect", () => {
@@ -121,7 +121,7 @@ export class Listener {
     });
   }
 
-  private onFormSave(data: OnFormSaveDto) {
+  private onSaveElementEnvironment(data: OnSaveElementEnvironmentDto) {
     console.log(chalk.blue("Form changes ⬇️"));
     this.generator.form({
       code: data.code,

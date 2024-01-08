@@ -1,3 +1,3 @@
 export const configs = {
-  SERVER_URL: "https://core-stg.lezzform.com",
+  SERVER_URL: "http://localhost:3001",
 };
