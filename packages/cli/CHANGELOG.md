@@ -1,5 +1,11 @@
 # @lezzform/cli
 
+## 0.0.10
+
+### Patch Changes
+
+- change server url to staging(2)
+
 ## 0.0.9
 
 ### Patch Changes
