@@ -1,6 +1,6 @@
 import { FormEntity } from "../../../../types";
 
-export class OnFormSaveDto {
+export class OnSaveElementEnvironmentDto {
   form: FormEntity;
   code: string;
 
