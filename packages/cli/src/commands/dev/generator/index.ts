@@ -1,55 +1,54 @@
 import fs from "fs";
 import path from "path";
-import chalk from "chalk";
 
 import { FormGenerateDto } from "./dto";
+import { FileAndDirectoryUtility } from "@/utils";
+import { GeneratorConfiguration } from "./types";
 
 export class Generator {
-  rootDirectory: string = path.join(process.cwd(), "lezzform");
-  generatedDirectory: string = path.join(this.rootDirectory, "_generated");
+  private isDebugMode?: boolean = false;
+  private fileAndDirectoryUtility: FileAndDirectoryUtility;
 
-  constructor() {
+  private rootDirectory: string = path.join(process.cwd(), "lezzform");
+  private generatedDirectory: string = path.join(
+    this.rootDirectory,
+    "_generated"
+  );
+
+  constructor(config: GeneratorConfiguration) {
+    this.isDebugMode = config.isDebugMode;
+    this.fileAndDirectoryUtility = new FileAndDirectoryUtility(
+      this.isDebugMode
+    );
+
     fs.mkdirSync(this.rootDirectory, { recursive: true });
     fs.mkdirSync(this.generatedDirectory, { recursive: true });
   }
 
-  form(dto: FormGenerateDto) {
-    fs.writeFileSync(
-      path.join(this.generatedDirectory, `${dto.fileName}.tsx`),
+  async form(dto: FormGenerateDto): Promise<boolean> {
+    return this.fileAndDirectoryUtility.create(
+      {
+        directory: this.generatedDirectory,
+        fileName: `${dto.fileName}.tsx`,
+      },
       dto.code
     );
   }
 
-  delete(fileName: string) {
-    const filePath = path.join(this.generatedDirectory, `${fileName}.tsx`);
-
-    fs.unlink(filePath, (err) => {
-      if (err) {
-        console.error(`Error removing file: ${err.message}`);
-      } else {
-        chalk.gray(`File ${fileName} has been successfully removed.`);
-      }
+  async delete(fileName: string): Promise<boolean> {
+    return this.fileAndDirectoryUtility.delete({
+      directory: this.generatedDirectory,
+      fileName: `${fileName}.tsx`,
     });
   }
 
-  rename(fileNameBefore: string, fileNameAfter: string) {
-    const sourceFilePath = path.join(
-      this.generatedDirectory,
-      `${fileNameBefore}.tsx`
-    );
-    const destinationFilePath = path.join(
-      this.generatedDirectory,
-      `${fileNameAfter}.tsx`
-    );
-
-    fs.rename(sourceFilePath, destinationFilePath, (err) => {
-      if (err) {
-        console.error(`Error moving file: ${err.message}`);
-      } else {
-        console.log(
-          chalk.gray(`-- Form renamed: ${fileNameBefore} -> ${fileNameAfter}`)
-        );
-      }
+  async rename(
+    fileNameBefore: string,
+    fileNameAfter: string
+  ): Promise<boolean> {
+    return this.fileAndDirectoryUtility.rename({
+      directory: this.generatedDirectory,
+      files: { fileNameAfter, fileNameBefore },
     });
   }
 }

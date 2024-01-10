@@ -1,5 +1,11 @@
 # @lezzform/cli
 
+## 0.1.0
+
+### Minor Changes
+
+- basic cli functionality such as login, dev, prod command with custom url and debug mode
+
 ## 0.0.10
 
 ### Patch Changes

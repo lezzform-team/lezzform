@@ -1,53 +1,77 @@
-import { Axios } from "axios";
-import os from "os";
-import fs from "fs/promises";
-import path from "path";
 import { LoginDto } from "./dto";
-import { AuthConfigEntity, LoginEntity } from "./entities";
-import { api } from "@/lib";
 import prompts from "prompts";
-import * as prettier from "prettier";
+import { AuthCommandConfiguration, AuthCommandEvents } from "./types";
+import { Command } from "../command";
+import { Logger, handleError } from "@/utils";
+import { AuthClient } from "@/clients/auth";
+import { Maybe } from "@/types";
 
-export class AuthCommand {
-  url: string;
-  api: Axios = api;
-  configRootDirectoryPath: string;
-  configPath: string;
+export class AuthCommand extends Command {
+  private logger: Logger;
+  private authClient: AuthClient;
 
-  constructor(url: string) {
-    this.url = url;
-    this.configRootDirectoryPath = path.join(os.homedir(), ".lezzform");
-    this.configPath = path.join(this.configRootDirectoryPath, "config.json");
+  constructor(config: AuthCommandConfiguration) {
+    super({
+      isDebugMode: config.isDebugMode,
+      url: config.url,
+      config: config.config,
+    });
+    if (config.api) this.api = config.api;
+
+    this.logger = new Logger("AuthCommand", this.isDebugMode);
+    this.authClient = new AuthClient({
+      isDebugMode: this.isDebugMode,
+      url: this.url,
+      api: this.api,
+    });
   }
 
-  async init(): Promise<AuthConfigEntity | null> {
-    if (await this._isConfigNotExisted()) return this.login();
-    if (await this._isConfigNotVerified()) return this.login();
-
-    return await this._getConfig();
-  }
-
-  async login(): Promise<LoginEntity | null> {
+  async login(): Promise<boolean> {
     try {
-      const dto = await this._initLogin();
+      const dto = await this._getLoginCredential();
+      this.logger.info("Logging in...");
+      const data = await this.authClient.login(dto);
 
-      console.log("Logging in...");
-      const { data } = await this.api.post<LoginEntity>("/auth/login/cli", dto);
-      await this._generateConfigFile(JSON.stringify(data));
+      await this.config.setAuthConfig(data);
+      this.setApiToken(data.accessToken);
 
-      this._setApiToken(data.accessToken);
-
-      console.log("Logged in!");
-
-      return data;
+      this.logger.success("Logged in!");
+      return true;
     } catch (error) {
-      console.error("login err: ", error);
-      return null;
+      handleError(error);
+      return false;
     }
   }
 
-  private async _initLogin(): Promise<LoginDto | null> {
-    console.log("== Login to LezzForm CLI ==");
+  async init(): Promise<boolean> {
+    const event = await this._validate();
+
+    if (event) return this._eventHandler(event);
+
+    return true;
+  }
+
+  private async _validate(): Promise<AuthCommandEvents | null> {
+    this.logger.info("Verifying authorization...");
+
+    if (!this.config.auth) return AuthCommandEvents.Login;
+
+    const isConfigVerified = await this._isConfigVerified();
+    if (!isConfigVerified) return AuthCommandEvents.Login;
+
+    this.logger.success("Authenticated!");
+
+    return null;
+  }
+
+  private async _eventHandler(event: AuthCommandEvents): Promise<boolean> {
+    if (event === AuthCommandEvents.Login) return this.login();
+
+    return false;
+  }
+
+  private async _getLoginCredential(): Promise<Maybe<LoginDto>> {
+    this.logger.general("== Login to LezzForm CLI ==");
 
     try {
       const questions: prompts.PromptObject<string>[] = [
@@ -63,58 +87,19 @@ export class AuthCommand {
 
       return answers;
     } catch (error) {
-      console.error("_initLogin err: ", error);
-      return null;
+      handleError(error);
     }
   }
 
-  private async _isConfigNotExisted() {
+  private async _isConfigVerified(): Promise<boolean> {
     try {
-      await fs.access(this.configPath);
+      if (!this.config.auth) return false;
+      this.setApiToken(this.config.auth.accessToken);
+
+      return this.authClient.verify();
+    } catch (error) {
+      this.logger.error(error);
       return false;
-    } catch (error) {
-      return true;
     }
-  }
-
-  private async _generateConfigFile(config: string) {
-    try {
-      const formatted = await prettier.format(config, { parser: "json" });
-      await fs.mkdir(this.configRootDirectoryPath, { recursive: true });
-      await fs.writeFile(this.configPath, formatted);
-    } catch (error) {
-      console.error("_generateConfigFile err: ", error);
-    }
-  }
-
-  private async _isConfigNotVerified() {
-    try {
-      const config = await this._getConfig();
-      if (!config) return true;
-
-      this._setApiToken(config.accessToken);
-
-      const { data } = await this.api.get("/auth/verify");
-      return !data;
-    } catch (error) {
-      console.log("_isConfigNotVerified err: ", error);
-      return true;
-    }
-  }
-
-  private async _getConfig(): Promise<AuthConfigEntity | null> {
-    try {
-      const strConfig: string = await fs.readFile(this.configPath, "utf-8");
-      const config: AuthConfigEntity = JSON.parse(strConfig);
-
-      return config;
-    } catch (error) {
-      console.error("_getConfig err: ", error);
-      return null;
-    }
-  }
-
-  private _setApiToken(accessToken: string) {
-    this.api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   }
 }
