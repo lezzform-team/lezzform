@@ -1,11 +1,10 @@
 #! /usr/bin/env node
 import { Command } from "commander";
-import { AuthCommand, DevCommand } from "./commands";
+import { AuthCommand, DevCommand, ProdCommand } from "./commands";
 import { configs } from "./configs";
 import { z } from "zod";
 import { handleError } from "./utils";
 import { ConfigClient } from "./clients/config";
-import chalk from "chalk";
 
 const program = new Command();
 
@@ -31,6 +30,29 @@ program
       await config.init();
 
       new DevCommand({ url: options.url, isDebugMode: options.debug, config });
+    } catch (error) {
+      handleError(error);
+    }
+  });
+
+const prodOptionSchema = z.object({
+  url: z.string().url(),
+  debug: z.boolean(),
+});
+
+program
+  .command("prod")
+  .description("Generate component using latest data from production env")
+  .option("-u, --url <url>", "url for debugging", configs.SERVER_URL)
+  .option("-d --debug", "debug mode", false)
+  .action(async (opts) => {
+    try {
+      const options = prodOptionSchema.parse(opts);
+
+      const config = new ConfigClient({ isDebugMode: options.debug });
+      await config.init();
+
+      new ProdCommand({ url: options.url, isDebugMode: options.debug, config });
     } catch (error) {
       handleError(error);
     }

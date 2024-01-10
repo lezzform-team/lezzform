@@ -9,28 +9,20 @@ import { Generator } from "../generator";
 import { ListenerConfiguration } from "./types";
 import { ConfigClient } from "@/clients/config";
 import { Logger } from "@/utils";
+import { SocketClient } from "@/clients/socket";
 
-export class Listener {
-  private socket: Socket;
+export class Listener extends SocketClient {
   private generator: Generator;
   private applicationId: string;
-  private isDebugMode: boolean;
-  private config: ConfigClient;
   private logger: Logger;
 
   constructor(config: ListenerConfiguration) {
-    this.isDebugMode = config.isDebugMode;
-    this.config = config.config;
-
-    this.socket = io(`${config.url}/cli`, {
-      extraHeaders: {
-        Authorization: `Bearer ${this.config.auth?.accessToken!}`,
-        ["x-auth-source"]: "cli",
-      },
-      auth: {
-        token: `Bearer ${this.config.auth?.accessToken!}`,
-      },
+    super({
+      config: config.config,
+      isDebugMode: config.isDebugMode,
+      url: config.url,
     });
+
     this.generator = new Generator({ isDebugMode: config.isDebugMode });
     this.logger = new Logger("Listener", this.isDebugMode);
 
@@ -99,13 +91,19 @@ export class Listener {
     // Handle errors
   }
 
-  private onApplicationInitial(data: OnApplicationInitial) {
-    data.forms.forEach((item) => {
-      this.generator.form({
-        fileName: item.form.fileName,
-        code: item.code,
-      });
-    });
+  private async onApplicationInitial(data: OnApplicationInitial) {
+    this.logger.info(
+      "Generating component from latest data in Development env..."
+    );
+    await Promise.all(
+      data.forms.map(async (item) => {
+        return await this.generator.form({
+          fileName: item.form.fileName,
+          code: item.code,
+        });
+      })
+    );
+    this.logger.success("Generated successfully!");
   }
 
   private onFormCreate(data: OnFormCreateDto) {

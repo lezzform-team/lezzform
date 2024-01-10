@@ -10,6 +10,8 @@
     "dev:login": "tsup && node bin/index.js login -u http://localhost:3001",
     "dev:debug": "tsup && node bin/index.js dev -u http://localhost:3001 -d",
     "dev:debug:login": "tsup && node bin/index.js login -u http://localhost:3001 -d",
+    "prod": "tsup && node bin/index.js prod -u http://localhost:3001",
+    "prod:debug": "tsup && node bin/index.js prod -u http://localhost:3001 -d",
     "start": "node -r ts-node/register src/index.ts",
     "build": "tsup"
   },
