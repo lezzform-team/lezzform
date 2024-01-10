@@ -6,9 +6,11 @@
   "type": "module",
   "types": "./bin/index.d.ts",
   "scripts": {
-    "cli:dev": "tsup && node bin/index.js dev",
-    "cli:login": "tsup && node bin/index.js login",
-    "start": "ts-node index.ts",
+    "dev": "tsup && node bin/index.js dev -u http://localhost:3001",
+    "dev:login": "tsup && node bin/index.js login -u http://localhost:3001",
+    "dev:debug": "tsup && node bin/index.js dev -u http://localhost:3001 -d",
+    "dev:debug:login": "tsup && node bin/index.js login -u http://localhost:3001 -d",
+    "start": "node -r ts-node/register src/index.ts",
     "build": "tsup"
   },
   "files": [
@@ -16,6 +18,7 @@
   ],
   "devDependencies": {
     "@lezzform/types": "*",
+    "@types/commander": "^2.12.2",
     "@types/handlebars-helpers": "^0.5.5",
     "@types/prompts": "^2.4.9",
     "@types/readline-sync": "^1.4.8",
@@ -26,13 +29,15 @@
     "tsup": "^8.0.1"
   },
   "dependencies": {
+    "@commander-js/extra-typings": "^11.1.0",
     "axios": "^1.5.1",
     "chalk": "4",
     "cli-spinners": "^2.9.2",
     "commander": "^11.1.0",
     "prettier": "^3.1.0",
     "prompts": "^2.4.2",
-    "socket.io-client": "^4.7.2"
+    "socket.io-client": "^4.7.2",
+    "zod": "^3.22.4"
   },
   "bin": {
     "lezzform": "bin/index.js"

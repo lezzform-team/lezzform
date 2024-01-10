@@ -5,40 +5,36 @@ import {
   OnFormUpdateDto,
   OnSaveElementEnvironmentDto,
 } from "./dto";
-import { AuthConfigEntity } from "@/commands/auth/entities";
 import { Generator } from "../generator";
-import { ProjectConfigEntity } from "../entities";
-import chalk from "chalk";
+import { ListenerConfiguration } from "./types";
+import { ConfigClient } from "@/clients/config";
+import { Logger } from "@/utils";
 
 export class Listener {
   private socket: Socket;
   private generator: Generator;
   private applicationId: string;
-  private authConfig: AuthConfigEntity;
+  private isDebugMode: boolean;
+  private config: ConfigClient;
+  private logger: Logger;
 
-  constructor({
-    url,
-    authConfig,
-    projectConfig,
-  }: {
-    url: string;
-    authConfig: AuthConfigEntity;
-    projectConfig: ProjectConfigEntity;
-  }) {
-    this.authConfig = authConfig;
+  constructor(config: ListenerConfiguration) {
+    this.isDebugMode = config.isDebugMode;
+    this.config = config.config;
 
-    this.socket = io(`${url}/cli`, {
+    this.socket = io(`${config.url}/cli`, {
       extraHeaders: {
-        Authorization: `Bearer ${authConfig.accessToken}`,
+        Authorization: `Bearer ${this.config.auth?.accessToken!}`,
         ["x-auth-source"]: "cli",
       },
       auth: {
-        token: `Bearer ${authConfig.accessToken}`,
+        token: `Bearer ${this.config.auth?.accessToken!}`,
       },
     });
-    this.generator = new Generator();
+    this.generator = new Generator({ isDebugMode: config.isDebugMode });
+    this.logger = new Logger("Listener", this.isDebugMode);
 
-    this.applicationId = projectConfig.applicationId;
+    this.applicationId = this.config.project?.applicationId!;
 
     this.socket.on("connect", () => {
       this.onConnect();
@@ -49,7 +45,7 @@ export class Listener {
       { applicationId: this.applicationId, environmentType: "DEVELOPMENT" },
       (data: OnApplicationInitial) => {
         this.onApplicationInitial(data);
-      },
+      }
     );
 
     this.socket.on(
@@ -58,7 +54,7 @@ export class Listener {
         if (applicationId !== this.applicationId) return;
 
         this.onSaveElementEnvironment(data);
-      },
+      }
     );
 
     this.socket.on(
@@ -67,7 +63,7 @@ export class Listener {
         if (applicationId !== this.applicationId) return;
 
         this.onFormCreate(data);
-      },
+      }
     );
 
     this.socket.on(
@@ -76,7 +72,7 @@ export class Listener {
         if (applicationId !== this.applicationId) return;
 
         this.onFormUpdate(data);
-      },
+      }
     );
 
     this.socket.on("disconnect", () => {
@@ -89,18 +85,17 @@ export class Listener {
   }
 
   private onConnect() {
-    console.log(chalk.greenBright("Connected to server ✅"));
-    // console.log("Socket.IO connection established");
+    this.logger.success("Connected to server ✅");
     // Perform any actions needed when the connection is established
   }
 
   private onDisconnect() {
-    console.log(chalk.redBright("Disconnected ❌"));
+    this.logger.warn("Disconnected ❌");
     // Perform any cleanup or reconnection logic here
   }
 
   private onError(error: Error) {
-    console.error("Socket.IO error:", error.message);
+    this.logger.error("Socket.IO error:", error.message);
     // Handle errors
   }
 
@@ -114,7 +109,7 @@ export class Listener {
   }
 
   private onFormCreate(data: OnFormCreateDto) {
-    console.log(chalk.green("Form created ▶️"));
+    this.logger.info("Form created ▶️");
     this.generator.form({
       code: data.code,
       fileName: data.form.fileName,
@@ -122,7 +117,7 @@ export class Listener {
   }
 
   private onSaveElementEnvironment(data: OnSaveElementEnvironmentDto) {
-    console.log(chalk.blue("Form changes ⬇️"));
+    this.logger.info("Form changes ⬇️");
     this.generator.form({
       code: data.code,
       fileName: data.form.fileName,
@@ -130,10 +125,13 @@ export class Listener {
   }
 
   private onFormUpdate(data: OnFormUpdateDto) {
-    console.log(chalk.blue("Form updated"));
+    this.logger.info("Form updated");
 
     if (data.before.fileName !== data.after.fileName) {
-      this.generator.rename(data.before.fileName, data.after.fileName);
+      this.generator.rename(
+        `${data.before.fileName}.tsx`,
+        `${data.after.fileName}.tsx`
+      );
     }
   }
 
