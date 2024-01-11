@@ -5,6 +5,7 @@
  * @format
  */
 
+import {Input} from '@lezzform/react-native';
 import React from 'react';
 import {
   SafeAreaView,
@@ -14,7 +15,6 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {Input} from '@lezzform/react-native';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
