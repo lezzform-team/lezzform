@@ -76,7 +76,7 @@ android {
 
     namespace "com.rnative"
     defaultConfig {
-        applicationId "com.rnative"
+        applicationId "com.@lezzform/react-native"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
