@@ -1,0 +1,9 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "baseUrl": "./src"
+  }
+}
