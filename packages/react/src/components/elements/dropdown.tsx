@@ -66,7 +66,7 @@ export function Dropdown({
         data.map((item) => ({
           label: lodashGet(item, path?.label) as string,
           value: lodashGet(item, path?.value) as string,
-        }))
+        })),
       );
     } catch (error) {
       setApiItems(null);
@@ -78,7 +78,7 @@ export function Dropdown({
       value
         ? items.find((framework) => framework.value === value)?.label
         : placeholder,
-    [value, items, placeholder]
+    [value, items, placeholder],
   );
 
   const findValueHandler = React.useCallback(
@@ -89,10 +89,10 @@ export function Dropdown({
             .toLowerCase()
             .trim()
             .includes(value.toLowerCase().trim()) ||
-          item.label.toLowerCase().trim().includes(value.toLowerCase().trim())
+          item.label.toLowerCase().trim().includes(value.toLowerCase().trim()),
       );
     },
-    [items]
+    [items],
   );
 
   const onSelect = React.useCallback(
@@ -102,11 +102,11 @@ export function Dropdown({
       savedOnChange.current(
         currentValue === value
           ? ""
-          : findValueHandler(currentValue)?.value ?? ""
+          : findValueHandler(currentValue)?.value ?? "",
       );
       setOpen(false);
     },
-    [findValueHandler, value]
+    [findValueHandler, value],
   );
 
   React.useEffect(() => {
@@ -125,7 +125,7 @@ export function Dropdown({
             !displayedItem && "justify-end",
             displayedItem && "justify-between",
             readOnly && "cursor-default",
-            !value && "text-lfui-muted-foreground"
+            !value && "text-lfui-muted-foreground",
           )}
           disabled={disabled}
         >
@@ -133,7 +133,7 @@ export function Dropdown({
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0">
+      <PopoverContent className="p-0 DropdownPopoverContent">
         <Command>
           <CommandInput placeholder={placeholder} />
           <CommandEmpty>No item found.</CommandEmpty>
@@ -148,7 +148,7 @@ export function Dropdown({
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      value === framework.value ? "opacity-100" : "opacity-0",
                     )}
                   />
                   {framework.label}

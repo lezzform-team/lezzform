@@ -1,5 +1,11 @@
 # @lezzform/react
 
+## 0.2.1
+
+### Patch Changes
+
+- fix datepicker width to fit date content
+
 ## 0.2.0
 
 ### Minor Changes
