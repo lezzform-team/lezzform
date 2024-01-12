@@ -76,7 +76,7 @@
 }
 
 @layer utilities {
-  .popover-content {
+  .DropdownPopoverContent {
     @apply w-[var(--radix-popover-trigger-width)] max-h-[var(--radix-popover-content-available-height)];
   }
 }
