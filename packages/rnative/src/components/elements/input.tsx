@@ -1,11 +1,10 @@
 import React from 'react';
-import {Input as UIInput} from '../ui/input';
-import {StyleSheet} from 'react-native';
+import {InputProps, Input as UIInput} from '../ui/input';
 
-const style = StyleSheet.create({input: {color: 'red'}});
+interface Props extends InputProps {}
 
-const Input = () => {
-  return <UIInput style={style.input} />;
+const Input = ({...props}: Props) => {
+  return <UIInput {...props} />;
 };
 Input.displayName = 'Input';
 
