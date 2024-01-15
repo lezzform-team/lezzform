@@ -1,19 +1,10 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {InputProps, Input as UIInput} from '../ui/input';
-import {StyleSheet} from 'react-native';
 
 interface Props extends InputProps {}
 
 const Input = ({...props}: Props) => {
-  const style = useMemo(() => {
-    return StyleSheet.create({
-      Input: {
-        color: 'black',
-      },
-    });
-  }, []);
-
-  return <UIInput style={style.Input} {...props} />;
+  return <UIInput {...props} />;
 };
 Input.displayName = 'Input';
 

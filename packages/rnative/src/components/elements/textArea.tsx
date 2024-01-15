@@ -8,7 +8,6 @@ const TextArea = ({...props}: Props) => {
   const style = useMemo(() => {
     return StyleSheet.create({
       TextArea: {
-        color: 'black',
         height: 100,
         textAlignVertical: 'top',
       },

@@ -1,26 +1,26 @@
 export const colors = {
-  background: 'hsl(0, 0%, 100%)',
-  foreground: 'hsl(0, 0%, 3.9%)',
+  background: '#ffffff',
+  foreground: '#040404',
 
-  popover: 'hsl(0, 0%, 100%)',
-  popoverForeground: 'hsl(0, 0%, 3.9%)',
+  popover: '#ffffff',
+  popoverForeground: '#040404',
 
-  primary: 'hsl(0, 0%, 9%)',
-  primaryForeground: 'hsl(0, 0%, 98%)',
+  primary: '#161616',
+  primaryForeground: '#fafafa',
 
-  secondary: 'hsl(0, 0%, 96.1%)',
-  secondaryForeground: 'hsl(0, 0%, 9%)',
+  secondary: '#f5f5f5',
+  secondaryForeground: '#161616',
 
-  muted: 'hsl(0, 0%, 96.1%)',
-  mutedForeground: 'hsl(0, 0%, 45.1%)',
+  muted: '#f5f5f5',
+  mutedForeground: '#737373',
 
-  accent: 'hsl(0, 0%, 96.1%)',
-  accentForeground: 'hsl(0, 0%, 9%)',
+  accent: '#f5f5f5',
+  accentForeground: '#161616',
 
-  destructive: 'hsl(0, 84.2%, 60.2%)',
-  destructiveForeground: 'hsl(0, 0%, 98%)',
+  destructive: '#d6324a',
+  destructiveForeground: '#fafafa',
 
-  border: 'hsl(0, 0%, 89.8%)',
-  input: 'hsl(0, 0%, 89.8%)',
-  ring: 'hsl(0, 0%, 3.9%)',
+  border: '#e5e5e5',
+  input: '#e5e5e5',
+  ring: '#040404',
 };

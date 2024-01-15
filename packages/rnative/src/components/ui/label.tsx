@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import {StyleSheet, Text, TextProps} from 'react-native';
+import {textSize} from '../../themes/textSize';
 
 export interface LabelProps extends TextProps {}
 
 const style = StyleSheet.create({
   Label: {
-    lineHeight: 0,
-    fontSize: 14,
+    fontSize: textSize.sm,
     color: 'black',
   },
 });

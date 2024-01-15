@@ -10,8 +10,8 @@ import {
 } from 'react-hook-form';
 import {StyleSheet, Text, TextProps, View, ViewProps} from 'react-native';
 import {Label} from './label';
-import {useColors} from 'hooks/useColors';
-import {useTextSize} from 'hooks/useTextSize';
+import {useColors} from '../../hooks/useColors';
+import {useTextSize} from '../../hooks/useTextSize';
 
 const Form = FormProvider;
 
@@ -103,13 +103,16 @@ const FormLabel = React.forwardRef<
     () =>
       StyleSheet.create({
         Asterisk: {fontSize: 12, color: colors.destructive},
-        FormLabel: {color: error ? colors.destructive : colors.foreground},
+        FormLabel: {
+          color: error ? colors.destructive : colors.foreground,
+          ...((props.style as object) ?? {}),
+        },
       }),
-    [colors.destructive, colors.foreground, error],
+    [colors.destructive, colors.foreground, error, props.style],
   );
 
   return (
-    <Label ref={ref} {...props}>
+    <Label ref={ref} {...props} style={{...style.FormLabel}}>
       {children} {isRequired && <Text style={style.Asterisk}>*</Text>}
     </Label>
   );
@@ -195,6 +198,7 @@ const FormMessage = React.forwardRef<Text, TextProps>(
       <Text
         ref={ref}
         id={formMessageId}
+        children={body}
         {...props}
         style={style.FormDescription}
       />
