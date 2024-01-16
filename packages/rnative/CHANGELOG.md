@@ -1,5 +1,11 @@
 # @lezzform/react-native
 
+## 0.0.4
+
+### Patch Changes
+
+- basic form and it's children component init
+
 ## 0.0.3
 
 ### Patch Changes
