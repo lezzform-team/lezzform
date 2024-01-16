@@ -1,5 +1,11 @@
 # @lezzform/react-native
 
+## 0.0.22
+
+### Patch Changes
+
+- initial lezzform component
+
 ## 0.0.21
 
 ### Patch Changes
