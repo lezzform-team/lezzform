@@ -1,5 +1,23 @@
 # @lezzform/react-native
 
+## 0.0.16
+
+### Patch Changes
+
+- improve repeaterGroup styling
+
+## 0.0.15
+
+### Patch Changes
+
+- export repeaterGroup
+
+## 0.0.14
+
+### Patch Changes
+
+- init repeaterGroup
+
 ## 0.0.13
 
 ### Patch Changes
