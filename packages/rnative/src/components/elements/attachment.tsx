@@ -1,11 +1,9 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Pressable, PressableProps, StyleSheet, Text, View} from 'react-native';
 import {rem, splitUrlAndFilename} from '../../utils/helper';
 import {colors} from '../../themes/colors';
 import {spacing} from '../../themes/spacing';
-import DocumentPicker, {
-  DocumentPickerResponse,
-} from 'react-native-document-picker';
+import DocumentPicker from 'react-native-document-picker';
 import axios, {AxiosError} from 'axios';
 import lodashGet from 'lodash.get';
 import {textSize} from '../../themes/textSize';
@@ -15,7 +13,7 @@ interface AttachmentProps {
   label?: string;
   isRequired?: boolean;
   onChange?: (fileUrl: string) => unknown;
-  onError?: (message: string) => unknown;
+  onError?: (message: string, err: unknown) => unknown;
   acceptedFormats: string[];
   maxSize: number;
   url: string;
@@ -75,46 +73,60 @@ const Attachment = ({
   const handleUpload = useCallback(async () => {
     try {
       setIsUploading(true);
-      const file = await DocumentPicker.pickSingle({
-        copyTo: 'cachesDirectory',
+      const document = await DocumentPicker.pickSingle({
         type: DocumentPicker.types.images,
       });
 
-      if ((file.size as number) / 1024 > maxSize) {
+      if ((document.size as number) / 1024 > maxSize) {
         throw new Error('File size is too big');
       }
 
-      if (!acceptedFormats.includes(file.type as string)) {
+      if (!acceptedFormats.includes(document.type as string)) {
         throw new Error('Invalid format');
       }
 
-      if (!file) {
+      if (!document) {
         throw new Error('No file selected');
       }
 
-      let body:
-        | DocumentPickerResponse
-        | Record<string, DocumentPickerResponse> = file;
+      // const file = new File([document.uri], document.name as string, {
+      //   type: document.type as string,
+      //   lastModified: Date.now(),
+      // });
+
+      // let body: File | Record<string, File> = file;
+      // if (path.body) {
+      //   body = {
+      //     [path.body]: file,
+      //   };
+      // }
+
+      const formData = new FormData();
+
       if (path.body) {
-        body = {
-          [path.body]: file,
-        };
+        formData.append(path.body, {
+          uri: document.uri,
+          type: document.type,
+          name: document.name,
+        });
+      } else {
+        formData.append('', {
+          uri: document.uri,
+          type: document.type,
+          name: document.name,
+        });
       }
 
-      const headers = headersRef.current?.reduce((acc, curr) => {
+      const customHeaders = headersRef.current?.reduce((acc, curr) => {
         return {...acc, [curr.key]: curr.value};
       }, {});
 
-      const {data} = await axios.post(
-        url,
-        body as DocumentPickerResponse | Record<string, DocumentPickerResponse>,
-        {
-          headers: {
-            ...headers,
-            'Content-Type': 'multipart/form-data',
-          },
+      const {data} = await axios.post(url, formData, {
+        headers: {
+          ...customHeaders,
+          'Content-Type': 'multipart/form-data',
         },
-      );
+      });
 
       if (!lodashGet(data, path.value)) {
         throw new Error('Path unavailable');
@@ -123,14 +135,14 @@ const Attachment = ({
         onChangeRef.current(lodashGet(data, path.value) as string);
     } catch (err) {
       if (typeof err === 'string') {
-        return onErrorRef.current && onErrorRef.current(err);
+        return onErrorRef.current && onErrorRef.current(err, err);
       }
       const error = err as AxiosError;
-      onErrorRef.current && onErrorRef.current(error.message as string);
+      onErrorRef.current && onErrorRef.current(error.message as string, err);
     } finally {
       setIsUploading(false);
     }
-  }, [path.body, path.value, url]);
+  }, [acceptedFormats, maxSize, path.body, path.value, url]);
 
   const isShowEmpty = !value && !isUploading;
   const isShowValue = value && !isUploading;
@@ -165,7 +177,7 @@ const Attachment = ({
   }, [headers, headersRef]);
 
   return (
-    <Pressable style={customStyle}>
+    <Pressable style={customStyle} onPress={handleUpload}>
       {isShowEmpty && (
         <Text style={{fontSize: textSize.sm, color: colors.mutedForeground}}>
           {placeholder ?? 'Upload your file here'}
