@@ -6,3 +6,4 @@ export * from './repeaterGroup';
 export * from './dropdown';
 export * from './threeColumn';
 export * from './twoColumn';
+export * from './datePicker';

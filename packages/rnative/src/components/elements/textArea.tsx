@@ -2,7 +2,10 @@ import React, {useMemo} from 'react';
 import {InputProps, Input as UIInput} from '../ui/input';
 import {StyleSheet} from 'react-native';
 
-interface Props extends InputProps {}
+interface Props extends InputProps {
+  label?: string;
+  name?: string;
+}
 
 const TextArea = ({...props}: Props) => {
   const style = useMemo(() => {

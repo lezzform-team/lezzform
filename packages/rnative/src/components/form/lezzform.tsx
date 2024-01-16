@@ -17,7 +17,10 @@ interface Props<T extends FieldValues = Record<string, unknown>>
   onSubmit: (form: LezzformReturn<T>, values: T) => unknown;
   onSuccess?: (form: LezzformReturn<T>, values: unknown) => unknown;
   onError?: (form: LezzformReturn<T>, error: unknown) => unknown;
-  children: (form: LezzformReturn<T>) => ReactNode | undefined;
+  children: (
+    form: LezzformReturn<T>,
+    handleSubmit: SubmitHandler<T>,
+  ) => ReactNode | undefined;
   zodSchema: ZodType;
   id?: string;
 }
@@ -85,7 +88,7 @@ function LezzformComponent<T extends FieldValues = Record<string, unknown>>({
 
   return (
     <Form key={id} {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)}>{children(form)}</form>
+      {children(form, handleSubmit)}
     </Form>
   );
 }
