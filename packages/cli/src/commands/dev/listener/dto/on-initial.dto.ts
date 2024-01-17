@@ -2,7 +2,7 @@ import { LezzformElement } from "@lezzform/types";
 
 export class OnInitialDto {
   name: string;
-  code: string;
+  code: { web: string; mobile: string };
   elements: LezzformElement[];
 
   constructor({
@@ -11,7 +11,7 @@ export class OnInitialDto {
     elements,
   }: {
     name: string;
-    code: string;
+    code: { web: string; mobile: string };
     elements: LezzformElement[];
   }) {
     this.name = name;

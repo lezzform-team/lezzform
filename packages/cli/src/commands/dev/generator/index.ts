@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import * as prettier from "prettier";
 
 import { FormGenerateDto } from "./dto";
 import { FileAndDirectoryUtility } from "@/utils";
@@ -12,13 +13,13 @@ export class Generator {
   private rootDirectory: string = path.join(process.cwd(), "lezzform");
   private generatedDirectory: string = path.join(
     this.rootDirectory,
-    "_generated"
+    "_generated",
   );
 
   constructor(config: GeneratorConfiguration) {
     this.isDebugMode = config.isDebugMode;
     this.fileAndDirectoryUtility = new FileAndDirectoryUtility(
-      this.isDebugMode
+      this.isDebugMode,
     );
 
     fs.mkdirSync(this.rootDirectory, { recursive: true });
@@ -26,12 +27,15 @@ export class Generator {
   }
 
   async form(dto: FormGenerateDto): Promise<boolean> {
+    const fileName = `${dto.fileName}.tsx`;
+    const formatted = await prettier.format(dto.code, { parser: "babel-ts" });
+
     return this.fileAndDirectoryUtility.create(
       {
         directory: this.generatedDirectory,
-        fileName: `${dto.fileName}.tsx`,
+        fileName,
       },
-      dto.code
+      formatted,
     );
   }
 
@@ -44,7 +48,7 @@ export class Generator {
 
   async rename(
     fileNameBefore: string,
-    fileNameAfter: string
+    fileNameAfter: string,
   ): Promise<boolean> {
     return this.fileAndDirectoryUtility.rename({
       directory: this.generatedDirectory,

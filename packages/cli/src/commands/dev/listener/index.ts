@@ -37,34 +37,28 @@ export class Listener extends SocketClient {
       { applicationId: this.applicationId, environmentType: "DEVELOPMENT" },
       (data: OnApplicationInitial) => {
         this.onApplicationInitial(data);
-      }
+      },
     );
 
     this.socket.on(
       "form.environment.saveElement",
       (applicationId: string, data: OnSaveElementEnvironmentDto) => {
-        if (applicationId !== this.applicationId) return;
-
         this.onSaveElementEnvironment(data);
-      }
+      },
     );
 
     this.socket.on(
       "form.create",
       (applicationId: string, data: OnFormCreateDto) => {
-        if (applicationId !== this.applicationId) return;
-
         this.onFormCreate(data);
-      }
+      },
     );
 
     this.socket.on(
       "form.update",
       (applicationId: string, data: OnFormUpdateDto) => {
-        if (applicationId !== this.applicationId) return;
-
         this.onFormUpdate(data);
-      }
+      },
     );
 
     this.socket.on("disconnect", () => {
@@ -93,15 +87,15 @@ export class Listener extends SocketClient {
 
   private async onApplicationInitial(data: OnApplicationInitial) {
     this.logger.info(
-      "Generating component from latest data in Development env..."
+      "Generating component from latest data in Development env...",
     );
     await Promise.all(
       data.forms.map(async (item) => {
         return await this.generator.form({
           fileName: item.form.fileName,
-          code: item.code,
+          code: item.code[this.config.project?.platform!],
         });
-      })
+      }),
     );
     this.logger.success("Generated successfully!");
   }
@@ -109,7 +103,7 @@ export class Listener extends SocketClient {
   private onFormCreate(data: OnFormCreateDto) {
     this.logger.info("Form created ▶️");
     this.generator.form({
-      code: data.code,
+      code: data.code[this.config.project?.platform!],
       fileName: data.form.fileName,
     });
   }
@@ -117,7 +111,7 @@ export class Listener extends SocketClient {
   private onSaveElementEnvironment(data: OnSaveElementEnvironmentDto) {
     this.logger.info("Form changes ⬇️");
     this.generator.form({
-      code: data.code,
+      code: data.code[this.config.project?.platform!],
       fileName: data.form.fileName,
     });
   }
@@ -128,7 +122,7 @@ export class Listener extends SocketClient {
     if (data.before.fileName !== data.after.fileName) {
       this.generator.rename(
         `${data.before.fileName}.tsx`,
-        `${data.after.fileName}.tsx`
+        `${data.after.fileName}.tsx`,
       );
     }
   }

@@ -2,7 +2,7 @@ import { FormEntity } from "../../../../types";
 
 export class OnSaveElementEnvironmentDto {
   form: FormEntity;
-  code: string;
+  code: { web: string; mobile: string };
 
   constructor({ code, form }: { form: FormEntity; code: string }) {
     this.code = code;
