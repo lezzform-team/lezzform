@@ -1,5 +1,89 @@
 # @lezzform/react-native
 
+## 0.0.42
+
+### Patch Changes
+
+- try to focus input
+
+## 0.0.41
+
+### Patch Changes
+
+- add view to flatlist
+
+## 0.0.40
+
+### Patch Changes
+
+- change flatlist container style
+
+## 0.0.39
+
+### Patch Changes
+
+- better flatlist container style
+
+## 0.0.38
+
+### Patch Changes
+
+- experimental sticky flatlist header
+
+## 0.0.37
+
+### Patch Changes
+
+- flatlist header input
+
+## 0.0.36
+
+### Patch Changes
+
+- experimental flatlist
+
+## 0.0.35
+
+### Patch Changes
+
+- change scrollview to flatlist
+
+## 0.0.34
+
+### Patch Changes
+
+- add scrollview container style
+
+## 0.0.33
+
+### Patch Changes
+
+- experimental scrollview
+
+## 0.0.32
+
+### Patch Changes
+
+- fix dropdown wont displaying
+
+## 0.0.31
+
+### Patch Changes
+
+- improve dropdown UI experimental
+
+## 0.0.30
+
+### Patch Changes
+
+- remove radix icons
+
+## 0.0.29
+
+### Patch Changes
+
+- add radix icon
+
 ## 0.0.28
 
 ### Patch Changes

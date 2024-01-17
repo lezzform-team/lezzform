@@ -1,11 +1,20 @@
 import * as React from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import lodashGet from 'lodash.get';
 import {rem} from '../../../utils/helper';
 import {spacing} from '../../../themes/spacing';
 import {colors} from '../../../themes/colors';
 import {textSize} from '../../../themes/textSize';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import {Input} from '../../../components/ui/input';
+import {useDebounce} from 'use-debounce';
 
 export interface DropdownProps {
   items?: {label: string; value: string}[];
@@ -30,6 +39,11 @@ const Dropdown = ({
   path,
 }: DropdownProps) => {
   const refBottomSheet = React.useRef<RBSheet | null>(null);
+  const refSearchInput = React.useRef<TextInput | null>(null);
+
+  const [searchValue, setSearchValue] = React.useState<string>('');
+  const [debouncedSearchValue] = useDebounce(searchValue, 200);
+
   const [apiItems, setApiItems] = React.useState<DropdownProps['items'] | null>(
     null,
   );
@@ -46,6 +60,22 @@ const Dropdown = ({
 
     return rawItems;
   }, [apiItems, rawItems]);
+
+  const filteredItems = React.useMemo(
+    () =>
+      items.filter(
+        item =>
+          item.label
+            .trim()
+            .toLowerCase()
+            .includes(debouncedSearchValue.toLowerCase().trim()) ||
+          item.value
+            .trim()
+            .toLowerCase()
+            .includes(debouncedSearchValue.toLowerCase().trim()),
+      ),
+    [items, debouncedSearchValue],
+  );
 
   const fetchApiItems = React.useCallback(async () => {
     if (!url || !path?.label || !path?.value) {
@@ -104,6 +134,13 @@ const Dropdown = ({
     [findValueHandler, value],
   );
 
+  const handleOpen = React.useCallback(() => {
+    refBottomSheet.current?.open();
+    setTimeout(() => {
+      refSearchInput.current?.focus();
+    }, 100);
+  }, []);
+
   React.useEffect(() => {
     fetchApiItems();
   }, [fetchApiItems]);
@@ -113,27 +150,59 @@ const Dropdown = ({
       <Pressable
         style={style.DropdownButton}
         android_ripple={{color: colors.accent}}
-        onPress={() => refBottomSheet.current?.open()}>
+        onPress={handleOpen}>
         <Text style={style.DropdownButtonText}>{displayedItem}</Text>
       </Pressable>
       {/* @ts-ignore */}
-      <RBSheet ref={refBottomSheet} closeOnDragDown={false} height={250}>
-        <View style={style.DropdownContentContainer}>
-          {items.map((item, index) => (
-            <Pressable
-              key={item.value + item.label + index}
-              style={style.DropdownItemButton}
-              android_ripple={{color: colors.accent}}
-              onPress={() => onSelect(item.value)}>
-              <Text style={style.DropdownItemButtonText}>{item.label}</Text>
-            </Pressable>
-          ))}
+      <RBSheet ref={refBottomSheet} closeOnDragDown={false} height={350}>
+        <View style={style.FlatListContainer}>
+          <FlatList
+            data={filteredItems}
+            renderItem={({item}) => (
+              <Item
+                item={item}
+                isActive={item.value === value}
+                onSelect={onSelect}
+              />
+            )}
+            keyExtractor={item => item.value}
+            ListHeaderComponent={
+              <Input
+                ref={refSearchInput}
+                value={searchValue}
+                onChange={setSearchValue}
+                style={style.Input}
+              />
+            }
+            stickyHeaderIndices={[0]}
+          />
         </View>
       </RBSheet>
     </View>
   );
 };
 Dropdown.displayName = 'Dropdown';
+
+const Item = ({
+  item,
+  onSelect,
+  isActive,
+}: {
+  item: {value: string; label: string};
+  onSelect: (value: string) => void;
+  isActive: boolean;
+}) => {
+  return (
+    <Pressable
+      key={item.value + item.label}
+      style={style.DropdownItemButton}
+      android_ripple={{color: colors.accent}}
+      onPress={() => onSelect(item.value)}>
+      <Text style={style.DropdownItemButtonText}>{item.label}</Text>
+      {isActive && <View style={style.DropdownSelected} />}
+    </Pressable>
+  );
+};
 
 const style = StyleSheet.create({
   DropdownButton: {
@@ -152,18 +221,32 @@ const style = StyleSheet.create({
   },
   DropdownContentContainer: {
     padding: rem`1.25`,
-    gap: rem`0.5`,
+    gap: rem`1`,
   },
   DropdownItemButton: {
     borderRadius: spacing.radius - 2,
     height: rem`2.25`,
     paddingHorizontal: rem`0.75`,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   DropdownItemButtonText: {
-    color: colors.mutedForeground,
+    color: colors.foreground,
     fontSize: textSize.sm,
+  },
+  DropdownSelected: {
+    height: rem`0.5`,
+    width: rem`0.5`,
+    borderRadius: rem`0.5`,
+    backgroundColor: colors.primary,
+  },
+  FlatListContainer: {
+    padding: rem`0.5`,
+  },
+  Input: {
+    backgroundColor: colors.background,
+    marginBottom: rem`0.5`,
   },
 });
 
