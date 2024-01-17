@@ -23,4 +23,9 @@ export const colors = {
   border: '#e5e5e5',
   input: '#e5e5e5',
   ring: '#040404',
+
+  red: {
+    100: 'rgb(254 226 226)',
+    500: 'rgb(239 68 68)',
+  },
 };
