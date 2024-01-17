@@ -1,1 +1,1 @@
-export * from "./select-application.validator";
+export * from "./config-initialization.validator";

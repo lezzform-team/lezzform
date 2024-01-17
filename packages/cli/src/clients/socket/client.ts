@@ -22,6 +22,10 @@ export class SocketClient {
       auth: {
         token: `Bearer ${this.config.auth?.accessToken!}`,
       },
+      query: {
+        applicationId: this.config.project?.applicationId,
+        platform: this.config.project?.platform,
+      },
     });
   }
 }

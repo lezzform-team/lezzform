@@ -1,12 +1,12 @@
 import { AuthCommand } from "../auth";
 import { Listener } from "./listener";
 import prompts from "prompts";
-import chalk from "chalk";
 import { DevCommandConfiguration, DevCommandEvents } from "./types";
 import { Command } from "../command";
 import { FileAndDirectoryUtility, Logger, handleError } from "@/utils";
 import { ApplicationClient } from "@/clients/application";
-import { selectApplicationSchema } from "./validators";
+import { configInitializationSchema } from "./validators";
+import { ProjectPlatform } from "@/clients/config/entities";
 
 export class DevCommand extends Command {
   private logger: Logger;
@@ -30,7 +30,7 @@ export class DevCommand extends Command {
       config: this.config,
     });
     this.fileAndDirectoryUtility = new FileAndDirectoryUtility(
-      this.isDebugMode
+      this.isDebugMode,
     );
     this.applicationClient = new ApplicationClient({
       api: this.api,
@@ -63,43 +63,33 @@ export class DevCommand extends Command {
 
   private async _validate(): Promise<DevCommandEvents | null> {
     const projectConfig = this.config.project;
-    if (!projectConfig) return DevCommandEvents.SelectApplication;
+    if (!projectConfig) return DevCommandEvents.ConfigInitialization;
 
     return null;
   }
 
   private async _eventHandler(event: DevCommandEvents) {
-    if (event === DevCommandEvents.SelectApplication)
-      return this._selectApplication();
+    if (event === DevCommandEvents.ConfigInitialization)
+      return this._configInitialization();
   }
 
-  private async _selectApplication(): Promise<boolean> {
+  private async _configInitialization(): Promise<boolean> {
     try {
-      this.logger.info("Loading your applications...");
-      const data = await this.applicationClient.findAll();
-      this.logger.success("Applications loaded!");
+      const selectApplication = await this._selectApplication();
+      const selectPlatform = await this._selectPlatform();
 
-      const questions: prompts.PromptObject<string> = {
-        type: "select",
-        name: "applicationId",
-        message: "Select preferred application 👇",
-        choices: data.map((application) => ({
-          title: application.name,
-          value: application.id,
-        })),
-      };
-      const answers = await selectApplicationSchema.parse(
-        await prompts(questions)
-      );
-      const applicationName = data.find(
-        (application) => application.id === answers.applicationId
+      const questions: prompts.PromptObject<string>[] = [
+        selectApplication,
+        selectPlatform,
+      ];
+      const answers = await configInitializationSchema.parse(
+        await prompts(questions),
       );
 
-      this.logger.general(
-        `👉 Selected application: ${chalk.blueBright(applicationName?.name)}`
-      );
-
-      this.config.setProjectConfig({ applicationId: answers.applicationId });
+      this.config.setProjectConfig({
+        applicationId: answers.applicationId,
+        platform: answers.platform,
+      });
 
       return true;
     } catch (error) {
@@ -107,5 +97,45 @@ export class DevCommand extends Command {
 
       return false;
     }
+  }
+
+  private async _selectApplication(): Promise<prompts.PromptObject<string>> {
+    this.logger.info("Loading your applications...");
+    const data = await this.applicationClient.findAll();
+    this.logger.success("Applications loaded!");
+
+    const question: prompts.PromptObject<string> = {
+      type: "select",
+      name: "applicationId",
+      message: "Select preferred application 👇",
+      choices: data.map((application) => ({
+        title: application.name,
+        value: application.id,
+      })),
+    };
+
+    return question;
+  }
+
+  private async _selectPlatform(): Promise<prompts.PromptObject<string>> {
+    const question: prompts.PromptObject<string> = {
+      type: "select",
+      name: "platform",
+      message: "Select your platform 👇",
+      choices: [
+        {
+          title: "Web 🖥️",
+          value: ProjectPlatform.Web,
+          description: "Project used in web browser using React or NextJS",
+        },
+        {
+          title: "Mobile 📱",
+          value: ProjectPlatform.Mobile,
+          description: "Project used in mobile platform using React Native",
+        },
+      ],
+    };
+
+    return question;
   }
 }
