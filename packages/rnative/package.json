@@ -1,6 +1,6 @@
 {
   "name": "@lezzform/react-native",
-  "version": "0.0.28",
+  "version": "0.0.42",
   "private": false,
   "scripts": {
     "android": "react-native run-android",
@@ -20,7 +20,8 @@
     "react-native": "0.73.2",
     "react-native-modal-datetime-picker": "^17.1.0",
     "react-native-raw-bottom-sheet": "^2.2.0",
-    "url-parse": "^1.5.10"
+    "url-parse": "^1.5.10",
+    "use-debounce": "^10.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -47,10 +48,10 @@
     "node": ">=18"
   },
   "peerDependencies": {
-    "react-native-document-picker": "^9.1.0",
-    "react-native-raw-bottom-sheet": "^2.2.0",
     "@react-native-community/datetimepicker": "^7.6.2",
-    "react-native-modal-datetime-picker": "^17.1.0"
+    "react-native-document-picker": "^9.1.0",
+    "react-native-modal-datetime-picker": "^17.1.0",
+    "react-native-raw-bottom-sheet": "^2.2.0"
   },
   "main": "lib/commonjs/index.js",
   "react-native": "src/index.ts",
