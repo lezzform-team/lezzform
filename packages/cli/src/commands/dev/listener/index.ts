@@ -93,7 +93,7 @@ export class Listener extends SocketClient {
       data.forms.map(async (item) => {
         return await this.generator.form({
           fileName: item.form.fileName,
-          code: item.code,
+          code: item.code[this.config.project?.platform!],
         });
       }),
     );
@@ -103,7 +103,7 @@ export class Listener extends SocketClient {
   private onFormCreate(data: OnFormCreateDto) {
     this.logger.info("Form created ▶️");
     this.generator.form({
-      code: data.code,
+      code: data.code[this.config.project?.platform!],
       fileName: data.form.fileName,
     });
   }
@@ -111,7 +111,7 @@ export class Listener extends SocketClient {
   private onSaveElementEnvironment(data: OnSaveElementEnvironmentDto) {
     this.logger.info("Form changes ⬇️");
     this.generator.form({
-      code: data.code,
+      code: data.code[this.config.project?.platform!],
       fileName: data.form.fileName,
     });
   }

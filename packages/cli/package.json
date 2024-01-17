@@ -1,6 +1,6 @@
 {
   "name": "@lezzform/cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "bin/index.js",
   "license": "MIT",
   "type": "module",
@@ -36,7 +36,7 @@
     "chalk": "4",
     "cli-spinners": "^2.9.2",
     "commander": "^11.1.0",
-    "prettier": "^3.1.0",
+    "prettier": "^3.2.3",
     "prompts": "^2.4.2",
     "socket.io-client": "^4.7.2",
     "zod": "^3.22.4"
