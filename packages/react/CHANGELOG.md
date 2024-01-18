@@ -1,5 +1,11 @@
 # @lezzform/react
 
+## 0.2.3
+
+### Patch Changes
+
+- repeaterGroup init item
+
 ## 0.2.2
 
 ### Patch Changes
