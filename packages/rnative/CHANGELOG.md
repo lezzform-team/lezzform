@@ -1,5 +1,23 @@
 # @lezzform/react-native
 
+## 0.0.48
+
+### Patch Changes
+
+- improve dropdown icon button
+
+## 0.0.47
+
+### Patch Changes
+
+- add dropdown icon color
+
+## 0.0.46
+
+### Patch Changes
+
+- add dropdown icon
+
 ## 0.0.45
 
 ### Patch Changes

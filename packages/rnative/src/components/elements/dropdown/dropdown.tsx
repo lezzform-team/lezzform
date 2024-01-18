@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
   FlatList,
   Pressable,
+  PressableProps,
   StyleSheet,
   Text,
   TextInput,
@@ -15,6 +16,7 @@ import {textSize} from '../../../themes/textSize';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {Input} from '../../../components/ui/input';
 import {useDebounce} from 'use-debounce';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export interface DropdownProps {
   items?: {label: string; value: string}[];
@@ -134,6 +136,19 @@ const Dropdown = ({
     [findValueHandler, value],
   );
 
+  const customStyle: PressableProps['style'] = React.useMemo(() => {
+    let additionalStyle: PressableProps['style'] = {};
+
+    if (!displayedItem) {
+      additionalStyle = {...additionalStyle, justifyContent: 'flex-end'};
+    }
+
+    return {
+      ...style.DropdownButton,
+      ...additionalStyle,
+    };
+  }, [displayedItem]);
+
   const handleOpen = React.useCallback(() => {
     refBottomSheet.current?.open();
     setTimeout(() => {
@@ -148,10 +163,15 @@ const Dropdown = ({
   return (
     <View>
       <Pressable
-        style={style.DropdownButton}
+        style={customStyle}
         android_ripple={{color: colors.accent}}
         onPress={handleOpen}>
         <Text style={style.DropdownButtonText}>{displayedItem}</Text>
+        <Icon
+          size={textSize.sm}
+          name="unfold-more"
+          color={colors.mutedForeground}
+        />
       </Pressable>
       {/* @ts-ignore */}
       <RBSheet ref={refBottomSheet} closeOnDragDown={false} height={350}>
@@ -214,6 +234,9 @@ const style = StyleSheet.create({
     paddingHorizontal: rem`1`,
     paddingVertical: rem`0.5`,
     width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   DropdownButtonText: {
     fontSize: textSize.sm,
@@ -247,6 +270,9 @@ const style = StyleSheet.create({
   Input: {
     backgroundColor: colors.background,
     marginBottom: rem`0.5`,
+  },
+  DropdownIcon: {
+    marginLeft: rem`0.5`,
   },
 });
 
