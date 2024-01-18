@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {colors} from '../../themes/colors';
@@ -8,6 +8,7 @@ import {rem} from '../../utils/helper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {useDisclose} from '../../hooks/useDisclose';
 import {format as dateFnsFormat} from 'date-fns';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export interface DatePickerProps {
   placeholder?: string;
@@ -34,15 +35,31 @@ const DatePicker = ({
     onClose();
   };
 
+  const display = useMemo(() => {
+    if (value) {
+      try {
+        return dateFnsFormat(value, format ?? 'PPP');
+      } catch (error) {
+        return dateFnsFormat(value, 'PPP');
+      }
+    } else {
+      return placeholder ?? '';
+    }
+  }, [value, format, placeholder]);
+
   return (
     <View>
       <Pressable
         style={style.DropdownButton}
         android_ripple={{color: colors.accent}}
         onPress={onOpen}>
-        <Text style={style.DropdownButtonText}>
-          {value ? dateFnsFormat(value, format ?? 'PPP') : placeholder ?? ''}
-        </Text>
+        <Icon
+          name="calendar-month"
+          size={textSize.sm}
+          color={colors.foreground}
+          style={style.CalendarIcon}
+        />
+        <Text style={style.DropdownButtonText}>{display}</Text>
       </Pressable>
       <DateTimePickerModal
         isVisible={isOpen}
@@ -65,10 +82,15 @@ const style = StyleSheet.create({
     paddingHorizontal: rem`1`,
     paddingVertical: rem`0.5`,
     width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   DropdownButtonText: {
     fontSize: textSize.sm,
     color: colors.foreground,
+  },
+  CalendarIcon: {
+    marginRight: rem`0.5`,
   },
 });
 
