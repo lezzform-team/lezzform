@@ -1,5 +1,29 @@
 # @lezzform/react-native
 
+## 0.0.54
+
+### Patch Changes
+
+- fix repeater group delete issue
+
+## 0.0.53
+
+### Patch Changes
+
+- hide delete button
+
+## 0.0.52
+
+### Patch Changes
+
+- hide delete button when 1 item
+
+## 0.0.51
+
+### Patch Changes
+
+- init repeaterGroup item
+
 ## 0.0.50
 
 ### Patch Changes
