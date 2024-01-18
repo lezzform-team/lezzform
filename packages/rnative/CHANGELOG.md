@@ -1,5 +1,11 @@
 # @lezzform/react-native
 
+## 0.0.56
+
+### Patch Changes
+
+- add placeholder to elements
+
 ## 0.0.55
 
 ### Patch Changes

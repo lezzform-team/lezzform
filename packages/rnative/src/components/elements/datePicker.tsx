@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, TextStyle, View} from 'react-native';
 import {colors} from '../../themes/colors';
 import {spacing} from '../../themes/spacing';
 import {textSize} from '../../themes/textSize';
@@ -47,6 +47,16 @@ const DatePicker = ({
     }
   }, [value, format, placeholder]);
 
+  const customTextStyle = useMemo<TextStyle>(() => {
+    let additionalStyle: TextStyle = {};
+
+    if (display === placeholder) {
+      additionalStyle = {...additionalStyle, color: colors.mutedForeground};
+    }
+
+    return {...style.DropdownButtonText, ...additionalStyle};
+  }, [display, placeholder]);
+
   return (
     <View>
       <Pressable
@@ -59,7 +69,7 @@ const DatePicker = ({
           color={colors.foreground}
           style={style.CalendarIcon}
         />
-        <Text style={style.DropdownButtonText}>{display}</Text>
+        <Text style={customTextStyle}>{display}</Text>
       </Pressable>
       <DateTimePickerModal
         isVisible={isOpen}

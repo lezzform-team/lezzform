@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TextStyle,
   View,
 } from 'react-native';
 import lodashGet from 'lodash.get';
@@ -149,6 +150,16 @@ const Dropdown = ({
     };
   }, [displayedItem]);
 
+  const customTextStyle: TextStyle = React.useMemo(() => {
+    let additionalStyle: TextStyle = {};
+
+    if (displayedItem === placeholder) {
+      additionalStyle = {...additionalStyle, color: colors.mutedForeground};
+    }
+
+    return {...style.DropdownButtonText, ...additionalStyle};
+  }, [displayedItem, placeholder]);
+
   const handleOpen = React.useCallback(() => {
     refBottomSheet.current?.open();
     setTimeout(() => {
@@ -166,7 +177,7 @@ const Dropdown = ({
         style={customStyle}
         android_ripple={{color: colors.accent}}
         onPress={handleOpen}>
-        <Text style={style.DropdownButtonText}>{displayedItem}</Text>
+        <Text style={customTextStyle}>{displayedItem}</Text>
         <Icon
           size={textSize.sm}
           name="unfold-more"

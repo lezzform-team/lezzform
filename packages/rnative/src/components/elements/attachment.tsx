@@ -62,14 +62,6 @@ const Attachment = ({
   const onChangeRef = useRef<AttachmentProps['onChange']>();
   const headersRef = useRef<AttachmentProps['headers']>([]);
 
-  //   const {getInputProps, getRootProps, acceptedFiles, fileRejections} =
-  //     useDropzone({
-  //       accept,
-  //       maxFiles: 1,
-  //       maxSize: maxSize * 1024,
-  //       disabled,
-  //     });
-
   const handleUpload = useCallback(async () => {
     try {
       setIsUploading(true);
@@ -180,7 +172,7 @@ const Attachment = ({
     <Pressable style={customStyle} onPress={handleUpload}>
       {isShowEmpty && (
         <Text style={{fontSize: textSize.sm, color: colors.mutedForeground}}>
-          {placeholder ?? 'Upload your file here'}
+          {!placeholder ? 'Upload your file here' : placeholder}
         </Text>
       )}
       {isUploading && (

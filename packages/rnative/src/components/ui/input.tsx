@@ -72,6 +72,7 @@ const Input = React.forwardRef<TextInput, InputProps>(
         {...props}
         onChangeText={handleChangeText}
         style={style.Input}
+        placeholderTextColor={colors.mutedForeground}
       />
     );
   },
