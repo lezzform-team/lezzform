@@ -1,5 +1,11 @@
 # @lezzform/react
 
+## 0.2.2
+
+### Patch Changes
+
+- fix repeaterGroup item issue delete issue
+
 ## 0.2.1
 
 ### Patch Changes
