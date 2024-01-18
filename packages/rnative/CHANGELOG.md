@@ -1,5 +1,11 @@
 # @lezzform/react-native
 
+## 0.0.55
+
+### Patch Changes
+
+- fix repeaterGroup item issue delete issue
+
 ## 0.0.54
 
 ### Patch Changes
