@@ -1,5 +1,12 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {Pressable, PressableProps, StyleSheet, Text, View} from 'react-native';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {
+  Pressable,
+  PressableProps,
+  StyleSheet,
+  Text,
+  TextStyle,
+  View,
+} from 'react-native';
 import {rem, splitUrlAndFilename} from '../../utils/helper';
 import {colors} from '../../themes/colors';
 import {spacing} from '../../themes/spacing';
@@ -24,25 +31,6 @@ interface AttachmentProps {
   disabled?: boolean;
   readonly?: boolean;
 }
-
-const style = StyleSheet.create({
-  Attachment: {
-    padding: rem`1`,
-    borderWidth: 1,
-    borderStyle: 'dashed',
-    borderColor: colors.border,
-    borderRadius: spacing.radius - 2,
-    width: '100%',
-  },
-  ShowValue: {
-    gap: rem`0.5`,
-    alignItems: 'center',
-  },
-  ShowValueText: {
-    fontSize: textSize.sm,
-    color: colors.mutedForeground,
-  },
-});
 
 const Attachment = ({
   acceptedFormats,
@@ -139,10 +127,28 @@ const Attachment = ({
   const isShowEmpty = !value && !isUploading;
   const isShowValue = value && !isUploading;
 
-  const customStyle: PressableProps['style'] = {
-    ...style.Attachment,
-    backgroundColor: disabled ? colors.border : undefined,
-  };
+  const customStyle = useMemo<PressableProps['style']>(() => {
+    let additionalStyle: PressableProps['style'] = {};
+
+    if (disabled) {
+      additionalStyle = {...additionalStyle, backgroundColor: colors.muted};
+    }
+
+    return {
+      ...style.Attachment,
+      ...additionalStyle,
+    };
+  }, [disabled]);
+
+  const customTextStyle = useMemo<TextStyle>(() => {
+    let additionalStyle: TextStyle = {};
+
+    if (disabled) {
+      additionalStyle = {...additionalStyle, color: colors.mutedForeground};
+    }
+
+    return {...style.Text, ...additionalStyle};
+  }, [disabled]);
 
   useEffect(() => {
     if (!onError) {
@@ -169,20 +175,16 @@ const Attachment = ({
   }, [headers, headersRef]);
 
   return (
-    <Pressable style={customStyle} onPress={handleUpload}>
+    <Pressable disabled={disabled} style={customStyle} onPress={handleUpload}>
       {isShowEmpty && (
-        <Text style={{fontSize: textSize.sm, color: colors.mutedForeground}}>
+        <Text style={customTextStyle}>
           {!placeholder ? 'Upload your file here' : placeholder}
         </Text>
       )}
-      {isUploading && (
-        <Text style={{fontSize: textSize.sm, color: colors.mutedForeground}}>
-          Uploading...
-        </Text>
-      )}
+      {isUploading && <Text style={customTextStyle}>Uploading...</Text>}
       {isShowValue && (
         <View style={style.ShowValue}>
-          <Text style={style.ShowValueText}>
+          <Text style={customTextStyle}>
             {splitUrlAndFilename(value).filename}
           </Text>
         </View>
@@ -191,5 +193,24 @@ const Attachment = ({
   );
 };
 Attachment.displayName = 'Attachment';
+
+const style = StyleSheet.create({
+  Attachment: {
+    padding: rem`1`,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderColor: colors.border,
+    borderRadius: spacing.radius - 2,
+    width: '100%',
+  },
+  ShowValue: {
+    gap: rem`0.5`,
+    alignItems: 'center',
+  },
+  Text: {
+    fontSize: textSize.sm,
+    color: colors.mutedForeground,
+  },
+});
 
 export {Attachment};

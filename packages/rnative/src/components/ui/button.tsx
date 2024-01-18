@@ -14,6 +14,7 @@ import {rem} from '../../utils/helper';
 export interface ButtonProps extends PressableProps {
   variant?: Variant;
   size?: Size;
+  disabled?: boolean;
 }
 
 const defaultStyle = StyleSheet.create({
@@ -113,15 +114,29 @@ const defaultVariants: {
   variant: 'default',
 };
 
-const Button = ({children, style, variant, size, ...props}: ButtonProps) => {
+const Button = ({
+  children,
+  style,
+  variant,
+  size,
+  disabled,
+  ...props
+}: ButtonProps) => {
   const buttonVariants = React.useMemo<PressableProps['style']>(() => {
+    let additionalStyle: PressableProps['style'] = {};
+
+    if (disabled) {
+      additionalStyle = {...additionalStyle, opacity: 0.5};
+    }
+
     return {
       ...defaultStyle.Button,
       ...variants.variant[variant ?? defaultVariants.variant],
       ...variants.size[size ?? defaultVariants.size],
+      ...additionalStyle,
       ...(style as object),
     };
-  }, [size, style, variant]);
+  }, [size, style, variant, disabled]);
 
   const textVariatns = React.useMemo<TextStyle>(() => {
     return {
@@ -132,7 +147,7 @@ const Button = ({children, style, variant, size, ...props}: ButtonProps) => {
   }, [size, variant]);
 
   return (
-    <Pressable style={buttonVariants} {...props}>
+    <Pressable disabled={disabled} style={buttonVariants} {...props}>
       {typeof children === 'string' && (
         <Text style={textVariatns}>{children}</Text>
       )}

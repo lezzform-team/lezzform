@@ -1,5 +1,23 @@
 # @lezzform/react-native
 
+## 0.0.59
+
+### Patch Changes
+
+- add button disabled UI
+
+## 0.0.58
+
+### Patch Changes
+
+- disabling attachment handler
+
+## 0.0.57
+
+### Patch Changes
+
+- add disabled state
+
 ## 0.0.56
 
 ### Patch Changes

@@ -40,6 +40,7 @@ const Dropdown = ({
   onChange,
   url,
   path,
+  disabled,
 }: DropdownProps) => {
   const refBottomSheet = React.useRef<RBSheet | null>(null);
   const refSearchInput = React.useRef<TextInput | null>(null);
@@ -144,11 +145,15 @@ const Dropdown = ({
       additionalStyle = {...additionalStyle, justifyContent: 'flex-end'};
     }
 
+    if (disabled) {
+      additionalStyle = {...additionalStyle, backgroundColor: colors.muted};
+    }
+
     return {
       ...style.DropdownButton,
       ...additionalStyle,
     };
-  }, [displayedItem]);
+  }, [disabled, displayedItem]);
 
   const customTextStyle: TextStyle = React.useMemo(() => {
     let additionalStyle: TextStyle = {};
@@ -157,8 +162,16 @@ const Dropdown = ({
       additionalStyle = {...additionalStyle, color: colors.mutedForeground};
     }
 
+    if (disabled) {
+      additionalStyle = {
+        ...additionalStyle,
+        color: colors.mutedForeground,
+        backgroundColor: colors.muted,
+      };
+    }
+
     return {...style.DropdownButtonText, ...additionalStyle};
-  }, [displayedItem, placeholder]);
+  }, [displayedItem, placeholder, disabled]);
 
   const handleOpen = React.useCallback(() => {
     refBottomSheet.current?.open();
@@ -174,6 +187,7 @@ const Dropdown = ({
   return (
     <View>
       <Pressable
+        disabled={disabled}
         style={customStyle}
         android_ripple={{color: colors.accent}}
         onPress={handleOpen}>
