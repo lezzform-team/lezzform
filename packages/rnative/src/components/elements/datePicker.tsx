@@ -1,6 +1,13 @@
 import React, {useMemo} from 'react';
 
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  Pressable,
+  PressableProps,
+  StyleSheet,
+  Text,
+  TextStyle,
+  View,
+} from 'react-native';
 import {colors} from '../../themes/colors';
 import {spacing} from '../../themes/spacing';
 import {textSize} from '../../themes/textSize';
@@ -27,6 +34,7 @@ const DatePicker = ({
   format,
   value,
   onChange,
+  disabled,
 }: DatePickerProps) => {
   const {onOpen, isOpen, onClose} = useDisclose();
 
@@ -47,19 +55,44 @@ const DatePicker = ({
     }
   }, [value, format, placeholder]);
 
+  const customStyle = useMemo<PressableProps['style']>(() => {
+    let additionalStyle: PressableProps['style'] = {};
+
+    if (disabled) {
+      additionalStyle = {...additionalStyle, backgroundColor: colors.muted};
+    }
+
+    return {...style.DropdownButton, ...additionalStyle};
+  }, [disabled]);
+
+  const customTextStyle = useMemo<TextStyle>(() => {
+    let additionalStyle: TextStyle = {};
+
+    if (display === placeholder) {
+      additionalStyle = {...additionalStyle, color: colors.mutedForeground};
+    }
+
+    if (disabled) {
+      additionalStyle = {...additionalStyle, color: colors.mutedForeground};
+    }
+
+    return {...style.DropdownButtonText, ...additionalStyle};
+  }, [display, placeholder, disabled]);
+
   return (
     <View>
       <Pressable
-        style={style.DropdownButton}
+        style={customStyle}
         android_ripple={{color: colors.accent}}
-        onPress={onOpen}>
+        onPress={onOpen}
+        disabled={disabled}>
         <Icon
           name="calendar-month"
           size={textSize.sm}
           color={colors.foreground}
           style={style.CalendarIcon}
         />
-        <Text style={style.DropdownButtonText}>{display}</Text>
+        <Text style={customTextStyle}>{display}</Text>
       </Pressable>
       <DateTimePickerModal
         isVisible={isOpen}

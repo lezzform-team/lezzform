@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TextStyle,
   View,
 } from 'react-native';
 import lodashGet from 'lodash.get';
@@ -39,6 +40,7 @@ const Dropdown = ({
   onChange,
   url,
   path,
+  disabled,
 }: DropdownProps) => {
   const refBottomSheet = React.useRef<RBSheet | null>(null);
   const refSearchInput = React.useRef<TextInput | null>(null);
@@ -143,11 +145,33 @@ const Dropdown = ({
       additionalStyle = {...additionalStyle, justifyContent: 'flex-end'};
     }
 
+    if (disabled) {
+      additionalStyle = {...additionalStyle, backgroundColor: colors.muted};
+    }
+
     return {
       ...style.DropdownButton,
       ...additionalStyle,
     };
-  }, [displayedItem]);
+  }, [disabled, displayedItem]);
+
+  const customTextStyle: TextStyle = React.useMemo(() => {
+    let additionalStyle: TextStyle = {};
+
+    if (displayedItem === placeholder) {
+      additionalStyle = {...additionalStyle, color: colors.mutedForeground};
+    }
+
+    if (disabled) {
+      additionalStyle = {
+        ...additionalStyle,
+        color: colors.mutedForeground,
+        backgroundColor: colors.muted,
+      };
+    }
+
+    return {...style.DropdownButtonText, ...additionalStyle};
+  }, [displayedItem, placeholder, disabled]);
 
   const handleOpen = React.useCallback(() => {
     refBottomSheet.current?.open();
@@ -163,10 +187,11 @@ const Dropdown = ({
   return (
     <View>
       <Pressable
+        disabled={disabled}
         style={customStyle}
         android_ripple={{color: colors.accent}}
         onPress={handleOpen}>
-        <Text style={style.DropdownButtonText}>{displayedItem}</Text>
+        <Text style={customTextStyle}>{displayedItem}</Text>
         <Icon
           size={textSize.sm}
           name="unfold-more"
