@@ -1,11 +1,12 @@
 import React from 'react';
 import {RepeaterGroupWrapper, RepeaterGroupWrapperProps} from './wrapper';
 import {FieldValues} from 'react-hook-form';
-import {Pressable, StyleSheet, Text, View, ViewProps} from 'react-native';
+import {Pressable, StyleSheet, View, ViewProps} from 'react-native';
 import {colors} from '../../../themes/colors';
 import {spacing} from '../../../themes/spacing';
 import {textSize} from '../../../themes/textSize';
 import {rem} from '../../../utils/helper';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface RepeaterGroupProps extends ViewProps {
   onDelete?: () => unknown;
@@ -17,7 +18,11 @@ const RepeaterGroup = ({children, onDelete, ...props}: RepeaterGroupProps) => {
     <View style={style.RepeaterGroup} {...props}>
       {children}
       <Pressable style={style.DeleteButton} onPress={onDelete}>
-        <Text style={style.DeleteButtonText}>Delete</Text>
+        <Icon
+          name="delete-outline"
+          size={textSize.sm}
+          color={colors.destructive}
+        />
       </Pressable>
     </View>
   );
@@ -40,10 +45,6 @@ const style = StyleSheet.create({
     borderRadius: 4,
     top: rem`0.25`,
     right: rem`0.25`,
-  },
-  DeleteButtonText: {
-    color: colors.red['500'],
-    fontSize: textSize.xs,
   },
 });
 

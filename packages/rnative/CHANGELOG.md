@@ -1,5 +1,17 @@
 # @lezzform/react-native
 
+## 0.0.50
+
+### Patch Changes
+
+- change trash icon
+
+## 0.0.49
+
+### Patch Changes
+
+- add delete icon to repeaterGroup
+
 ## 0.0.48
 
 ### Patch Changes
