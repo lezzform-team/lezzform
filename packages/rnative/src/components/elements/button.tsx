@@ -1,12 +1,12 @@
 import React from 'react';
-import {Button as RNButton, ButtonProps as RNButtonProps} from 'react-native';
+import {Button as UIButton, ButtonProps as UIButtonProps} from '../ui/button';
 
-export interface ButtonProps extends RNButtonProps {
+export interface ButtonProps extends UIButtonProps {
   isLoading?: boolean;
 }
 
-const Button = ({isLoading, ...props}: ButtonProps) => {
-  return <RNButton {...props} title={isLoading ? 'Loading...' : props.title} />;
+const Button = ({isLoading, children, ...props}: ButtonProps) => {
+  return <UIButton {...props}>{isLoading ? 'Loading...' : children}</UIButton>;
 };
 Button.displayName = 'Button';
 
