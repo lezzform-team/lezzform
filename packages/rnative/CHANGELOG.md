@@ -1,5 +1,83 @@
 # @lezzform/react-native
 
+## 0.0.55
+
+### Patch Changes
+
+- fix repeaterGroup item issue delete issue
+
+## 0.0.54
+
+### Patch Changes
+
+- fix repeater group delete issue
+
+## 0.0.53
+
+### Patch Changes
+
+- hide delete button
+
+## 0.0.52
+
+### Patch Changes
+
+- hide delete button when 1 item
+
+## 0.0.51
+
+### Patch Changes
+
+- init repeaterGroup item
+
+## 0.0.50
+
+### Patch Changes
+
+- change trash icon
+
+## 0.0.49
+
+### Patch Changes
+
+- add delete icon to repeaterGroup
+
+## 0.0.48
+
+### Patch Changes
+
+- improve dropdown icon button
+
+## 0.0.47
+
+### Patch Changes
+
+- add dropdown icon color
+
+## 0.0.46
+
+### Patch Changes
+
+- add dropdown icon
+
+## 0.0.45
+
+### Patch Changes
+
+- add react-native-vector-icons
+
+## 0.0.44
+
+### Patch Changes
+
+- fix import and button props
+
+## 0.0.43
+
+### Patch Changes
+
+- add customizable button
+
 ## 0.0.42
 
 ### Patch Changes

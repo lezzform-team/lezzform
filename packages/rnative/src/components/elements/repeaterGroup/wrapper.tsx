@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import React, {ReactNode, useEffect} from 'react';
 import {
   ArrayPath,
   FieldArray,
@@ -31,6 +31,14 @@ function RepeaterGroupWrapperComponent<T extends FieldValues>({
     control,
     keyName: '_key',
   });
+
+  useEffect(() => {
+    if (field.fields.length) {
+      return;
+    }
+
+    field.insert(0, {} as FieldArray<T, ArrayPath<T>>);
+  }, [field]);
 
   return (
     <View style={style.Wrapper}>

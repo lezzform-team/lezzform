@@ -1,21 +1,24 @@
 import { cn } from "@/lib/utils";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 import { RepeaterGroupWrapper, RepeaterGroupWrapperProps } from "./wrapper";
-import { FieldValues } from "react-hook-form";
+import { ArrayPath, FieldValues, UseFieldArrayReturn } from "react-hook-form";
+import { Trash } from "lucide-react";
 
-interface RepeaterGroupProps
+interface RepeaterGroupProps<T extends FieldValues>
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   onDelete?: () => unknown;
   readonly?: boolean;
+  fields: UseFieldArrayReturn<T, ArrayPath<T>, "_key">["fields"];
 }
 
-export function RepeaterGroup({
+export function RepeaterGroup<T extends FieldValues>({
   children,
   className,
   onDelete,
   readonly,
+  fields,
   ...props
-}: RepeaterGroupProps) {
+}: RepeaterGroupProps<T>) {
   return (
     <div
       className={cn(
@@ -25,13 +28,13 @@ export function RepeaterGroup({
       {...props}
     >
       {children}
-      {!readonly && (
+      {!readonly && fields.length > 1 && (
         <button
           type="button"
           onClick={onDelete}
           className="px-2 py-1 text-xs rounded-sm bg-red-100 text-red-500 absolute top-1 right-1"
         >
-          Delete
+          <Trash className="text-xs" size={14} />
         </button>
       )}
     </div>
