@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ReactNode, useEffect } from "react";
+import { useOnMountUnsafe } from "@/lib/use-on-mount-unsafe";
+import { ReactNode } from "react";
 import {
   ArrayPath,
   FieldArray,
@@ -28,13 +29,13 @@ function RepeaterGroupWrapperComponent<T extends FieldValues>({
     keyName: "_key",
   });
 
-  useEffect(() => {
+  useOnMountUnsafe(() => {
     if (field.fields.length) {
       return;
     }
 
     field.insert(0, {} as FieldArray<T, ArrayPath<T>>);
-  }, [field]);
+  });
 
   return (
     <div className="w-full flex flex-col gap-2 border border-lfui-border rounded-md border-dashed p-2">
