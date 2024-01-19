@@ -20,7 +20,7 @@ export class FileAndDirectoryUtility {
       fileName: string;
     },
     content: string,
-    recursive = true
+    recursive = true,
   ): Promise<boolean> {
     try {
       const filePath = path.join(directory ?? "", fileName);
@@ -30,7 +30,8 @@ export class FileAndDirectoryUtility {
       }
 
       await fsPromises.writeFile(filePath, content);
-      this.logger.system(`File created/updated successfully: ${filePath}`);
+      if (this.isDebugMode)
+        this.logger.system(`File created/updated successfully: ${filePath}`);
 
       return true;
     } catch (err) {
@@ -50,7 +51,8 @@ export class FileAndDirectoryUtility {
     try {
       const filePath = path.join(directory ?? "", fileName);
       await fsPromises.unlink(filePath);
-      this.logger.system(`File deleted successfully: ${filePath}`);
+      if (this.isDebugMode)
+        this.logger.system(`File deleted successfully: ${filePath}`);
 
       return true;
     } catch (err) {
@@ -62,12 +64,13 @@ export class FileAndDirectoryUtility {
 
   async update(
     { directory, fileName }: { directory?: string; fileName: string },
-    content: string
+    content: string,
   ): Promise<boolean> {
     try {
       const filePath = path.join(directory ?? "", fileName);
       await fsPromises.writeFile(filePath, content);
-      this.logger.system(`File content updated successfully: ${filePath}`);
+      if (this.isDebugMode)
+        this.logger.system(`File content updated successfully: ${filePath}`);
 
       return true;
     } catch (err) {
@@ -88,9 +91,10 @@ export class FileAndDirectoryUtility {
 
     try {
       await fsPromises.rename(sourceFilePath, destinationFilePath);
-      this.logger.system(
-        `File renamed successfully: ${files.fileNameBefore} -> ${files.fileNameAfter} at ${directory}`
-      );
+      if (this.isDebugMode)
+        this.logger.system(
+          `File renamed successfully: ${files.fileNameBefore} -> ${files.fileNameAfter} at ${directory}`,
+        );
 
       return true;
     } catch (err) {

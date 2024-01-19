@@ -5,6 +5,7 @@ import * as prettier from "prettier";
 import { FormGenerateDto } from "./dto";
 import { FileAndDirectoryUtility } from "@/utils";
 import { GeneratorConfiguration } from "./types";
+import { build } from "@/bundler";
 
 export class Generator {
   private isDebugMode?: boolean = false;
@@ -30,29 +31,49 @@ export class Generator {
     const fileName = `${dto.fileName}.tsx`;
     const formatted = await prettier.format(dto.code, { parser: "babel-ts" });
 
-    return this.fileAndDirectoryUtility.create(
+    const create = await this.fileAndDirectoryUtility.create(
       {
         directory: this.generatedDirectory,
         fileName,
       },
       formatted,
     );
-  }
 
-  async delete(fileName: string): Promise<boolean> {
-    return this.fileAndDirectoryUtility.delete({
+    await build({
+      fileName: dto.fileName,
       directory: this.generatedDirectory,
-      fileName: `${fileName}.tsx`,
     });
+
+    await this.fileAndDirectoryUtility.delete({
+      directory: this.generatedDirectory,
+      fileName,
+    });
+
+    return create;
   }
 
   async rename(
     fileNameBefore: string,
     fileNameAfter: string,
   ): Promise<boolean> {
-    return this.fileAndDirectoryUtility.rename({
+    const jsRename = this.fileAndDirectoryUtility.rename({
       directory: this.generatedDirectory,
-      files: { fileNameAfter, fileNameBefore },
+      files: {
+        fileNameAfter: `${fileNameAfter}.js`,
+        fileNameBefore: `${fileNameBefore}.js`,
+      },
     });
+
+    const dTsRename = this.fileAndDirectoryUtility.rename({
+      directory: this.generatedDirectory,
+      files: {
+        fileNameAfter: `${fileNameAfter}.d.ts`,
+        fileNameBefore: `${fileNameBefore}.d.ts`,
+      },
+    });
+
+    const promiseAll = await Promise.all(await [jsRename, dTsRename]);
+
+    return !promiseAll.includes(false);
   }
 }

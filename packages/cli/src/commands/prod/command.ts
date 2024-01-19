@@ -64,7 +64,7 @@ export class ProdCommand extends Command {
         (data: OnApplicationInitial) => {
           this._onApplicationInitial(data);
           this.socketClient.socket.disconnect();
-        }
+        },
       );
     } catch (error) {
       handleError(error);
@@ -87,15 +87,20 @@ export class ProdCommand extends Command {
 
   private async _onApplicationInitial(data: OnApplicationInitial) {
     this.logger.info(
-      "Generating component from latest data in Production env..."
+      "Generating component from latest data in Production env...",
     );
     await Promise.all(
       data.forms.map(async (item) => {
+        if (!item.code)
+          return this.logger.warn(
+            `"${item.form.name}" doesn't have production data`,
+          );
+
         return this.generator.form({
           fileName: item.form.fileName,
-          code: item.code,
+          code: item.code[this.config.project?.platform!],
         });
-      })
+      }),
     );
     this.logger.success("Generated successfully!");
   }

@@ -120,10 +120,7 @@ export class Listener extends SocketClient {
     this.logger.info("Form updated");
 
     if (data.before.fileName !== data.after.fileName) {
-      this.generator.rename(
-        `${data.before.fileName}.tsx`,
-        `${data.after.fileName}.tsx`,
-      );
+      this.generator.rename(data.before.fileName, data.after.fileName);
     }
   }
 

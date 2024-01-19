@@ -1,5 +1,29 @@
 # @lezzform/cli
 
+## 0.2.4
+
+### Patch Changes
+
+- remove wrong deps
+
+## 0.2.3
+
+### Patch Changes
+
+- remove unused deps
+
+## 0.2.2
+
+### Patch Changes
+
+- compile and generating types support for rename
+
+## 0.2.1
+
+### Patch Changes
+
+- compile tsx file into js and it's definition
+
 ## 0.2.0
 
 ### Minor Changes
