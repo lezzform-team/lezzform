@@ -1,5 +1,11 @@
 # @lezzform/cli
 
+## 0.2.4
+
+### Patch Changes
+
+- remove wrong deps
+
 ## 0.2.3
 
 ### Patch Changes
