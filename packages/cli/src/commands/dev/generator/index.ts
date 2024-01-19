@@ -5,6 +5,7 @@ import * as prettier from "prettier";
 import { FormGenerateDto } from "./dto";
 import { FileAndDirectoryUtility } from "@/utils";
 import { GeneratorConfiguration } from "./types";
+import { build } from "@/bundler";
 
 export class Generator {
   private isDebugMode?: boolean = false;
@@ -30,13 +31,25 @@ export class Generator {
     const fileName = `${dto.fileName}.tsx`;
     const formatted = await prettier.format(dto.code, { parser: "babel-ts" });
 
-    return this.fileAndDirectoryUtility.create(
+    const create = await this.fileAndDirectoryUtility.create(
       {
         directory: this.generatedDirectory,
         fileName,
       },
       formatted,
     );
+
+    await build({
+      fileName: dto.fileName,
+      directory: this.generatedDirectory,
+    });
+
+    await this.fileAndDirectoryUtility.delete({
+      directory: this.generatedDirectory,
+      fileName,
+    });
+
+    return create;
   }
 
   async delete(fileName: string): Promise<boolean> {
