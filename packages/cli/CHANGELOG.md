@@ -1,5 +1,11 @@
 # @lezzform/cli
 
+## 0.2.2
+
+### Patch Changes
+
+- compile and generating types support for rename
+
 ## 0.2.1
 
 ### Patch Changes
