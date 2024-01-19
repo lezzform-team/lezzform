@@ -13,13 +13,14 @@ export async function build({
   const tsFileName = `${filename}.tsx`;
   const jsFileName = `${filename}.js`;
 
-  const compilerOptions = {
+  const compilerOptions: ts.CompilerOptions = {
     target: ts.ScriptTarget.ESNext,
     module: ts.ModuleKind.CommonJS,
     jsx: ts.JsxEmit.React,
     declaration: true,
     emitDeclarationOnly: true,
     outDir: directory,
+    incremental: true,
   };
 
   const bundle = await esbuild.build({

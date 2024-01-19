@@ -52,20 +52,28 @@ export class Generator {
     return create;
   }
 
-  async delete(fileName: string): Promise<boolean> {
-    return this.fileAndDirectoryUtility.delete({
-      directory: this.generatedDirectory,
-      fileName: `${fileName}.tsx`,
-    });
-  }
-
   async rename(
     fileNameBefore: string,
     fileNameAfter: string,
   ): Promise<boolean> {
-    return this.fileAndDirectoryUtility.rename({
+    const jsRename = this.fileAndDirectoryUtility.rename({
       directory: this.generatedDirectory,
-      files: { fileNameAfter, fileNameBefore },
+      files: {
+        fileNameAfter: `${fileNameAfter}.js`,
+        fileNameBefore: `${fileNameBefore}.js`,
+      },
     });
+
+    const dTsRename = this.fileAndDirectoryUtility.rename({
+      directory: this.generatedDirectory,
+      files: {
+        fileNameAfter: `${fileNameAfter}.d.ts`,
+        fileNameBefore: `${fileNameBefore}.d.ts`,
+      },
+    });
+
+    const promiseAll = await Promise.all(await [jsRename, dTsRename]);
+
+    return !promiseAll.includes(false);
   }
 }
