@@ -1,5 +1,11 @@
 # @lezzform/react-native
 
+## 0.0.60
+
+### Patch Changes
+
+- try to add rndocumentpicker
+
 ## 0.0.59
 
 ### Patch Changes
