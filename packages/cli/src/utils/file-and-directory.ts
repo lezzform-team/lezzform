@@ -23,9 +23,11 @@ export class FileAndDirectoryUtility {
     recursive = true,
   ): Promise<boolean> {
     try {
-      const filePath = path.join(directory ?? "", fileName);
+      const filePath = path.normalize(path.join(directory ?? "", fileName));
       if (recursive) {
-        const directoryPath = filePath.substring(0, filePath.lastIndexOf("/"));
+        const directoryPath = path.normalize(
+          filePath.substring(0, filePath.lastIndexOf(path.sep)),
+        );
         await fsPromises.mkdir(directoryPath, { recursive: true });
       }
 
@@ -49,7 +51,7 @@ export class FileAndDirectoryUtility {
     fileName: string;
   }): Promise<boolean> {
     try {
-      const filePath = path.join(directory ?? "", fileName);
+      const filePath = path.normalize(path.join(directory ?? "", fileName));
       await fsPromises.unlink(filePath);
       if (this.isDebugMode)
         this.logger.system(`File deleted successfully: ${filePath}`);
@@ -67,7 +69,7 @@ export class FileAndDirectoryUtility {
     content: string,
   ): Promise<boolean> {
     try {
-      const filePath = path.join(directory ?? "", fileName);
+      const filePath = path.normalize(path.join(directory ?? "", fileName));
       await fsPromises.writeFile(filePath, content);
       if (this.isDebugMode)
         this.logger.system(`File content updated successfully: ${filePath}`);
@@ -86,8 +88,12 @@ export class FileAndDirectoryUtility {
     directory: string;
     files: { fileNameBefore: string; fileNameAfter: string };
   }): Promise<boolean> {
-    const sourceFilePath = path.join(directory, files.fileNameBefore);
-    const destinationFilePath = path.join(directory, files.fileNameAfter);
+    const sourceFilePath = path.normalize(
+      path.join(directory, files.fileNameBefore),
+    );
+    const destinationFilePath = path.normalize(
+      path.join(directory, files.fileNameAfter),
+    );
 
     try {
       await fsPromises.rename(sourceFilePath, destinationFilePath);
@@ -112,7 +118,7 @@ export class FileAndDirectoryUtility {
     fileName: string;
   }): Promise<boolean> {
     try {
-      const filePath = path.join(directory ?? "", fileName);
+      const filePath = path.normalize(path.join(directory ?? "", fileName));
       await fsPromises.access(filePath, constants.F_OK);
       return true;
     } catch (err) {
@@ -128,7 +134,7 @@ export class FileAndDirectoryUtility {
     fileName: string;
   }): Promise<string> {
     try {
-      const filePath = path.join(directory ?? "", fileName);
+      const filePath = path.normalize(path.join(directory ?? "", fileName));
       const content = await fsPromises.readFile(filePath, "utf-8");
       return content;
     } catch (err) {
