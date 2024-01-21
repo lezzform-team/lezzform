@@ -9,7 +9,7 @@ export async function build({
   fileName: string;
   directory: string;
 }) {
-  const filename = path.join(directory, fileName);
+  const filename = path.normalize(path.join(directory, fileName));
   const tsFileName = `${filename}.tsx`;
   const jsFileName = `${filename}.js`;
 

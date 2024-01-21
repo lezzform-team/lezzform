@@ -1,5 +1,35 @@
 # @lezzform/cli
 
+## 0.2.9
+
+### Patch Changes
+
+- normalize fs path for all platform
+
+## 0.2.8
+
+### Patch Changes
+
+- add normalize to fs utils
+
+## 0.2.7
+
+### Patch Changes
+
+- normalize file read path
+
+## 0.2.6
+
+### Patch Changes
+
+- cli debug mode disable build
+
+## 0.2.5
+
+### Patch Changes
+
+- fix esbuild path experimental
+
 ## 0.2.4
 
 ### Patch Changes
