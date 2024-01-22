@@ -112,11 +112,14 @@ const Dropdown = ({
     (value: string) => {
       return items.find(
         item =>
-          item.value
+          String(item.value)
             .toLowerCase()
             .trim()
-            .includes(value.toLowerCase().trim()) ||
-          item.label.toLowerCase().trim().includes(value.toLowerCase().trim()),
+            .includes(String(value).toLowerCase().trim()) ||
+          String(item.label)
+            .toLowerCase()
+            .trim()
+            .includes(String(value).toLowerCase().trim()),
       );
     },
     [items],
@@ -244,7 +247,13 @@ const Item = ({
       android_ripple={{color: colors.accent}}
       onPress={() => onSelect(item.value)}>
       <Text style={style.DropdownItemButtonText}>{item.label}</Text>
-      {isActive && <View style={style.DropdownSelected} />}
+      {isActive && (
+        <Icon
+          size={textSize.base}
+          name="check"
+          color={colors.mutedForeground}
+        />
+      )}
     </Pressable>
   );
 };

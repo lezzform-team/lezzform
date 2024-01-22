@@ -1,5 +1,11 @@
 # @lezzform/react-native
 
+## 0.0.72
+
+### Patch Changes
+
+- fix rnative dropdown api select item
+
 ## 0.0.71
 
 ### Patch Changes
