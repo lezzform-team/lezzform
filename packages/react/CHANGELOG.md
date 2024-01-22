@@ -1,5 +1,11 @@
 # @lezzform/react
 
+## 0.2.6
+
+### Patch Changes
+
+- improve attachment ui
+
 ## 0.2.5
 
 ### Patch Changes
