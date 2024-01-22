@@ -1,5 +1,11 @@
 # @lezzform/react
 
+## 0.2.5
+
+### Patch Changes
+
+- fix dropdown popover scroll
+
 ## 0.2.4
 
 ### Patch Changes
