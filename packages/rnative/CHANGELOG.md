@@ -1,5 +1,71 @@
 # @lezzform/react-native
 
+## 0.0.71
+
+### Patch Changes
+
+- adjust accepted formats for attachment
+
+## 0.0.70
+
+### Patch Changes
+
+- add icon shadow
+
+## 0.0.69
+
+### Patch Changes
+
+- change when upload loading happen
+
+## 0.0.68
+
+### Patch Changes
+
+- attachment open url value
+
+## 0.0.67
+
+### Patch Changes
+
+- add ripple to attachment
+
+## 0.0.66
+
+### Patch Changes
+
+- improve attachment label ellipsis
+
+## 0.0.65
+
+### Patch Changes
+
+- attachment name overflow
+
+## 0.0.64
+
+### Patch Changes
+
+- attachment input wrapper styling
+
+## 0.0.63
+
+### Patch Changes
+
+- fix attachment label
+
+## 0.0.62
+
+### Patch Changes
+
+- improve attachment UI
+
+## 0.0.61
+
+### Patch Changes
+
+- attachment UI improve
+
 ## 0.0.60
 
 ### Patch Changes

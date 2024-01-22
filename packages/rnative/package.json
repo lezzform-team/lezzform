@@ -1,6 +1,6 @@
 {
   "name": "@lezzform/react-native",
-  "version": "0.0.60",
+  "version": "0.0.71",
   "private": false,
   "scripts": {
     "android": "react-native run-android",
