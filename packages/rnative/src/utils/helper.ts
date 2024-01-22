@@ -23,3 +23,24 @@ export function splitUrlAndFilename(url?: string): {
 
   return {baseUrl, filename};
 }
+
+export function hexToRGBA(hex: string, alpha: number = 1): string {
+  // Remove the hash if it exists
+  hex = hex.replace(/^#/, '');
+
+  // Parse the hex values
+  const bigint = parseInt(hex, 16);
+
+  // Extract the RGB components
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+
+  // Ensure the alpha value is within the valid range
+  alpha = Math.min(1, Math.max(0, alpha));
+
+  // Create the RGBA string
+  const rgba = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+
+  return rgba;
+}

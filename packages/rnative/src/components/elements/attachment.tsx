@@ -1,19 +1,21 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
+  Linking,
   Pressable,
-  PressableProps,
   StyleSheet,
   Text,
   TextStyle,
   View,
+  ViewStyle,
 } from 'react-native';
-import {rem, splitUrlAndFilename} from '../../utils/helper';
+import {hexToRGBA, rem, splitUrlAndFilename} from '../../utils/helper';
 import {colors} from '../../themes/colors';
 import {spacing} from '../../themes/spacing';
 import DocumentPicker from 'react-native-document-picker';
 import axios, {AxiosError} from 'axios';
 import lodashGet from 'lodash.get';
 import {textSize} from '../../themes/textSize';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface AttachmentProps {
   name?: string;
@@ -52,9 +54,8 @@ const Attachment = ({
 
   const handleUpload = useCallback(async () => {
     try {
-      setIsUploading(true);
       const document = await DocumentPicker.pickSingle({
-        type: DocumentPicker.types.images,
+        type: acceptedFormats,
       });
 
       if ((document.size as number) / 1024 > maxSize) {
@@ -68,18 +69,6 @@ const Attachment = ({
       if (!document) {
         throw new Error('No file selected');
       }
-
-      // const file = new File([document.uri], document.name as string, {
-      //   type: document.type as string,
-      //   lastModified: Date.now(),
-      // });
-
-      // let body: File | Record<string, File> = file;
-      // if (path.body) {
-      //   body = {
-      //     [path.body]: file,
-      //   };
-      // }
 
       const formData = new FormData();
 
@@ -100,6 +89,8 @@ const Attachment = ({
       const customHeaders = headersRef.current?.reduce((acc, curr) => {
         return {...acc, [curr.key]: curr.value};
       }, {});
+
+      setIsUploading(true);
 
       const {data} = await axios.post(url, formData, {
         headers: {
@@ -126,28 +117,26 @@ const Attachment = ({
 
   const isShowEmpty = !value && !isUploading;
   const isShowValue = value && !isUploading;
+  const sizeInMB = Math.round(maxSize / 1024);
 
-  const customStyle = useMemo<PressableProps['style']>(() => {
-    let additionalStyle: PressableProps['style'] = {};
+  const disabledWrapperStyle = useMemo<ViewStyle>(() => {
+    let additionalStyle: ViewStyle = {};
 
     if (disabled) {
       additionalStyle = {...additionalStyle, backgroundColor: colors.muted};
     }
 
-    return {
-      ...style.Attachment,
-      ...additionalStyle,
-    };
+    return additionalStyle;
   }, [disabled]);
 
-  const customTextStyle = useMemo<TextStyle>(() => {
+  const disabledTextStyle = useMemo<TextStyle>(() => {
     let additionalStyle: TextStyle = {};
 
     if (disabled) {
       additionalStyle = {...additionalStyle, color: colors.mutedForeground};
     }
 
-    return {...style.Text, ...additionalStyle};
+    return additionalStyle;
   }, [disabled]);
 
   useEffect(() => {
@@ -175,18 +164,61 @@ const Attachment = ({
   }, [headers, headersRef]);
 
   return (
-    <Pressable disabled={disabled} style={customStyle} onPress={handleUpload}>
+    <Pressable
+      disabled={disabled}
+      style={{...style.Attachment, ...disabledWrapperStyle}}
+      android_ripple={{color: colors.muted}}
+      onPress={handleUpload}>
       {isShowEmpty && (
-        <Text style={customTextStyle}>
-          {!placeholder ? 'Upload your file here' : placeholder}
-        </Text>
-      )}
-      {isUploading && <Text style={customTextStyle}>Uploading...</Text>}
-      {isShowValue && (
-        <View style={style.ShowValue}>
-          <Text style={customTextStyle}>
-            {splitUrlAndFilename(value).filename}
+        <View style={{...style.Pending, ...disabledWrapperStyle}}>
+          <View style={style.PendingIconWrapper}>
+            <Icon
+              color={colors.foreground}
+              size={rem`1.25`}
+              name="file-present"
+            />
+          </View>
+          <Text style={{...style.Title, ...disabledTextStyle}}>
+            {!placeholder ? 'Upload your file here' : placeholder}
           </Text>
+          <Text style={{...style.SubTitle, ...disabledTextStyle}}>
+            {sizeInMB}MB max file size
+          </Text>
+        </View>
+      )}
+      {isUploading && (
+        <View style={{...style.Pending, ...disabledWrapperStyle}}>
+          <View style={style.PendingIconWrapper}>
+            <Icon
+              color={colors.foreground}
+              size={rem`1.25`}
+              name="arrow-upward"
+            />
+          </View>
+          <Text style={{...style.Title, ...disabledTextStyle}}>
+            Uploading...
+          </Text>
+          <Text style={{...style.SubTitle, ...disabledTextStyle}}>
+            Your file is being uploaded
+          </Text>
+        </View>
+      )}
+      {isShowValue && (
+        <View style={{...style.Input, ...disabledWrapperStyle}}>
+          <View style={style.InputLeftContent}>
+            <Icon color={colors.foreground} size={rem`1`} name="file-present" />
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="middle"
+              style={{...style.InputLabelText, ...disabledTextStyle}}>
+              {splitUrlAndFilename(value).filename}
+            </Text>
+          </View>
+          <Pressable
+            style={style.InputLabelExternalWrapper}
+            onPress={() => Linking.openURL(value)}>
+            <Icon color={colors.foreground} size={rem`1.25`} name="link" />
+          </Pressable>
         </View>
       )}
     </Pressable>
@@ -196,7 +228,6 @@ Attachment.displayName = 'Attachment';
 
 const style = StyleSheet.create({
   Attachment: {
-    padding: rem`1`,
     borderWidth: 1,
     borderStyle: 'dashed',
     borderColor: colors.border,
@@ -210,6 +241,63 @@ const style = StyleSheet.create({
   Text: {
     fontSize: textSize.sm,
     color: colors.mutedForeground,
+  },
+  Pending: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: rem`0.25`,
+    padding: rem`1`,
+    backgroundColor: hexToRGBA(colors.muted, 0.5),
+  },
+  PendingIconWrapper: {
+    height: rem`2.5`,
+    width: rem`2.5`,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.background,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+    elevation: 1,
+  },
+  Title: {
+    color: colors.foreground,
+    fontWeight: '500',
+    fontSize: textSize.base,
+  },
+  SubTitle: {
+    color: colors.mutedForeground,
+    fontSize: textSize.sm,
+  },
+  Input: {
+    width: '100%',
+    height: rem`2.5`,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: rem`0.5`,
+    paddingHorizontal: rem`1`,
+  },
+  InputLeftContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: rem`0.5`,
+  },
+  InputLabelText: {
+    fontSize: textSize.sm,
+    color: colors.foreground,
+    width: rem`10`,
+  },
+  InputLabelExternalWrapper: {
+    padding: rem`0.5`,
+    marginRight: rem`-0.5`,
+    marginLeft: rem`1`,
   },
 });
 
