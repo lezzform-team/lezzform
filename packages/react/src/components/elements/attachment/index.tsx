@@ -3,6 +3,7 @@ import { FileRejection, useDropzone } from "react-dropzone";
 import axios, { AxiosError } from "axios";
 import lodashGet from "lodash.get";
 import { cn, splitUrlAndFilename } from "@/lib/utils";
+import { FileIcon, ExternalLinkIcon, ArrowUpIcon } from "@radix-ui/react-icons";
 
 interface AttachmentProps {
   name?: string;
@@ -55,6 +56,8 @@ export function Attachment({
       maxSize: maxSize * 1024,
       disabled,
     });
+
+  const sizeInMB = Math.round(maxSize / 1024);
 
   const handleUpload = useCallback(
     async (files: File[]) => {
@@ -143,7 +146,7 @@ export function Attachment({
     <div
       {...getRootProps()}
       className={cn(
-        "p-4 border border-dashed border-lfui-border rounded-md text-center  hover:bg-lfui-muted cursor-pointer",
+        "border border-dashed border-lfui-border rounded-md text-center hover:bg-lfui-muted cursor-pointer",
         (readonly || disabled) && "cursor-not-allowed",
         disabled && "bg-lfui-border text-black",
       )}
@@ -151,28 +154,48 @@ export function Attachment({
       <input {...getInputProps()} />
 
       {isShowEmpty && (
-        <p className="text-sm text-lfui-muted-foreground">
-          {placeholder ?? "Upload your file here"}
-        </p>
+        <div className="h-full w-full bg-lfui-muted/50 flex flex-col justify-center items-center gap-1 p-4">
+          <div className="h-10 w-10 bg-lfui-background rounded-full shadow-sm flex items-center justify-center">
+            <FileIcon className="h-5 w-5" />
+          </div>
+          <p className="text-lfui-foreground font-medium">
+            {!placeholder ? "Upload your file here" : placeholder}
+          </p>
+          <small className="text-sm text-lfui-muted-foreground">
+            {sizeInMB}MB max file size
+          </small>
+        </div>
       )}
 
       {isUploading && (
-        <p className="text-sm text-lfui-muted-foreground">Uploading...</p>
+        <div className="h-full w-full bg-lfui-muted/50 flex flex-col justify-center items-center gap-1 p-4">
+          <div className="h-10 w-10 bg-lfui-background rounded-full shadow-sm flex items-center justify-center animate-bounce">
+            <ArrowUpIcon className="h-5 w-5" />
+          </div>
+          <p className="text-lfui-foreground font-medium">Uploading...</p>
+          <small className="text-sm text-lfui-muted-foreground">
+            Your file is being uploaded
+          </small>
+        </div>
       )}
 
       {isShowValue && (
-        <div className="flex flex-col gap-2 items-center">
-          <p className="text-sm text-lfui-muted-foreground break-words max-w-full">
-            {splitUrlAndFilename(value).filename}
-          </p>
+        <div className="w-full h-10 flex justify-between gap-2 items-center px-4">
+          <div className="flex items-center gap-2">
+            <FileIcon className="h-4 w-4" />
+
+            <p className="text-sm text-lfui-foreground break-words max-w-full">
+              {splitUrlAndFilename(value).filename}
+            </p>
+          </div>
           <button
-            className="text-blue-500 underline text-xs px-4 w-fit"
+            className="p-2 w-fit -mr-2"
             onClick={(e) => {
               e.stopPropagation();
               window.open(value);
             }}
           >
-            Open file
+            <ExternalLinkIcon className="text-lfui-muted-foreground h-5 w-5" />
           </button>
         </div>
       )}
