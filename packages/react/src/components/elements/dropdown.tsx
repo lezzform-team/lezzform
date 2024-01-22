@@ -84,11 +84,14 @@ export function Dropdown({
     (value: string) => {
       return items.find(
         (item) =>
-          item.value
+          String(item.value)
             .toLowerCase()
             .trim()
-            .includes(value.toLowerCase().trim()) ||
-          item.label.toLowerCase().trim().includes(value.toLowerCase().trim()),
+            .includes(String(value).toLowerCase().trim()) ||
+          String(item.label)
+            .toLowerCase()
+            .trim()
+            .includes(String(value).toLowerCase().trim()),
       );
     },
     [items],

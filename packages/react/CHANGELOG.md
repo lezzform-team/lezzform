@@ -1,5 +1,11 @@
 # @lezzform/react
 
+## 0.2.7
+
+### Patch Changes
+
+- fix number value cannot use dropdown
+
 ## 0.2.6
 
 ### Patch Changes
