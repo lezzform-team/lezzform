@@ -18,7 +18,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import lodashGet from "lodash.get";
-import { ScrollArea } from "../ui/scroll-area";
 
 interface Props {
   items?: { label: string; value: string }[];
@@ -137,25 +136,23 @@ export function Dropdown({
         <Command>
           <CommandInput placeholder={placeholder} />
           <CommandEmpty>No item found.</CommandEmpty>
-          <ScrollArea className="max-h-96">
-            <CommandGroup>
-              {items.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={onSelect}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0",
-                    )}
-                  />
-                  {framework.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </ScrollArea>
+          <CommandGroup className="max-h-96 overflow-auto">
+            {items.map((framework) => (
+              <CommandItem
+                key={framework.value}
+                value={framework.value}
+                onSelect={onSelect}
+              >
+                <Check
+                  className={cn(
+                    "mr-2 h-4 w-4",
+                    value === framework.value ? "opacity-100" : "opacity-0",
+                  )}
+                />
+                {framework.label}
+              </CommandItem>
+            ))}
+          </CommandGroup>
         </Command>
       </PopoverContent>
     </Popover>
