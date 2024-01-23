@@ -11,6 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useMemo } from "react";
 
 interface Props {
   placeholder?: string;
@@ -32,6 +33,18 @@ export function DatePicker({
   value,
   onChange,
 }: Props) {
+  const display = useMemo(() => {
+    if (value) {
+      try {
+        return dateFnsFormat(value, format ?? "PPP");
+      } catch (error) {
+        return dateFnsFormat(value, "PPP");
+      }
+    } else {
+      return placeholder ?? "";
+    }
+  }, [value, format, placeholder]);
+
   return (
     <Popover>
       <PopoverTrigger asChild disabled={disabled || readOnly}>
@@ -44,11 +57,7 @@ export function DatePicker({
           disabled={disabled || readOnly}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {value ? (
-            dateFnsFormat(value, format ?? "PPP")
-          ) : (
-            <span>{placeholder ?? ""}</span>
-          )}
+          {display}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
