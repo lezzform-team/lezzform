@@ -38,6 +38,7 @@ function LezzformComponent<T extends FieldValues = Record<string, unknown>>({
   const form = useForm<T>({
     defaultValues,
     resolver: zodResolver(zodSchema),
+    mode: 'onChange',
     ...rest,
   });
 

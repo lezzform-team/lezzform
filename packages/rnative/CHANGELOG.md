@@ -1,5 +1,11 @@
 # @lezzform/react-native
 
+## 0.0.73
+
+### Patch Changes
+
+- form validate onChange
+
 ## 0.0.72
 
 ### Patch Changes
