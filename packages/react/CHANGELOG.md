@@ -1,5 +1,17 @@
 # @lezzform/react
 
+## 0.2.9
+
+### Patch Changes
+
+- datePicker fallback display
+
+## 0.2.8
+
+### Patch Changes
+
+- validate form onChange
+
 ## 0.2.7
 
 ### Patch Changes
