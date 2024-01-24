@@ -39,12 +39,12 @@ export class Generator {
       formatted,
     );
 
-    if (!this.isDebugMode) {
-      await build({
-        fileName: dto.fileName,
-        directory: this.generatedDirectory,
-      });
+    await build({
+      fileName: dto.fileName,
+      directory: this.generatedDirectory,
+    });
 
+    if (!this.isDebugMode) {
       await this.fileAndDirectoryUtility.delete({
         directory: this.generatedDirectory,
         fileName,
