@@ -1,5 +1,11 @@
 # @lezzform/cli
 
+## 0.2.10
+
+### Patch Changes
+
+- change default url
+
 ## 0.2.9
 
 ### Patch Changes
