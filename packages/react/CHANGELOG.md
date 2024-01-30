@@ -1,5 +1,11 @@
 # @lezzform/react
 
+## 0.2.12
+
+### Patch Changes
+
+- multiSelect init component
+
 ## 0.2.11
 
 ### Patch Changes
