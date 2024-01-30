@@ -1,5 +1,11 @@
 # @lezzform/react-native
 
+## 0.0.74
+
+### Patch Changes
+
+- multiSelect init
+
 ## 0.0.73
 
 ### Patch Changes
