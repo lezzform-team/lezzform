@@ -88,20 +88,41 @@ export function MultiSelect({
     return `${selectedItems.length} selected`;
   }, [value, items, placeholder]);
 
+  const findValueHandler = React.useCallback(
+    (value: string) => {
+      return items.find(
+        (item) =>
+          String(item.value)
+            .toLowerCase()
+            .trim()
+            .includes(String(value).toLowerCase().trim()) ||
+          String(item.label)
+            .toLowerCase()
+            .trim()
+            .includes(String(value).toLowerCase().trim()),
+      );
+    },
+    [items],
+  );
+
   const onSelect = React.useCallback(
     (currentValue: string) => {
       if (!savedOnChange?.current) return;
 
       const newValue = value ?? [];
 
-      if (newValue?.includes(currentValue))
-        return savedOnChange.current(
-          newValue.filter((item) => item !== currentValue),
-        );
+      const newItem = findValueHandler(currentValue);
+      if (!newItem) return;
 
-      savedOnChange.current([...newValue, currentValue]);
+      if (newValue?.includes(newItem.value)) {
+        return savedOnChange.current(
+          newValue.filter((item) => item !== newItem?.value),
+        );
+      }
+
+      return savedOnChange.current([...newValue, newItem.value]);
     },
-    [value],
+    [findValueHandler, value],
   );
 
   React.useEffect(() => {

@@ -1,5 +1,11 @@
 # @lezzform/react
 
+## 0.2.14
+
+### Patch Changes
+
+- fix multiSelect value turned into lowercase
+
 ## 0.2.13
 
 ### Patch Changes
