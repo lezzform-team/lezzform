@@ -1,5 +1,3 @@
-import { Form } from "../lezzform/_generated/form";
-
 export const ProductForm = () => {
   return (
     <div
@@ -10,8 +8,6 @@ export const ProductForm = () => {
         border: "1px solid grey",
         maxWidth: "fit-content",
       }}
-    >
-      <Form />
-    </div>
+    ></div>
   );
 };

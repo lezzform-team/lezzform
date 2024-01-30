@@ -5,7 +5,6 @@
  * @format
  */
 
-import {Input} from '@lezzform/react-native';
 import React from 'react';
 import {
   SafeAreaView,
@@ -13,14 +12,13 @@ import {
   StatusBar,
   useColorScheme,
 } from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Form} from './lezzform/_generated/my-first-forms';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: 'white',
   };
 
   return (
@@ -32,7 +30,7 @@ function App(): React.JSX.Element {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Input />
+        <Form />
       </ScrollView>
     </SafeAreaView>
   );
