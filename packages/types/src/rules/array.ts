@@ -1,7 +1,8 @@
-import { GeneralRules, GeneralRulesType } from ".";
+import { GeneralRules, GeneralRulesType, PrimitiveRule } from ".";
 
 export type ArrayRule = {
   type: "array";
+  items: PrimitiveRule;
   schema: ArrayRuleSchema;
   values: GeneralRulesType & Record<string, unknown>;
 };
