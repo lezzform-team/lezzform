@@ -1,6 +1,6 @@
 {
   "name": "rnsample",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -10,9 +10,16 @@
     "test": "jest"
   },
   "dependencies": {
+    "@lezzform/cli": "^0.2.3",
+    "@lezzform/react-native": "../../packages/rnative/lezzform-react-native-0.0.72.tgz",
+    "@react-native-community/datetimepicker": "^7.6.2",
     "react": "18.2.0",
     "react-native": "0.73.2",
-    "@lezzform/react-native": "*"
+    "react-native-document-picker": "^9.1.0",
+    "react-native-modal-datetime-picker": "^17.1.0",
+    "react-native-raw-bottom-sheet": "^2.2.0",
+    "react-native-vector-icons": "^10.0.3",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
