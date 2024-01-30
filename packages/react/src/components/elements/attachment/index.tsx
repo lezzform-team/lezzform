@@ -194,6 +194,7 @@ export function Attachment({
               e.stopPropagation();
               window.open(value);
             }}
+            type="button"
           >
             <ExternalLinkIcon className="text-lfui-muted-foreground h-5 w-5" />
           </button>
