@@ -1,5 +1,11 @@
 # @lezzform/react
 
+## 0.2.13
+
+### Patch Changes
+
+- fixing default value to multiSelect
+
 ## 0.2.12
 
 ### Patch Changes
