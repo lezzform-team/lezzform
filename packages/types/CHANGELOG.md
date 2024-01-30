@@ -1,5 +1,11 @@
 # @lezzform/types
 
+## 0.0.8
+
+### Patch Changes
+
+- add multiselect types to elements
+
 ## 0.0.7
 
 ### Patch Changes
