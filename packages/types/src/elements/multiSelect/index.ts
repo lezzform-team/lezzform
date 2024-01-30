@@ -3,7 +3,7 @@ import {
   GenericLezzformElement,
   LezzformElementCategory,
 } from "../..";
-import { StringRule } from "../../rules";
+import { ArrayRule } from "../../rules";
 import { DropdownItemApi, DropdownItemStatic } from "../dropdown";
 
 export type MultiSelectType = GenericLezzformElement<
@@ -17,7 +17,7 @@ export type MultiSelectType = GenericLezzformElement<
 export type MultiSelectAttributesType =
   | MultiSelectItemApi
   | MultiSelectItemStatic;
-export type MultiSelectRuleType = StringRule;
+export type MultiSelectRuleType = ArrayRule;
 
 export type MultiSelectItemApi = DropdownItemApi;
 export type MultiSelectItemStatic = DropdownItemStatic;

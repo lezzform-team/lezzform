@@ -1,3 +1,7 @@
+import { DateRule } from "./date";
+import { IntegerRule } from "./integer";
+import { StringRule } from "./string";
+
 export * from "./integer";
 export * from "./string";
 export * from "./date";
@@ -14,3 +18,5 @@ type RequiredRule = {
     type: "boolean";
   };
 };
+
+export type PrimitiveRule = StringRule | IntegerRule | DateRule;
