@@ -2,6 +2,7 @@ import { AttachmentType } from "./elements/attachment";
 import { DatePickerType } from "./elements/datePicker";
 import { DropdownType } from "./elements/dropdown";
 import { InputType } from "./elements/input";
+import { MultiSelectType } from "./elements/multiSelect";
 import { RepeaterGroupType } from "./elements/repeaterGroup";
 import { TextAreaType } from "./elements/textArea";
 import { ThreeColumnType } from "./elements/threeColumn";
@@ -36,6 +37,7 @@ export type LezzformElement =
   | DropdownType
   | DatePickerType
   | AttachmentType
+  | MultiSelectType
   | TwoColumnType
   | ThreeColumnType
   | RepeaterGroupType;
