@@ -1,5 +1,17 @@
 # @lezzform/react
 
+## 0.2.11
+
+### Patch Changes
+
+- change attachment ext button type
+
+## 0.2.10
+
+### Patch Changes
+
+- change attachment external link button type
+
 ## 0.2.9
 
 ### Patch Changes
