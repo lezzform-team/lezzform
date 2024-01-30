@@ -90,14 +90,16 @@ export function MultiSelect({
 
   const onSelect = React.useCallback(
     (currentValue: string) => {
-      if (!savedOnChange?.current || !value) return;
+      if (!savedOnChange?.current) return;
 
-      if (value?.includes(currentValue))
+      const newValue = value ?? [];
+
+      if (newValue?.includes(currentValue))
         return savedOnChange.current(
-          value.filter((item) => item !== currentValue),
+          newValue.filter((item) => item !== currentValue),
         );
 
-      savedOnChange.current([...value, currentValue]);
+      savedOnChange.current([...newValue, currentValue]);
     },
     [value],
   );
