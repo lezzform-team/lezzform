@@ -1,4 +1,9 @@
-import { GeneralRules, GeneralRulesType, PrimitiveRule } from ".";
+import {
+  GeneralRules,
+  GeneralRulesMessageType,
+  GeneralRulesType,
+  PrimitiveRule,
+} from ".";
 
 export type ObjectRule = {
   type: "object";
@@ -7,4 +12,8 @@ export type ObjectRule = {
 };
 
 export type ObjectRuleType = GeneralRulesType;
+
+export type ObjectRuleMessageType = GeneralRulesMessageType &
+  Partial<Record<keyof ObjectRuleSchema, string>>;
+
 type ObjectRuleSchema = GeneralRules;

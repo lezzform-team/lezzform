@@ -1,5 +1,11 @@
 # @lezzform/types
 
+## 0.0.9
+
+### Patch Changes
+
+- add custom message types to all rules
+
 ## 0.0.8
 
 ### Patch Changes

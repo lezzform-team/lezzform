@@ -13,6 +13,10 @@ export type GeneralRulesType = {
   required: boolean;
 };
 
+export type GeneralRulesMessageType = Partial<
+  Record<keyof GeneralRules, string>
+>;
+
 type RequiredRule = {
   required: {
     title: "Required";

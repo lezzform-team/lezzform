@@ -1,4 +1,10 @@
-import { GeneralRules, GeneralRulesType, ObjectRule, PrimitiveRule } from ".";
+import {
+  GeneralRules,
+  GeneralRulesMessageType,
+  GeneralRulesType,
+  ObjectRule,
+  PrimitiveRule,
+} from ".";
 
 export type ArrayRule = {
   type: "array";
@@ -11,6 +17,9 @@ export type ArrayRuleType = GeneralRulesType & {
   minimum?: number;
   maximum?: number;
 };
+
+export type ArrayRuleMessageType = GeneralRulesMessageType &
+  Partial<Record<keyof ArrayRuleSchema, string>>;
 
 type ArrayRuleSchema = GeneralRules & {
   minimum?: {
