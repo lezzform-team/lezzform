@@ -6,6 +6,7 @@ export * from "./integer";
 export * from "./string";
 export * from "./date";
 export * from "./array";
+export * from "./object";
 
 export type GeneralRules = RequiredRule;
 export type GeneralRulesType = {
