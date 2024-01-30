@@ -1,5 +1,11 @@
 # @lezzform/types
 
+## 0.0.7
+
+### Patch Changes
+
+- add array rule items
+
 ## 0.0.6
 
 ### Patch Changes
