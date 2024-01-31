@@ -1,5 +1,22 @@
 export type LezzformConfiguration = {
   action: LezzformAction;
+  errorMessage: LezzformErrorMessageType;
+};
+
+export type LezzformErrorMessageType =
+  | ErrorMessageFlashMessageType
+  | ErrorMessageTextType;
+
+export type ErrorMessageFlashMessageType = {
+  type: "flash-message";
+  attributes: {
+    title?: string;
+    description?: string;
+  };
+};
+
+export type ErrorMessageTextType = {
+  type: "text";
 };
 
 export type LezzformAction = LezzformApiAction | LezzformManualAction;

@@ -1,5 +1,35 @@
 # @lezzform/types
 
+## 0.0.16
+
+### Patch Changes
+
+- move errorMessage outside behaviours object
+
+## 0.0.15
+
+### Patch Changes
+
+- change additionalMessage to attributes
+
+## 0.0.14
+
+### Patch Changes
+
+- improve errorMessage behaviour naming
+
+## 0.0.13
+
+### Patch Changes
+
+- retry update
+
+## 0.0.12
+
+### Patch Changes
+
+- add rule behaviours to configuration
+
 ## 0.0.11
 
 ### Patch Changes
