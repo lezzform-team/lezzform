@@ -1,9 +1,10 @@
-import { GeneralRules, GeneralRulesType } from ".";
+import { GeneralRules, GeneralRulesMessageType, GeneralRulesType } from ".";
 
 export type StringRule = {
   type: "string";
   schema: StringRuleSchema;
   values: GeneralRulesType & Record<string, unknown>;
+  messages?: StringRuleMessageType;
 };
 
 export type StringRuleType = GeneralRulesType & {
@@ -11,6 +12,9 @@ export type StringRuleType = GeneralRulesType & {
   minimum?: number;
   maximum?: number;
 };
+
+export type StringRuleMessageType = GeneralRulesMessageType &
+  Partial<Record<keyof StringRuleSchema, string>>;
 
 type StringRuleSchema = GeneralRules & {
   format?: {
