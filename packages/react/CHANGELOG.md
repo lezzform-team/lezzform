@@ -1,5 +1,12 @@
 # @lezzform/react
 
+## 0.2.15
+
+### Patch Changes
+
+- flash message improve
+- add flash message component
+
 ## 0.2.14
 
 ### Patch Changes

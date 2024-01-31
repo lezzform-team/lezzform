@@ -1,2 +1,1 @@
-export * from "./form-label";
-export * from "./form-message";
+export * from "./flash-message";
