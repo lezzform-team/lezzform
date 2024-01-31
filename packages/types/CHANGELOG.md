@@ -1,5 +1,17 @@
 # @lezzform/types
 
+## 0.0.11
+
+### Patch Changes
+
+- custom messages support for all rules
+
+## 0.0.10
+
+### Patch Changes
+
+- change message to messages
+
 ## 0.0.9
 
 ### Patch Changes

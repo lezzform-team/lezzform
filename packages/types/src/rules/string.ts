@@ -4,7 +4,7 @@ export type StringRule = {
   type: "string";
   schema: StringRuleSchema;
   values: GeneralRulesType & Record<string, unknown>;
-  message?: StringRuleMessageType;
+  messages?: StringRuleMessageType;
 };
 
 export type StringRuleType = GeneralRulesType & {

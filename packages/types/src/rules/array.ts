@@ -11,6 +11,7 @@ export type ArrayRule = {
   items: PrimitiveRule | ObjectRule;
   schema: ArrayRuleSchema;
   values: GeneralRulesType & Record<string, unknown>;
+  messages?: ArrayRuleMessageType;
 };
 
 export type ArrayRuleType = GeneralRulesType & {

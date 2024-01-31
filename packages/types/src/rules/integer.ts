@@ -4,6 +4,7 @@ export type IntegerRule = {
   type: "integer";
   schema: IntegerRuleSchema;
   values: GeneralRulesType & Record<string, unknown>;
+  messages?: IntegerRuleMessageType;
 };
 
 export type IntegerRuleType = GeneralRulesType & {

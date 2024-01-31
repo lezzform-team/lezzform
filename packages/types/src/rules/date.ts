@@ -4,7 +4,7 @@ export type DateRule = {
   type: "date";
   schema: DateRuleSchema;
   values: GeneralRulesType & Record<string, unknown>;
-  message?: DateRuleMessageType;
+  messages?: DateRuleMessageType;
 };
 
 export type DateRuleType = GeneralRulesType & {};
