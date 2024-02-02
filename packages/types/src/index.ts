@@ -7,7 +7,7 @@ import { RepeaterGroupType } from "./elements/repeaterGroup";
 import { TextAreaType } from "./elements/textArea";
 import { ThreeColumnType } from "./elements/threeColumn";
 import { TwoColumnType } from "./elements/twoColumn";
-import { DateRule, IntegerRule, StringRule } from "./rules";
+import { ArrayRule, ObjectRule, PrimitiveRule } from "./rules";
 
 export type GenericLezzformElement<T = Record<string, unknown>> = {
   id: string;
@@ -42,7 +42,7 @@ export type LezzformElement =
   | ThreeColumnType
   | RepeaterGroupType;
 
-export type LezzformElementRule = StringRule | IntegerRule | DateRule;
+export type LezzformElementRule = PrimitiveRule | ObjectRule | ArrayRule;
 
 export * from "./rules";
 export * from "./form";
