@@ -1,5 +1,11 @@
 # @lezzform/types
 
+## 0.0.21
+
+### Patch Changes
+
+- init number input type
+
 ## 0.0.20
 
 ### Patch Changes
