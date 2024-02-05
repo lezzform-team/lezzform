@@ -112,8 +112,9 @@ export function Dropdown({
   );
 
   React.useEffect(() => {
+    if (disabled) return;
     fetchApiItems();
-  }, [fetchApiItems]);
+  }, [fetchApiItems, disabled]);
 
   return (
     <Popover open={open} onOpenChange={setOpen} modal>
@@ -128,6 +129,7 @@ export function Dropdown({
             displayedItem && "justify-between",
             readOnly && "cursor-default",
             !value && "text-lfui-muted-foreground",
+            disabled && "cursor-not-allowed",
           )}
           disabled={disabled}
         >
