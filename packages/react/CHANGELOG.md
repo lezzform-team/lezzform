@@ -1,5 +1,13 @@
 # @lezzform/react
 
+## 0.2.21
+
+### Patch Changes
+
+- init number input
+- Updated dependencies
+  - @lezzform/types@0.0.21
+
 ## 0.2.20
 
 ### Patch Changes

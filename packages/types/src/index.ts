@@ -5,6 +5,7 @@ import { DropdownType } from "./elements/dropdown";
 import { EmailInputType } from "./elements/emailInput";
 import { InputType } from "./elements/input";
 import { MultiSelectType } from "./elements/multiSelect";
+import { NumberInputType } from "./elements/numberInput";
 import { RepeaterGroupType } from "./elements/repeaterGroup";
 import { TextAreaType } from "./elements/textArea";
 import { ThreeColumnType } from "./elements/threeColumn";
@@ -40,6 +41,7 @@ export type LezzformElementType = LezzformElement["type"];
 export type LezzformElement =
   | InputType
   | EmailInputType
+  | NumberInputType
   | TextAreaType
   | DropdownType
   | DatePickerType
