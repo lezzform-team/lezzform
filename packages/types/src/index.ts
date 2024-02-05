@@ -1,5 +1,6 @@
 import { AttachmentType } from "./elements/attachment";
 import { DatePickerType } from "./elements/datePicker";
+import { DateRangePickerType } from "./elements/dateRangePicker";
 import { DropdownType } from "./elements/dropdown";
 import { EmailInputType } from "./elements/emailInput";
 import { InputType } from "./elements/input";
@@ -42,6 +43,7 @@ export type LezzformElement =
   | TextAreaType
   | DropdownType
   | DatePickerType
+  | DateRangePickerType
   | AttachmentType
   | MultiSelectType
   | TwoColumnType

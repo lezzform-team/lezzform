@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarIcon } from "@radix-ui/react-icons";
+import { Calendar as CalendarIcon } from "lucide-react";
 import { format as dateFnsFormat } from "date-fns";
 
 import { cn } from "@/lib/utils";
