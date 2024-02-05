@@ -1,5 +1,11 @@
 # @lezzform/types
 
+## 0.0.18
+
+### Patch Changes
+
+- basic types support for email input element
+
 ## 0.0.17
 
 ### Patch Changes

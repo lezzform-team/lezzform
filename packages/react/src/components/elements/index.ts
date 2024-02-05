@@ -8,3 +8,4 @@ export * from "./datePicker";
 export * from "./attachment";
 export * from "./repeaterGroup";
 export * from "./multiSelect";
+export * from "./emailInput";
