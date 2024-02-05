@@ -1,6 +1,7 @@
 import { AttachmentType } from "./elements/attachment";
 import { DatePickerType } from "./elements/datePicker";
 import { DropdownType } from "./elements/dropdown";
+import { EmailInputType } from "./elements/emailInput";
 import { InputType } from "./elements/input";
 import { MultiSelectType } from "./elements/multiSelect";
 import { RepeaterGroupType } from "./elements/repeaterGroup";
@@ -14,6 +15,10 @@ export type GenericLezzformElement<T = Record<string, unknown>> = {
   name: string;
   attributes: GeneralAttributes & T;
   parentId?: string;
+};
+
+export type GenericLezzformVariant<T = Record<string, unknown>> = {
+  attributes: T;
 };
 
 export type GenericFieldAttributes = {
@@ -33,6 +38,7 @@ export enum LezzformElementCategory {
 export type LezzformElementType = LezzformElement["type"];
 export type LezzformElement =
   | InputType
+  | EmailInputType
   | TextAreaType
   | DropdownType
   | DatePickerType
