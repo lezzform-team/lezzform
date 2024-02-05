@@ -1,8 +1,10 @@
 import { GeneralRules, GeneralRulesMessageType, GeneralRulesType } from ".";
+import { LezzformElementRule } from "..";
 
 export type ObjectRule = {
   type: "object";
   schema: ObjectRuleSchema;
+  properties?: Record<string, LezzformElementRule>;
   values: GeneralRulesType & Record<string, unknown>;
   messages?: ObjectRuleMessageType;
 };

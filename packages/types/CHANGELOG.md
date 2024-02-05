@@ -1,5 +1,17 @@
 # @lezzform/types
 
+## 0.0.20
+
+### Patch Changes
+
+- improve date range picker type
+
+## 0.0.19
+
+### Patch Changes
+
+- init date range picker types
+
 ## 0.0.18
 
 ### Patch Changes
