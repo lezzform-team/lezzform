@@ -1,5 +1,17 @@
 # @lezzform/types
 
+## 0.0.23
+
+### Patch Changes
+
+- add variant attributes for number input
+
+## 0.0.22
+
+### Patch Changes
+
+- initial number input variant type
+
 ## 0.0.21
 
 ### Patch Changes

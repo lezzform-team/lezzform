@@ -1,5 +1,13 @@
 # @lezzform/react
 
+## 0.2.22
+
+### Patch Changes
+
+- initial number input stepper
+- Updated dependencies
+  - @lezzform/types@0.0.22
+
 ## 0.2.21
 
 ### Patch Changes
