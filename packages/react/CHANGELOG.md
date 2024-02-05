@@ -1,5 +1,11 @@
 # @lezzform/react
 
+## 0.2.16
+
+### Patch Changes
+
+- disabling dropdown based on deps
+
 ## 0.2.15
 
 ### Patch Changes
