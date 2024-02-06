@@ -1,5 +1,11 @@
 # @lezzform/types
 
+## 0.0.24
+
+### Patch Changes
+
+- init type for phoneNumberInput element
+
 ## 0.0.23
 
 ### Patch Changes
