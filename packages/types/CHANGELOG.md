@@ -1,5 +1,11 @@
 # @lezzform/types
 
+## 0.0.25
+
+### Patch Changes
+
+- add attachment variant type
+
 ## 0.0.24
 
 ### Patch Changes

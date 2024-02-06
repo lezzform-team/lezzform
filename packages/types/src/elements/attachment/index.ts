@@ -13,7 +13,21 @@ export type AttachmentType = GenericLezzformElement<
   rule: AttachmentRuleType;
 };
 
-export type AttachmentAttributesType = AttachmentAttributesApiType;
+export type AttachmentAttributesType = AttachmentAttributesApiType & {
+  variant: AttachmentVariant;
+};
+
+export type AttachmentVariant =
+  | AttachmentDefaultVariantType
+  | AttachmentInputVariantType;
+
+export type AttachmentDefaultVariantType = {
+  type: "Default";
+};
+
+export type AttachmentInputVariantType = {
+  type: "Input";
+};
 
 export type AttachmentAttributesApiType = {
   url: string;
