@@ -6,6 +6,7 @@ import { EmailInputType } from "./elements/emailInput";
 import { InputType } from "./elements/input";
 import { MultiSelectType } from "./elements/multiSelect";
 import { NumberInputType } from "./elements/numberInput";
+import { PhoneNumberInputType } from "./elements/phoneNumberInput";
 import { RepeaterGroupType } from "./elements/repeaterGroup";
 import { TextAreaType } from "./elements/textArea";
 import { ThreeColumnType } from "./elements/threeColumn";
@@ -42,6 +43,7 @@ export type LezzformElement =
   | InputType
   | EmailInputType
   | NumberInputType
+  | PhoneNumberInputType
   | TextAreaType
   | DropdownType
   | DatePickerType
