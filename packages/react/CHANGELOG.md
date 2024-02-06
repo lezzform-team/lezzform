@@ -1,5 +1,31 @@
 # @lezzform/react
 
+## 0.2.27
+
+### Patch Changes
+
+- fix infinite rerender attachment
+
+## 0.2.26
+
+### Patch Changes
+
+- attachment input variant border color change
+
+## 0.2.25
+
+### Patch Changes
+
+- change attachment input variant border color
+
+## 0.2.24
+
+### Patch Changes
+
+- add attachment variant type
+- Updated dependencies
+  - @lezzform/types@0.0.25
+
 ## 0.2.23
 
 ### Patch Changes

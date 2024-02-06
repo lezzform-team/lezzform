@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
-import axios, { AxiosError } from "axios";
-import lodashGet from "lodash.get";
-import { cn, splitUrlAndFilename } from "@/lib/utils";
+import { cn, splitUrlAndFilename, uploadFile } from "@/lib/utils";
 import { FileIcon, ExternalLinkIcon, ArrowUpIcon } from "@radix-ui/react-icons";
+import { AttachmentInput } from "./input";
 
-interface AttachmentProps {
+export interface AttachmentProps {
   name?: string;
   label?: string;
   isRequired?: boolean;
@@ -66,41 +65,23 @@ export function Attachment({
       setIsUploading(true);
 
       try {
-        const file = files[0];
-        let body: File | Record<string, File> = file;
-        if (path.body) {
-          body = {
-            [path.body]: file,
-          };
-        }
-
-        const headers = headersRef.current?.reduce((acc, curr) => {
-          return { ...acc, [curr.key]: curr.value };
-        }, {});
-
-        const { data } = await axios.post(
+        const { data, error } = await uploadFile({
+          headers: headersRef.current ?? [],
+          path: { value: path.value, body: path.body },
           url,
-          body as File | Record<string, File>,
-          {
-            headers: {
-              ...headers,
-              "Content-Type": "multipart/form-data",
-            },
-          },
-        );
+        })(files);
 
-        if (!lodashGet(data, path.value)) throw new Error("Path unavailable");
+        if (error) return onErrorRef.current && onErrorRef.current(error);
 
-        onChangeRef.current &&
-          onChangeRef.current(lodashGet(data, path.value) as string);
+        return data && onChangeRef.current && onChangeRef.current(data);
       } catch (err) {
-        const error = err as AxiosError;
-        onErrorRef.current && onErrorRef.current(error.message as string);
+        onErrorRef.current &&
+          onErrorRef.current((err as Error).message as string);
       } finally {
         setIsUploading(false);
       }
     },
-    [path.body, path.value, url],
+    [path?.body, path?.value, url],
   );
 
   const handleError = useCallback((files: FileRejection[]) => {
@@ -203,3 +184,5 @@ export function Attachment({
     </div>
   );
 }
+
+Attachment.Input = AttachmentInput;
