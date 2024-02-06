@@ -1,5 +1,13 @@
 # @lezzform/react
 
+## 0.2.23
+
+### Patch Changes
+
+- init phoneNumberInput element component
+- Updated dependencies
+  - @lezzform/types@0.0.24
+
 ## 0.2.22
 
 ### Patch Changes

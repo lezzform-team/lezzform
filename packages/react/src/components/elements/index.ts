@@ -11,3 +11,4 @@ export * from "./multiSelect";
 export * from "./emailInput";
 export * from "./dateRangePicker";
 export * from "./numberInput";
+export * from "./phoneNumberInput";
