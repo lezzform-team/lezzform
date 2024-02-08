@@ -13,6 +13,14 @@ import {
 } from "@/components/ui/popover";
 import { useMemo } from "react";
 
+export interface DatePickerStyles {
+  root: React.CSSProperties;
+}
+
+export interface DatePickerClassNames {
+  root: string;
+}
+
 interface Props {
   placeholder?: string;
   value?: Date;
@@ -23,6 +31,8 @@ interface Props {
   disabled?: boolean;
   format?: string;
   isRequired?: boolean;
+  styles?: Partial<DatePickerStyles>;
+  classNames?: Partial<DatePickerClassNames>;
 }
 
 export function DatePicker({
@@ -32,6 +42,8 @@ export function DatePicker({
   format,
   value,
   onChange,
+  classNames,
+  styles,
 }: Props) {
   const display = useMemo(() => {
     if (value) {
@@ -53,8 +65,10 @@ export function DatePicker({
           className={cn(
             "w-full justify-start text-left font-normal",
             !value && "text-lfui-muted-foreground",
+            classNames?.root,
           )}
           disabled={disabled || readOnly}
+          style={styles?.root}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {display}

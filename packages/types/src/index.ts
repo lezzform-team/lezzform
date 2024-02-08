@@ -1,4 +1,5 @@
 import { AttachmentType } from "./elements/attachment";
+import { CustomLayoutType } from "./elements/customLayout";
 import { DatePickerType } from "./elements/datePicker";
 import { DateRangePickerType } from "./elements/dateRangePicker";
 import { DropdownType } from "./elements/dropdown";
@@ -12,11 +13,16 @@ import { TextAreaType } from "./elements/textArea";
 import { ThreeColumnType } from "./elements/threeColumn";
 import { TwoColumnType } from "./elements/twoColumn";
 import { ArrayRule, ObjectRule, PrimitiveRule } from "./rules";
+import { GeneralStyleMetadata } from "./styles";
 
-export type GenericLezzformElement<T = Record<string, unknown>> = {
+export type GenericLezzformElement<
+  Attributes = Record<string, unknown>,
+  StyleMetadata = GeneralStyleMetadata,
+> = {
   id: string;
   name: string;
-  attributes: GeneralAttributes & T;
+  attributes: GeneralAttributes & Attributes;
+  style: StyleMetadata;
   parentId?: string;
 };
 
@@ -52,6 +58,7 @@ export type LezzformElement =
   | MultiSelectType
   | TwoColumnType
   | ThreeColumnType
+  | CustomLayoutType
   | RepeaterGroupType;
 
 export type LezzformElementRule = PrimitiveRule | ObjectRule | ArrayRule;

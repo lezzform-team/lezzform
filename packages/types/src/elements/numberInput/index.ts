@@ -4,9 +4,11 @@ import {
   LezzformElementCategory,
 } from "../..";
 import { IntegerRule } from "../../rules";
+import { GeneralStyleMetadata } from "../../styles";
 
 export type NumberInputType = GenericLezzformElement<
-  GenericFieldAttributes & NumberInputAttributesType
+  GenericFieldAttributes & NumberInputAttributesType,
+  NumberInputStyleType
 > & {
   type: "NumberInput";
   category: LezzformElementCategory.Field;
@@ -15,6 +17,14 @@ export type NumberInputType = GenericLezzformElement<
 
 export type NumberInputAttributesType = {
   variant: NumberInputAttributesVariant;
+};
+
+export type NumberInputStyleType =
+  GeneralStyleMetadata<NumberInputStyleMetadataValuesType>;
+
+export type NumberInputStyleMetadataValuesType = {
+  stepButton: Record<string, unknown>;
+  valueText: Record<string, unknown>;
 };
 
 export type NumberInputAttributesVariant =

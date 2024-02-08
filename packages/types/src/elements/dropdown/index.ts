@@ -4,9 +4,11 @@ import {
   LezzformElementCategory,
 } from "../..";
 import { StringRule } from "../../rules";
+import { GeneralStyleMetadata } from "../../styles";
 
 export type DropdownType = GenericLezzformElement<
-  GenericFieldAttributes & DropdownAttributesType
+  GenericFieldAttributes & DropdownAttributesType,
+  DropdownStyleType
 > & {
   type: "Dropdown";
   category: LezzformElementCategory.Field;
@@ -14,6 +16,8 @@ export type DropdownType = GenericLezzformElement<
 };
 
 export type DropdownAttributesType = DropdownItemApi | DropdownItemStatic;
+export type DropdownStyleType = GeneralStyleMetadata;
+
 export type DropdownRuleType = StringRule;
 
 export type DropdownItemApi = {

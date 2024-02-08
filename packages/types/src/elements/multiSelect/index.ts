@@ -4,10 +4,12 @@ import {
   LezzformElementCategory,
 } from "../..";
 import { ArrayRule } from "../../rules";
+import { GeneralStyleMetadata } from "../../styles";
 import { DropdownItemApi, DropdownItemStatic } from "../dropdown";
 
 export type MultiSelectType = GenericLezzformElement<
-  GenericFieldAttributes & MultiSelectAttributesType
+  GenericFieldAttributes & MultiSelectAttributesType,
+  MultiSelectStyleType
 > & {
   type: "MultiSelect";
   category: LezzformElementCategory.Field;
@@ -17,6 +19,8 @@ export type MultiSelectType = GenericLezzformElement<
 export type MultiSelectAttributesType =
   | MultiSelectItemApi
   | MultiSelectItemStatic;
+export type MultiSelectStyleType = GeneralStyleMetadata;
+
 export type MultiSelectRuleType = ArrayRule;
 
 export type MultiSelectItemApi = DropdownItemApi;

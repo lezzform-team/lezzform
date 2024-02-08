@@ -1,5 +1,41 @@
 # @lezzform/types
 
+## 0.0.31
+
+### Patch Changes
+
+- change styleMetadataValues type
+
+## 0.0.30
+
+### Patch Changes
+
+- insert generic style to some types
+
+## 0.0.29
+
+### Patch Changes
+
+- improve style metadata type
+
+## 0.0.28
+
+### Patch Changes
+
+- support for custom style type
+
+## 0.0.27
+
+### Patch Changes
+
+- add grid template columns style metadata
+
+## 0.0.26
+
+### Patch Changes
+
+- init custom layout type with style metadata
+
 ## 0.0.25
 
 ### Patch Changes
