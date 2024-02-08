@@ -1,11 +1,31 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {}
+export interface TwoColumnStyles {
+  root: React.CSSProperties;
+}
 
-export const TwoColumn = ({ children, ...props }: Props) => {
+export interface TwoColumnClassNames {
+  root: string;
+}
+
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  styles?: Partial<TwoColumnStyles>;
+  classNames?: Partial<TwoColumnClassNames>;
+}
+
+export const TwoColumn = ({
+  children,
+  styles,
+  classNames,
+  ...props
+}: Props) => {
   return (
-    <div {...props} className={cn("w-full grid grid-cols-2 gap-2")}>
+    <div
+      className={cn("w-full grid grid-cols-2 gap-2", classNames?.root)}
+      style={styles?.root}
+      {...props}
+    >
       {children}
     </div>
   );

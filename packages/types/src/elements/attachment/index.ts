@@ -4,9 +4,11 @@ import {
   LezzformElementCategory,
 } from "../..";
 import { StringRule } from "../../rules";
+import { GeneralStyleMetadata } from "../../styles";
 
 export type AttachmentType = GenericLezzformElement<
-  GenericFieldAttributes & AttachmentAttributesType
+  GenericFieldAttributes & AttachmentAttributesType,
+  AttachmentInputStyleType
 > & {
   type: "Attachment";
   category: LezzformElementCategory.Field;
@@ -15,6 +17,22 @@ export type AttachmentType = GenericLezzformElement<
 
 export type AttachmentAttributesType = AttachmentAttributesApiType & {
   variant: AttachmentVariant;
+};
+
+export type AttachmentInputStyleType =
+  GeneralStyleMetadata<AttachmentInputStyleMetadataValuesType>;
+
+export type AttachmentInputStyleMetadataValuesType = {
+  beforeUpload: Partial<{
+    container: Record<string, unknown>;
+    titleText: Record<string, unknown>;
+    subText: Record<string, unknown>;
+  }>;
+  uploading: AttachmentInputStyleMetadataValuesType["beforeUpload"];
+  afterUpload: Partial<{
+    container: Record<string, unknown>;
+    valueText: Record<string, unknown>;
+  }>;
 };
 
 export type AttachmentVariant =

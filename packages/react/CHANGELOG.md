@@ -1,5 +1,27 @@
 # @lezzform/react
 
+## 0.2.30
+
+### Patch Changes
+
+- add missing styles to attachment
+
+## 0.2.29
+
+### Patch Changes
+
+- support for injecting classNames and styles
+- Updated dependencies
+  - @lezzform/types@0.0.28
+
+## 0.2.28
+
+### Patch Changes
+
+- init custom layout component\
+- Updated dependencies
+  - @lezzform/types@0.0.26
+
 ## 0.2.27
 
 ### Patch Changes

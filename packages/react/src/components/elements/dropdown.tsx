@@ -19,6 +19,14 @@ import {
 } from "@/components/ui/popover";
 import lodashGet from "lodash.get";
 
+export interface DropdownStyles {
+  root: React.CSSProperties;
+}
+
+export interface DropdownClassNames {
+  root: string;
+}
+
 interface Props {
   items?: { label: string; value: string }[];
   placeholder?: string;
@@ -31,6 +39,8 @@ interface Props {
   readOnly?: boolean;
   disabled?: boolean;
   isRequired?: boolean;
+  styles?: Partial<DropdownStyles>;
+  classNames?: Partial<DropdownClassNames>;
 }
 
 export function Dropdown({
@@ -42,6 +52,8 @@ export function Dropdown({
   path,
   readOnly,
   disabled,
+  classNames,
+  styles,
 }: Props) {
   const [open, setOpen] = React.useState(false);
   const [apiItems, setApiItems] = React.useState<Props["items"] | null>(null);
@@ -130,8 +142,10 @@ export function Dropdown({
             readOnly && "cursor-default",
             !value && "text-lfui-muted-foreground",
             disabled && "cursor-not-allowed",
+            classNames?.root,
           )}
           disabled={disabled}
+          style={styles?.root}
         >
           {displayedItem}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

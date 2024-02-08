@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useOnMountUnsafe } from "@/lib/use-on-mount-unsafe";
+import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 import {
   ArrayPath,
@@ -10,17 +11,31 @@ import {
   useFormContext,
 } from "react-hook-form";
 
+export interface RepeaterGroupWrapperStyles {
+  root: React.CSSProperties;
+  insertButton: React.CSSProperties;
+}
+
+export interface RepeaterGroupWrapperClassNames {
+  root: string;
+  insertButton: string;
+}
+
 export interface RepeaterGroupWrapperProps<T extends FieldValues> {
   children: (props: {
     name: ArrayPath<T>;
     field: UseFieldArrayReturn<T, ArrayPath<T>, "_key">;
   }) => ReactNode | undefined;
   name: ArrayPath<T>;
+  styles?: Partial<RepeaterGroupWrapperStyles>;
+  classNames?: Partial<RepeaterGroupWrapperClassNames>;
 }
 
 function RepeaterGroupWrapperComponent<T extends FieldValues>({
   children,
   name,
+  classNames,
+  styles,
 }: RepeaterGroupWrapperProps<T>) {
   const { control } = useFormContext<T>();
   const field = useFieldArray({
@@ -38,17 +53,24 @@ function RepeaterGroupWrapperComponent<T extends FieldValues>({
   });
 
   return (
-    <div className="w-full flex flex-col gap-2 border border-lfui-border rounded-md border-dashed p-2">
+    <div
+      className={cn(
+        "w-full flex flex-col gap-2 border border-lfui-border rounded-md border-dashed p-2",
+        classNames?.root,
+      )}
+      style={styles?.root}
+    >
       {children({ name, field })}
       <div className="mt-1">
         <Button
           type="button"
           variant="ghost"
           size="sm"
-          className="w-full"
+          className={cn("w-full", classNames?.insertButton)}
           onClick={() =>
             field.insert(field.fields.length, {} as FieldArray<T, ArrayPath<T>>)
           }
+          style={styles?.insertButton}
         >
           Add more item
         </Button>

@@ -14,6 +14,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+export interface DateRangePickerStyles {
+  root: React.CSSProperties;
+}
+
+export interface DateRangePickerClassNames {
+  root: string;
+}
+
 interface Props {
   placeholder?: string;
   value?: Partial<DateRange>;
@@ -25,6 +33,8 @@ interface Props {
   format?: string;
   isRequired?: boolean;
   className?: string;
+  classNames?: Partial<DateRangePickerClassNames>;
+  styles?: Partial<DateRangePickerStyles>;
 }
 
 export function DateRangePicker({
@@ -35,6 +45,8 @@ export function DateRangePicker({
   onChange,
   disabled,
   readOnly,
+  classNames,
+  styles,
 }: Props) {
   const fromDisplay = React.useMemo(() => {
     if (value?.from) {
@@ -70,8 +82,10 @@ export function DateRangePicker({
             className={cn(
               "w-full justify-start text-left font-normal",
               !value && "text-muted-foreground",
+              classNames?.root,
             )}
             disabled={disabled || readOnly}
+            style={styles?.root}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
             {value?.from ? (

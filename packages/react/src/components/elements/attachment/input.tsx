@@ -4,6 +4,8 @@ import { FileRejection, useDropzone } from "react-dropzone";
 import { cn, splitUrlAndFilename, uploadFile } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
+export interface AttachmentInputProps extends AttachmentProps {}
+
 export function AttachmentInput({
   acceptedFormats,
   maxSize,
@@ -16,7 +18,9 @@ export function AttachmentInput({
   placeholder,
   readonly,
   value,
-}: AttachmentProps): React.JSX.Element {
+  styles,
+  classNames,
+}: AttachmentInputProps): React.JSX.Element {
   const [isUploading, setIsUploading] = useState<boolean>(false);
 
   const onErrorRef = useRef<AttachmentProps["onError"]>();
@@ -113,12 +117,20 @@ export function AttachmentInput({
         "border border-solid border-lfui-input rounded-md text-center hover:bg-lfui-muted cursor-pointer",
         (readonly || disabled) && "cursor-not-allowed",
         disabled && "bg-lfui-border text-black",
+        classNames?.root,
       )}
+      style={styles?.root}
     >
       <input {...getInputProps()} />
 
       {isShowEmpty && (
-        <div className="w-full h-10 flex justify-between gap-2 items-center px-3">
+        <div
+          className={cn(
+            "w-full h-10 flex justify-between gap-2 items-center px-3",
+            classNames?.beforeUpload?.container,
+          )}
+          style={styles?.beforeUpload?.container}
+        >
           <div className="flex items-center gap-2">
             <Button
               className="h-6 rounded px-3 bg-lfui-muted"
@@ -127,9 +139,21 @@ export function AttachmentInput({
               Browse...
             </Button>
 
-            <p className="text-sm text-lfui-foreground break-words max-w-full">
+            <p
+              className={cn(
+                "text-sm text-lfui-foreground break-words max-w-full",
+                classNames?.beforeUpload?.titleText,
+              )}
+              style={styles?.beforeUpload?.titleText}
+            >
               {!placeholder ? "Upload your file here" : placeholder} -{" "}
-              <span className="text-xs text-lfui-muted-foreground">
+              <span
+                className={cn(
+                  "text-xs text-lfui-muted-foreground",
+                  classNames?.beforeUpload?.subText,
+                )}
+                style={styles?.beforeUpload?.subText}
+              >
                 {sizeInMB}MB max
               </span>
             </p>
@@ -138,9 +162,21 @@ export function AttachmentInput({
       )}
 
       {isUploading && (
-        <div className="w-full h-10 flex justify-between gap-2 items-center px-3">
+        <div
+          className={cn(
+            "w-full h-10 flex justify-between gap-2 items-center px-3",
+            classNames?.uploading?.container,
+          )}
+          style={styles?.uploading?.container}
+        >
           <div className="flex items-center gap-2">
-            <p className="text-sm text-lfui-foreground break-words max-w-full">
+            <p
+              className={cn(
+                "text-sm text-lfui-foreground break-words max-w-full",
+                classNames?.uploading?.titleText,
+              )}
+              style={styles?.uploading?.titleText}
+            >
               Uploading...
             </p>
           </div>
@@ -148,7 +184,13 @@ export function AttachmentInput({
       )}
 
       {isShowValue && (
-        <div className="w-full h-10 flex justify-between gap-2 items-center px-3">
+        <div
+          className={cn(
+            "w-full h-10 flex justify-between gap-2 items-center px-3",
+            classNames?.afterUpload?.container,
+          )}
+          style={styles?.afterUpload?.container}
+        >
           <div className="flex items-center gap-2">
             <Button
               className="h-6 rounded px-3 bg-lfui-muted"
@@ -157,7 +199,13 @@ export function AttachmentInput({
               Browse...
             </Button>
 
-            <p className="text-sm text-lfui-foreground break-words max-w-full">
+            <p
+              className={cn(
+                "text-sm text-lfui-foreground break-words max-w-full",
+                classNames?.afterUpload?.valueText,
+              )}
+              style={styles?.afterUpload?.valueText}
+            >
               {splitUrlAndFilename(value).filename}
             </p>
           </div>

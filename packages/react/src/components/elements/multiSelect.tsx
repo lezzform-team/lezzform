@@ -24,6 +24,14 @@ interface Item {
   value: string;
 }
 
+export interface MultiSelectStyles {
+  root: React.CSSProperties;
+}
+
+export interface MultiSelectClassNames {
+  root: string;
+}
+
 interface Props {
   items?: Item[];
   placeholder?: string;
@@ -36,6 +44,8 @@ interface Props {
   readOnly?: boolean;
   disabled?: boolean;
   isRequired?: boolean;
+  styles?: Partial<MultiSelectStyles>;
+  classNames?: Partial<MultiSelectClassNames>;
 }
 
 export function MultiSelect({
@@ -47,6 +57,8 @@ export function MultiSelect({
   path,
   readOnly,
   disabled,
+  styles,
+  classNames,
 }: Props) {
   const [open, setOpen] = React.useState(false);
   const [apiItems, setApiItems] = React.useState<Props["items"] | null>(null);
@@ -142,8 +154,10 @@ export function MultiSelect({
             displayedItem && "justify-between",
             readOnly && "cursor-default",
             !value && "text-lfui-muted-foreground",
+            classNames?.root,
           )}
           disabled={disabled}
+          style={styles?.root}
         >
           {displayedItem}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

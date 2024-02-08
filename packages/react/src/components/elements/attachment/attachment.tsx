@@ -4,6 +4,34 @@ import { cn, splitUrlAndFilename, uploadFile } from "@/lib/utils";
 import { FileIcon, ExternalLinkIcon, ArrowUpIcon } from "@radix-ui/react-icons";
 import { AttachmentInput } from "./input";
 
+export interface AttachmentPropsStyles {
+  root: React.CSSProperties;
+  beforeUpload: Partial<{
+    container: React.CSSProperties;
+    titleText: React.CSSProperties;
+    subText: React.CSSProperties;
+  }>;
+  uploading: AttachmentPropsStyles["beforeUpload"];
+  afterUpload: Partial<{
+    container: React.CSSProperties;
+    valueText: React.CSSProperties;
+  }>;
+}
+
+export interface AttachmentPropsClassNames {
+  root: string;
+  beforeUpload: Partial<{
+    container: string;
+    titleText: string;
+    subText: string;
+  }>;
+  uploading: AttachmentPropsStyles["beforeUpload"];
+  afterUpload: Partial<{
+    container: string;
+    valueText: string;
+  }>;
+}
+
 export interface AttachmentProps {
   name?: string;
   label?: string;
@@ -19,6 +47,8 @@ export interface AttachmentProps {
   placeholder?: string;
   disabled?: boolean;
   readonly?: boolean;
+  styles?: Partial<AttachmentPropsStyles>;
+  classNames?: Partial<AttachmentPropsClassNames>;
 }
 
 export function Attachment({
@@ -33,6 +63,8 @@ export function Attachment({
   placeholder,
   disabled,
   readonly,
+  classNames,
+  styles,
 }: AttachmentProps): React.JSX.Element {
   const [isUploading, setIsUploading] = useState<boolean>(false);
 
@@ -130,42 +162,94 @@ export function Attachment({
         "border border-dashed border-lfui-border rounded-md text-center hover:bg-lfui-muted cursor-pointer",
         (readonly || disabled) && "cursor-not-allowed",
         disabled && "bg-lfui-border text-black",
+        classNames?.root,
       )}
+      style={styles?.root}
     >
       <input {...getInputProps()} />
 
       {isShowEmpty && (
-        <div className="h-full w-full bg-lfui-muted/50 flex flex-col justify-center items-center gap-1 p-4">
+        <div
+          className={cn(
+            "h-full w-full bg-lfui-muted/50 flex flex-col justify-center items-center gap-1 p-4",
+            classNames?.beforeUpload?.container,
+          )}
+          style={styles?.beforeUpload?.container}
+        >
           <div className="h-10 w-10 bg-lfui-background rounded-full shadow-sm flex items-center justify-center">
             <FileIcon className="h-5 w-5" />
           </div>
-          <p className="text-lfui-foreground font-medium">
+          <p
+            className={cn(
+              "text-lfui-foreground font-medium",
+              classNames?.beforeUpload?.titleText,
+            )}
+            style={styles?.beforeUpload?.titleText}
+          >
             {!placeholder ? "Upload your file here" : placeholder}
           </p>
-          <small className="text-sm text-lfui-muted-foreground">
+          <small
+            className={cn(
+              "text-sm text-lfui-muted-foreground",
+              classNames?.beforeUpload?.subText,
+            )}
+            style={styles?.beforeUpload?.subText}
+          >
             {sizeInMB}MB max file size
           </small>
         </div>
       )}
 
       {isUploading && (
-        <div className="h-full w-full bg-lfui-muted/50 flex flex-col justify-center items-center gap-1 p-4">
+        <div
+          className={cn(
+            "h-full w-full bg-lfui-muted/50 flex flex-col justify-center items-center gap-1 p-4",
+            classNames?.uploading?.container,
+          )}
+          style={styles?.uploading?.container}
+        >
           <div className="h-10 w-10 bg-lfui-background rounded-full shadow-sm flex items-center justify-center animate-bounce">
             <ArrowUpIcon className="h-5 w-5" />
           </div>
-          <p className="text-lfui-foreground font-medium">Uploading...</p>
-          <small className="text-sm text-lfui-muted-foreground">
+          <p
+            className={cn(
+              "text-lfui-foreground font-medium",
+              classNames?.uploading?.titleText,
+            )}
+            style={styles?.uploading?.titleText}
+          >
+            Uploading...
+          </p>
+          <small
+            className={cn(
+              "text-sm text-lfui-muted-foreground",
+              classNames?.uploading?.subText,
+            )}
+            style={styles?.uploading?.subText}
+          >
             Your file is being uploaded
           </small>
         </div>
       )}
 
       {isShowValue && (
-        <div className="w-full h-10 flex justify-between gap-2 items-center px-4">
+        <div
+          className={cn(
+            "w-full h-10 flex justify-between gap-2 items-center px-4",
+            classNames?.afterUpload?.container,
+          )}
+          style={styles?.afterUpload?.container}
+        >
           <div className="flex items-center gap-2">
             <FileIcon className="h-4 w-4" />
 
-            <p className="text-sm text-lfui-foreground break-words max-w-full">
+            <p
+              className={cn(
+                "text-sm text-lfui-foreground break-words max-w-full",
+                classNames?.afterUpload?.valueText,
+              )}
+              style={styles?.afterUpload?.valueText}
+            >
               {splitUrlAndFilename(value).filename}
             </p>
           </div>
