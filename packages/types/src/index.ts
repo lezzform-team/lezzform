@@ -12,6 +12,7 @@ import { RepeaterGroupType } from "./elements/repeaterGroup";
 import { TextAreaType } from "./elements/textArea";
 import { ThreeColumnType } from "./elements/threeColumn";
 import { TwoColumnType } from "./elements/twoColumn";
+import { TypographyType } from "./elements/typography";
 import { ArrayRule, ObjectRule, PrimitiveRule } from "./rules";
 import { GeneralStyleMetadata } from "./styles";
 
@@ -42,6 +43,7 @@ export enum LezzformElementCategory {
   Field = "Field",
   Layout = "Layout",
   Repeater = "Repeater",
+  Typography = "Typography",
 }
 
 export type LezzformElementType = LezzformElement["type"];
@@ -59,7 +61,8 @@ export type LezzformElement =
   | TwoColumnType
   | ThreeColumnType
   | CustomLayoutType
-  | RepeaterGroupType;
+  | RepeaterGroupType
+  | TypographyType;
 
 export type LezzformElementRule = PrimitiveRule | ObjectRule | ArrayRule;
 

@@ -60,6 +60,7 @@ export function NumberInputStepper({
         }
         disabled={disabled || readOnly}
         type="button"
+        style={styles?.stepButton}
       >
         <MinusIcon className="h-4 w-4" />
       </Button>
@@ -80,6 +81,7 @@ export function NumberInputStepper({
         }
         disabled={disabled || readOnly}
         type="button"
+        style={styles?.stepButton}
       >
         <PlusIcon className="h-4 w-4" />
       </Button>

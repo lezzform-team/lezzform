@@ -1,5 +1,17 @@
 # @lezzform/types
 
+## 0.0.33
+
+### Patch Changes
+
+- include typography types
+
+## 0.0.32
+
+### Patch Changes
+
+- typography type initial support
+
 ## 0.0.31
 
 ### Patch Changes

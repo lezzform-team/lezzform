@@ -1,5 +1,19 @@
 # @lezzform/react
 
+## 0.2.32
+
+### Patch Changes
+
+- typography initial support
+- Updated dependencies
+  - @lezzform/types@0.0.32
+
+## 0.2.31
+
+### Patch Changes
+
+- apply styles to stepper button
+
 ## 0.2.30
 
 ### Patch Changes
