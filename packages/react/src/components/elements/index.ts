@@ -13,3 +13,4 @@ export * from "./dateRangePicker";
 export * from "./numberInput";
 export * from "./phoneNumberInput";
 export * from "./customLayout";
+export * from "./typography";
