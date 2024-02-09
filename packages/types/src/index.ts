@@ -42,6 +42,7 @@ export enum LezzformElementCategory {
   Field = "Field",
   Layout = "Layout",
   Repeater = "Repeater",
+  Typography = "Typography",
 }
 
 export type LezzformElementType = LezzformElement["type"];
