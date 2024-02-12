@@ -17,6 +17,7 @@ import { TextType } from "./elements/text";
 import { ArrayRule, ObjectRule, PrimitiveRule } from "./rules";
 import { GeneralStyleMetadata } from "./styles";
 import { ImageType } from "./elements/image";
+import { IconType } from "./elements/icon";
 
 export type GenericLezzformElement<
   Attributes = Record<string, unknown>,
@@ -68,7 +69,8 @@ export type LezzformElement =
   | RepeaterGroupType
   | TextType
   | ButtonType
-  | ImageType;
+  | ImageType
+  | IconType;
 
 export type LezzformElementRule = PrimitiveRule | ObjectRule | ArrayRule;
 
