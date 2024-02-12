@@ -1,5 +1,35 @@
 # @lezzform/types
 
+## 0.0.44
+
+### Patch Changes
+
+- improve typing for image element
+
+## 0.0.43
+
+### Patch Changes
+
+- image element init support
+
+## 0.0.42
+
+### Patch Changes
+
+- add size to icon attributes
+
+## 0.0.41
+
+### Patch Changes
+
+- icon element attributes generic
+
+## 0.0.40
+
+### Patch Changes
+
+- init icon element support
+
 ## 0.0.39
 
 ### Patch Changes

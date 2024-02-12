@@ -16,6 +16,7 @@ import { TwoColumnType } from "./elements/twoColumn";
 import { TextType } from "./elements/text";
 import { ArrayRule, ObjectRule, PrimitiveRule } from "./rules";
 import { GeneralStyleMetadata } from "./styles";
+import { ImageType } from "./elements/image";
 
 export type GenericLezzformElement<
   Attributes = Record<string, unknown>,
@@ -46,6 +47,7 @@ export enum LezzformElementCategory {
   Repeater = "Repeater",
   Typography = "Typography",
   Action = "Action",
+  UserInterface = "UserInterface",
 }
 
 export type LezzformElementType = LezzformElement["type"];
@@ -65,7 +67,8 @@ export type LezzformElement =
   | CustomLayoutType
   | RepeaterGroupType
   | TextType
-  | ButtonType;
+  | ButtonType
+  | ImageType;
 
 export type LezzformElementRule = PrimitiveRule | ObjectRule | ArrayRule;
 
