@@ -1,5 +1,29 @@
 # @lezzform/react
 
+## 0.2.36
+
+### Patch Changes
+
+- image width and height optional
+- Updated dependencies
+  - @lezzform/types@0.0.44
+
+## 0.2.35
+
+### Patch Changes
+
+- image element init support
+- Updated dependencies
+  - @lezzform/types@0.0.43
+
+## 0.2.34
+
+### Patch Changes
+
+- init icon element support
+- Updated dependencies
+  - @lezzform/types@0.0.40
+
 ## 0.2.33
 
 ### Patch Changes

@@ -14,3 +14,4 @@ export * from "./numberInput";
 export * from "./phoneNumberInput";
 export * from "./customLayout";
 export * from "./text";
+export * from "./image";

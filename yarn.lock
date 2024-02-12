@@ -2173,9 +2173,9 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@lezzform/react-native@../../packages/rnative/lezzform-react-native-0.0.72.tgz":
-  version "0.0.72"
-  resolved "../../packages/rnative/lezzform-react-native-0.0.72.tgz#2b2e99eb81a03726054ba611d55fb0579f40930e"
+"@lezzform/react-native@../../packages/rnative/lezzform-react-native-0.0.74.tgz":
+  version "0.0.74"
+  resolved "../../packages/rnative/lezzform-react-native-0.0.74.tgz#1d68118a29a52f06100920bd8daa0ebd7ac86fb7"
   dependencies:
     "@react-native-community/datetimepicker" "^7.6.2"
     axios "^1.6.5"
