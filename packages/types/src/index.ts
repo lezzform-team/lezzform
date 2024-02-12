@@ -13,7 +13,7 @@ import { RepeaterGroupType } from "./elements/repeaterGroup";
 import { TextAreaType } from "./elements/textArea";
 import { ThreeColumnType } from "./elements/threeColumn";
 import { TwoColumnType } from "./elements/twoColumn";
-import { TypographyType } from "./elements/typography";
+import { TextType } from "./elements/text";
 import { ArrayRule, ObjectRule, PrimitiveRule } from "./rules";
 import { GeneralStyleMetadata } from "./styles";
 
@@ -64,7 +64,7 @@ export type LezzformElement =
   | ThreeColumnType
   | CustomLayoutType
   | RepeaterGroupType
-  | TypographyType
+  | TextType
   | ButtonType;
 
 export type LezzformElementRule = PrimitiveRule | ObjectRule | ArrayRule;

@@ -1,28 +1,28 @@
 import { cn } from "@/lib/utils";
 
-interface TypographyHeading1Styles {
+interface TextHeading1Styles {
   root: React.CSSProperties;
 }
 
-interface TypographyHeading1ClassNames {
+interface TextHeading1ClassNames {
   root: string;
 }
 
-interface TypographyHeading1Props
+interface TextHeading1Props
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLParagraphElement>,
     HTMLParagraphElement
   > {
-  styles?: Partial<TypographyHeading1Styles>;
-  classNames?: Partial<TypographyHeading1ClassNames>;
+  styles?: Partial<TextHeading1Styles>;
+  classNames?: Partial<TextHeading1ClassNames>;
 }
 
-export function TypographyHeading1({
+export function TextHeading1({
   children,
   styles,
   classNames,
   ...props
-}: TypographyHeading1Props): React.JSX.Element {
+}: TextHeading1Props): React.JSX.Element {
   return (
     <h1
       style={styles?.root}

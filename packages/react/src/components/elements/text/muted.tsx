@@ -1,28 +1,28 @@
 import { cn } from "@/lib/utils";
 
-interface TypographyMutedStyles {
+interface TextMutedStyles {
   root: React.CSSProperties;
 }
 
-interface TypographyMutedClassNames {
+interface TextMutedClassNames {
   root: string;
 }
 
-interface TypographyMutedProps
+interface TextMutedProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLParagraphElement>,
     HTMLParagraphElement
   > {
-  styles?: Partial<TypographyMutedStyles>;
-  classNames?: Partial<TypographyMutedClassNames>;
+  styles?: Partial<TextMutedStyles>;
+  classNames?: Partial<TextMutedClassNames>;
 }
 
-export function TypographyMuted({
+export function TextMuted({
   children,
   styles,
   classNames,
   ...props
-}: TypographyMutedProps): React.JSX.Element {
+}: TextMutedProps): React.JSX.Element {
   return (
     <p
       style={styles?.root}

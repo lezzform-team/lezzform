@@ -1,5 +1,17 @@
 # @lezzform/types
 
+## 0.0.39
+
+### Patch Changes
+
+- typography dir change to text
+
+## 0.0.38
+
+### Patch Changes
+
+- change typography to text
+
 ## 0.0.37
 
 ### Patch Changes

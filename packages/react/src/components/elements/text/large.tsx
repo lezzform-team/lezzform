@@ -1,28 +1,28 @@
 import { cn } from "@/lib/utils";
 
-interface TypographyLargeStyles {
+interface TextLargeStyles {
   root: React.CSSProperties;
 }
 
-interface TypographyLargeClassNames {
+interface TextLargeClassNames {
   root: string;
 }
 
-interface TypographyLargeProps
+interface TextLargeProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   > {
-  styles?: Partial<TypographyLargeStyles>;
-  classNames?: Partial<TypographyLargeClassNames>;
+  styles?: Partial<TextLargeStyles>;
+  classNames?: Partial<TextLargeClassNames>;
 }
 
-export function TypographyLarge({
+export function TextLarge({
   children,
   styles,
   classNames,
   ...props
-}: TypographyLargeProps): React.JSX.Element {
+}: TextLargeProps): React.JSX.Element {
   return (
     <div
       style={styles?.root}

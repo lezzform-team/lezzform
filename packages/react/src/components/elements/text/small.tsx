@@ -1,28 +1,28 @@
 import { cn } from "@/lib/utils";
 
-interface TypographySmallStyles {
+interface TextSmallStyles {
   root: React.CSSProperties;
 }
 
-interface TypographySmallClassNames {
+interface TextSmallClassNames {
   root: string;
 }
 
-interface TypographySmallProps
+interface TextSmallProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLParagraphElement>,
     HTMLParagraphElement
   > {
-  styles?: Partial<TypographySmallStyles>;
-  classNames?: Partial<TypographySmallClassNames>;
+  styles?: Partial<TextSmallStyles>;
+  classNames?: Partial<TextSmallClassNames>;
 }
 
-export function TypographySmall({
+export function TextSmall({
   children,
   styles,
   classNames,
   ...props
-}: TypographySmallProps): React.JSX.Element {
+}: TextSmallProps): React.JSX.Element {
   return (
     <small
       style={styles?.root}

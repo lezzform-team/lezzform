@@ -1,5 +1,13 @@
 # @lezzform/react
 
+## 0.2.33
+
+### Patch Changes
+
+- change typography to text
+- Updated dependencies
+  - @lezzform/types@0.0.38
+
 ## 0.2.32
 
 ### Patch Changes

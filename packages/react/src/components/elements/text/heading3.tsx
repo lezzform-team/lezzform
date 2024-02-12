@@ -1,28 +1,28 @@
 import { cn } from "@/lib/utils";
 
-interface TypographyHeading3Styles {
+interface TextHeading3Styles {
   root: React.CSSProperties;
 }
 
-interface TypographyHeading3ClassNames {
+interface TextHeading3ClassNames {
   root: string;
 }
 
-interface TypographyHeading3Props
+interface TextHeading3Props
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLParagraphElement>,
     HTMLParagraphElement
   > {
-  styles?: Partial<TypographyHeading3Styles>;
-  classNames?: Partial<TypographyHeading3ClassNames>;
+  styles?: Partial<TextHeading3Styles>;
+  classNames?: Partial<TextHeading3ClassNames>;
 }
 
-export function TypographyHeading3({
+export function TextHeading3({
   children,
   styles,
   classNames,
   ...props
-}: TypographyHeading3Props): React.JSX.Element {
+}: TextHeading3Props): React.JSX.Element {
   return (
     <h3
       style={styles?.root}
