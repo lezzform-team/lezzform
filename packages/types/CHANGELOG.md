@@ -1,5 +1,29 @@
 # @lezzform/types
 
+## 0.0.37
+
+### Patch Changes
+
+- change button role to type
+
+## 0.0.36
+
+### Patch Changes
+
+- remove button content
+
+## 0.0.35
+
+### Patch Changes
+
+- change outlined to outline
+
+## 0.0.34
+
+### Patch Changes
+
+- init button type
+
 ## 0.0.33
 
 ### Patch Changes
