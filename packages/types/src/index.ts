@@ -1,4 +1,5 @@
 import { AttachmentType } from "./elements/attachment";
+import { ButtonType } from "./elements/button";
 import { CustomLayoutType } from "./elements/customLayout";
 import { DatePickerType } from "./elements/datePicker";
 import { DateRangePickerType } from "./elements/dateRangePicker";
@@ -44,6 +45,7 @@ export enum LezzformElementCategory {
   Layout = "Layout",
   Repeater = "Repeater",
   Typography = "Typography",
+  Action = "Action",
 }
 
 export type LezzformElementType = LezzformElement["type"];
@@ -62,7 +64,8 @@ export type LezzformElement =
   | ThreeColumnType
   | CustomLayoutType
   | RepeaterGroupType
-  | TypographyType;
+  | TypographyType
+  | ButtonType;
 
 export type LezzformElementRule = PrimitiveRule | ObjectRule | ArrayRule;
 
