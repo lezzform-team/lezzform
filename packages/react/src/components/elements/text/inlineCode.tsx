@@ -1,28 +1,28 @@
 import { cn } from "@/lib/utils";
 
-interface TypographyInlineCodeStyles {
+interface TextInlineCodeStyles {
   root: React.CSSProperties;
 }
 
-interface TypographyInlineCodeClassNames {
+interface TextInlineCodeClassNames {
   root: string;
 }
 
-interface TypographyInlineCodeProps
+interface TextInlineCodeProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLParagraphElement>,
     HTMLParagraphElement
   > {
-  styles?: Partial<TypographyInlineCodeStyles>;
-  classNames?: Partial<TypographyInlineCodeClassNames>;
+  styles?: Partial<TextInlineCodeStyles>;
+  classNames?: Partial<TextInlineCodeClassNames>;
 }
 
-export function TypographyInlineCode({
+export function TextInlineCode({
   children,
   styles,
   classNames,
   ...props
-}: TypographyInlineCodeProps): React.JSX.Element {
+}: TextInlineCodeProps): React.JSX.Element {
   return (
     <code
       style={styles?.root}

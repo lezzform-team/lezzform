@@ -1,28 +1,28 @@
 import { cn } from "@/lib/utils";
 
-interface TypographyParagraphStyles {
+interface TextParagraphStyles {
   root: React.CSSProperties;
 }
 
-interface TypographyParagraphClassNames {
+interface TextParagraphClassNames {
   root: string;
 }
 
-interface TypographyParagraphProps
+interface TextParagraphProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLParagraphElement>,
     HTMLParagraphElement
   > {
-  styles?: Partial<TypographyParagraphStyles>;
-  classNames?: Partial<TypographyParagraphClassNames>;
+  styles?: Partial<TextParagraphStyles>;
+  classNames?: Partial<TextParagraphClassNames>;
 }
 
-export function TypographyParagraph({
+export function TextParagraph({
   children,
   styles,
   classNames,
   ...props
-}: TypographyParagraphProps): React.JSX.Element {
+}: TextParagraphProps): React.JSX.Element {
   return (
     <p
       style={styles?.root}

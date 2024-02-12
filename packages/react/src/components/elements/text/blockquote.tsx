@@ -1,28 +1,28 @@
 import { cn } from "@/lib/utils";
 
-interface TypographyBlockquoteStyles {
+interface TextBlockquoteStyles {
   root: React.CSSProperties;
 }
 
-interface TypographyBlockquoteClassNames {
+interface TextBlockquoteClassNames {
   root: string;
 }
 
-interface TypographyBlockquoteProps
+interface TextBlockquoteProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLQuoteElement>,
     HTMLQuoteElement
   > {
-  styles?: Partial<TypographyBlockquoteStyles>;
-  classNames?: Partial<TypographyBlockquoteClassNames>;
+  styles?: Partial<TextBlockquoteStyles>;
+  classNames?: Partial<TextBlockquoteClassNames>;
 }
 
-export function TypographyBlockquote({
+export function TextBlockquote({
   children,
   styles,
   classNames,
   ...props
-}: TypographyBlockquoteProps): React.JSX.Element {
+}: TextBlockquoteProps): React.JSX.Element {
   return (
     <blockquote
       style={styles?.root}
