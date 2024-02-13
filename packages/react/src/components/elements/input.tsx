@@ -1,19 +1,19 @@
 import React from "react";
 import { Input as ShadInput } from "../ui/input";
-import { InputAdornmentType } from "@lezzform/types/dist/elements/input";
 import { cn } from "@/lib/utils";
+import { ElementAdornmentType } from "@lezzform/types/dist/shared";
 
 export type InputStyles<T = React.CSSProperties> = {
   root: T;
   input: T;
-  prefixAdornment?: Partial<Record<keyof InputAdornmentType, T>>;
+  prefixAdornment?: Partial<Record<keyof ElementAdornmentType, T>>;
   suffixAdornment?: InputStyles<T>["prefixAdornment"];
 };
 
 export type InputClassNames<T = string> = {
   root: T;
   input: T;
-  prefixAdornment?: Partial<Record<keyof InputAdornmentType, T>>;
+  prefixAdornment?: Partial<Record<keyof ElementAdornmentType, T>>;
   suffixAdornment?: InputClassNames<T>["prefixAdornment"];
 };
 
@@ -23,10 +23,10 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   styles?: Partial<InputStyles>;
   classNames?: Partial<InputClassNames>;
   prefixAdornment?: Partial<
-    Record<keyof InputAdornmentType, React.JSX.Element>
+    Record<keyof ElementAdornmentType, React.JSX.Element>
   >;
   suffixAdornment?: Partial<
-    Record<keyof InputAdornmentType, React.JSX.Element>
+    Record<keyof ElementAdornmentType, React.JSX.Element>
   >;
 }
 

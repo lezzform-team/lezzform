@@ -1,6 +1,5 @@
 "use client";
 
-import { Calendar as CalendarIcon } from "lucide-react";
 import { format as dateFnsFormat } from "date-fns";
 
 import { cn } from "@/lib/utils";
@@ -12,13 +11,20 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useMemo } from "react";
+import { ElementAdornmentType } from "@lezzform/types/dist/shared";
 
-export interface DatePickerStyles {
+export interface DatePickerStyles<T = React.CSSProperties> {
   root: React.CSSProperties;
+  prefixAdornment?: Partial<Record<keyof ElementAdornmentType, T>>;
+  suffixAdornment?: DatePickerStyles<T>["prefixAdornment"];
+  content: React.CSSProperties;
 }
 
-export interface DatePickerClassNames {
+export interface DatePickerClassNames<T = string> {
   root: string;
+  prefixAdornment?: Partial<Record<keyof ElementAdornmentType, T>>;
+  suffixAdornment?: DatePickerClassNames<T>["prefixAdornment"];
+  content: string;
 }
 
 interface Props {
@@ -33,6 +39,12 @@ interface Props {
   isRequired?: boolean;
   styles?: Partial<DatePickerStyles>;
   classNames?: Partial<DatePickerClassNames>;
+  prefixAdornment?: Partial<
+    Record<keyof ElementAdornmentType, React.JSX.Element>
+  >;
+  suffixAdornment?: Partial<
+    Record<keyof ElementAdornmentType, React.JSX.Element>
+  >;
 }
 
 export function DatePicker({
@@ -44,6 +56,8 @@ export function DatePicker({
   onChange,
   classNames,
   styles,
+  prefixAdornment,
+  suffixAdornment,
 }: Props) {
   const display = useMemo(() => {
     if (value) {
@@ -63,15 +77,46 @@ export function DatePicker({
         <Button
           variant={"outline"}
           className={cn(
-            "w-full justify-start text-left font-normal",
+            "w-full items-center justify-start text-left font-normal h-10 py-0 px-0",
             !value && "text-lfui-muted-foreground",
+            !prefixAdornment && "pl-3",
+            !suffixAdornment && "pr-3",
             classNames?.root,
           )}
           disabled={disabled || readOnly}
           style={styles?.root}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
-          {display}
+          {Boolean(prefixAdornment?.icon) && (
+            <div
+              className={cn(
+                "px-3 flex-shrink-0",
+                classNames?.prefixAdornment?.icon,
+              )}
+              style={styles?.prefixAdornment?.icon}
+            >
+              {prefixAdornment?.icon}
+            </div>
+          )}
+          <div
+            className={cn(
+              "h-full flex items-center flex-grow",
+              classNames?.content,
+            )}
+            style={styles?.content}
+          >
+            {display}
+          </div>
+          {Boolean(suffixAdornment?.icon) && (
+            <div
+              className={cn(
+                "px-3 flex-shrink-0",
+                classNames?.suffixAdornment?.icon,
+              )}
+              style={styles?.suffixAdornment?.icon}
+            >
+              {suffixAdornment?.icon}
+            </div>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
