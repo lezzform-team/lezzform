@@ -6,7 +6,7 @@ export type ElementAdornmentType = {
   text: Omit<TextType, "id">;
 };
 
-export type ElementAttributesType = {
+export type ElementAdornmentAttributesType = {
   adornment?: {
     type?: "prefix" | "suffix";
     prefix?: Partial<ElementAdornmentType>;

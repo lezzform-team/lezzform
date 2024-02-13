@@ -4,13 +4,13 @@ import {
   LezzformElementCategory,
 } from "../..";
 import { StringRule } from "../../rules";
-import { ElementAttributesType } from "../../shared";
+import { ElementAdornmentAttributesType } from "../../shared";
 import { GeneralStyleMetadata } from "../../styles";
 import { IconType } from "../icon";
 import { ImageType } from "../image";
 
 export type InputType = GenericLezzformElement<
-  GenericFieldAttributes & ElementAttributesType,
+  GenericFieldAttributes & ElementAdornmentAttributesType,
   InputStyleType
 > & {
   type: "Input";
