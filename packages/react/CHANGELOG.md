@@ -1,5 +1,21 @@
 # @lezzform/react
 
+## 0.2.38
+
+### Patch Changes
+
+- remove default styling in image element
+- Updated dependencies
+  - @lezzform/types@0.0.49
+
+## 0.2.37
+
+### Patch Changes
+
+- addornment support for input element
+- Updated dependencies
+  - @lezzform/types@0.0.46
+
 ## 0.2.36
 
 ### Patch Changes

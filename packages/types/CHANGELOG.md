@@ -1,5 +1,29 @@
 # @lezzform/types
 
+## 0.0.49
+
+### Patch Changes
+
+- revert image adornment type
+
+## 0.0.48
+
+### Patch Changes
+
+- add image type adornment style
+
+## 0.0.47
+
+### Patch Changes
+
+- add adornment type
+
+## 0.0.46
+
+### Patch Changes
+
+- addornment support for input element
+
 ## 0.0.45
 
 ### Patch Changes

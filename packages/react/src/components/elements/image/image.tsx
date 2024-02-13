@@ -10,16 +10,12 @@ export interface ImagePropsClassNames {
 
 interface ImageProps extends React.HTMLProps<HTMLImageElement> {
   url: string;
-  width?: number;
-  height?: number;
   styles?: Partial<ImagePropsStyles>;
   classNames?: Partial<ImagePropsClassNames>;
 }
 
 export function Image({
   url,
-  height = 100,
-  width = 100,
   styles,
   classNames,
   className,
@@ -27,10 +23,10 @@ export function Image({
 }: ImageProps): React.JSX.Element {
   return (
     <img
-      className={cn("aspect-square object-cover", className, classNames?.root)}
+      className={cn(className, classNames?.root)}
       src={url}
       alt={url}
-      style={{ height, width, ...(styles?.root ?? {}) }}
+      style={styles?.root}
       {...props}
     />
   );
