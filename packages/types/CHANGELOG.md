@@ -1,5 +1,23 @@
 # @lezzform/types
 
+## 0.0.52
+
+### Patch Changes
+
+- differentiate content style for datePicker
+
+## 0.0.51
+
+### Patch Changes
+
+- datePicker type support for adornment
+
+## 0.0.50
+
+### Patch Changes
+
+- datepicker elements icon support
+
 ## 0.0.49
 
 ### Patch Changes

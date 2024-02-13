@@ -1,5 +1,45 @@
 # @lezzform/react
 
+## 0.2.44
+
+### Patch Changes
+
+- fix datePicker content alignment
+
+## 0.2.43
+
+### Patch Changes
+
+- fix alignment issue with adornment
+
+## 0.2.42
+
+### Patch Changes
+
+- improve styling for adornment
+
+## 0.2.41
+
+### Patch Changes
+
+- datePicker content flexGrow
+
+## 0.2.40
+
+### Patch Changes
+
+- differentiate content style for datePicker
+- Updated dependencies
+  - @lezzform/types@0.0.52
+
+## 0.2.39
+
+### Patch Changes
+
+- datepicker support adornment
+- Updated dependencies
+  - @lezzform/types@0.0.51
+
 ## 0.2.38
 
 ### Patch Changes
