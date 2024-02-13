@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -18,13 +18,20 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import lodashGet from "lodash.get";
+import { ElementAdornmentType } from "@lezzform/types/dist/shared";
 
-export interface DropdownStyles {
+export interface DropdownStyles<T = React.CSSProperties> {
   root: React.CSSProperties;
+  prefixAdornment?: Partial<Record<keyof ElementAdornmentType, T>>;
+  suffixAdornment?: DropdownStyles<T>["prefixAdornment"];
+  content: React.CSSProperties;
 }
 
-export interface DropdownClassNames {
+export interface DropdownClassNames<T = string> {
   root: string;
+  prefixAdornment?: Partial<Record<keyof ElementAdornmentType, T>>;
+  suffixAdornment?: DropdownClassNames<T>["prefixAdornment"];
+  content: string;
 }
 
 interface Props {
@@ -41,6 +48,12 @@ interface Props {
   isRequired?: boolean;
   styles?: Partial<DropdownStyles>;
   classNames?: Partial<DropdownClassNames>;
+  prefixAdornment?: Partial<
+    Record<keyof ElementAdornmentType, React.JSX.Element>
+  >;
+  suffixAdornment?: Partial<
+    Record<keyof ElementAdornmentType, React.JSX.Element>
+  >;
 }
 
 export function Dropdown({
@@ -54,6 +67,8 @@ export function Dropdown({
   disabled,
   classNames,
   styles,
+  suffixAdornment,
+  prefixAdornment,
 }: Props) {
   const [open, setOpen] = React.useState(false);
   const [apiItems, setApiItems] = React.useState<Props["items"] | null>(null);
@@ -136,19 +151,48 @@ export function Dropdown({
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "w-full",
-            !displayedItem && "justify-end",
-            displayedItem && "justify-between",
+            "w-full items-center justify-start text-left font-normal h-10 py-0 px-0",
             readOnly && "cursor-default",
             !value && "text-lfui-muted-foreground",
             disabled && "cursor-not-allowed",
+            !prefixAdornment && "pl-3",
+            !suffixAdornment && "pr-3",
             classNames?.root,
           )}
           disabled={disabled}
           style={styles?.root}
         >
-          {displayedItem}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          {Boolean(prefixAdornment?.icon) && (
+            <div
+              className={cn(
+                "px-3 flex-shrink-0",
+                classNames?.prefixAdornment?.icon,
+              )}
+              style={styles?.prefixAdornment?.icon}
+            >
+              {prefixAdornment?.icon}
+            </div>
+          )}
+          <div
+            className={cn(
+              "h-full flex items-center flex-grow",
+              classNames?.content,
+            )}
+            style={styles?.content}
+          >
+            {displayedItem}
+          </div>
+          {Boolean(suffixAdornment?.icon) && (
+            <div
+              className={cn(
+                "px-3 flex-shrink-0",
+                classNames?.suffixAdornment?.icon,
+              )}
+              style={styles?.suffixAdornment?.icon}
+            >
+              {suffixAdornment?.icon}
+            </div>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0 DropdownPopoverContent">

@@ -1,5 +1,13 @@
 # @lezzform/react
 
+## 0.2.45
+
+### Patch Changes
+
+- dropdown support for adornment
+- Updated dependencies
+  - @lezzform/types@0.0.53
+
 ## 0.2.44
 
 ### Patch Changes

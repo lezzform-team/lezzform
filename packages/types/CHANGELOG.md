@@ -1,5 +1,11 @@
 # @lezzform/types
 
+## 0.0.53
+
+### Patch Changes
+
+- dropdown support for adornment
+
 ## 0.0.52
 
 ### Patch Changes
