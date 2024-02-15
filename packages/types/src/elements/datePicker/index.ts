@@ -20,8 +20,8 @@ export type DatePickerAttributesType = ElementAdornmentAttributesType & {
   format: string;
 };
 
-export type DatePickerStyleType = GeneralStyleMetadata &
-  DatePickerStyleMetadataValuesType;
+export type DatePickerStyleType =
+  GeneralStyleMetadata<DatePickerStyleMetadataValuesType>;
 
 export type DatePickerStyleMetadataValuesType = {
   input: Record<string, unknown>;
