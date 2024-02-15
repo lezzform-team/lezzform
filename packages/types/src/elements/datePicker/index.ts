@@ -4,7 +4,7 @@ import {
   LezzformElementCategory,
 } from "../..";
 import { DateRule } from "../../rules";
-import { ElementAttributesType } from "../../shared";
+import { ElementAdornmentAttributesType } from "../../shared";
 import { GeneralStyleMetadata } from "../../styles";
 
 export type DatePickerType = GenericLezzformElement<
@@ -16,12 +16,12 @@ export type DatePickerType = GenericLezzformElement<
   rule: DatePickerRuleType;
 };
 
-export type DatePickerAttributesType = ElementAttributesType & {
+export type DatePickerAttributesType = ElementAdornmentAttributesType & {
   format: string;
 };
 
-export type DatePickerStyleType = GeneralStyleMetadata &
-  DatePickerStyleMetadataValuesType;
+export type DatePickerStyleType =
+  GeneralStyleMetadata<DatePickerStyleMetadataValuesType>;
 
 export type DatePickerStyleMetadataValuesType = {
   input: Record<string, unknown>;
