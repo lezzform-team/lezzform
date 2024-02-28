@@ -1,5 +1,11 @@
 # @lezzform/types
 
+## 0.0.55
+
+### Patch Changes
+
+- support for data path dropdown and multiselect
+
 ## 0.0.54
 
 ### Patch Changes
