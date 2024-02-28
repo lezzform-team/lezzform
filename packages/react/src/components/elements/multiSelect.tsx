@@ -22,6 +22,7 @@ import lodashGet from "lodash.get";
 interface Item {
   label: string;
   value: string;
+  data?: string;
 }
 
 export interface MultiSelectStyles {
@@ -76,7 +77,11 @@ export function MultiSelect({
     if (!url || !path?.label || !path?.value) return;
     try {
       const query = await fetch(url);
-      const data = (await query.json()) as Record<string, unknown>[];
+      let data = (await query.json()) as Record<string, unknown>[];
+
+      if (path?.data) {
+        data = lodashGet(data, path.data, []);
+      }
 
       return setApiItems(
         data.map((item) => ({
@@ -87,7 +92,7 @@ export function MultiSelect({
     } catch (error) {
       setApiItems(null);
     }
-  }, [path?.label, path?.value, url]);
+  }, [path?.label, path?.value, path?.data, url]);
 
   const displayedItem = React.useMemo(() => {
     if (!value?.length) return placeholder;

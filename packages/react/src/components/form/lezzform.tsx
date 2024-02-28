@@ -11,7 +11,7 @@ import { ZodType } from "zod";
 import { LezzformContainer } from "./container";
 import { LezzformReturn } from "@/types";
 
-interface Props<T extends FieldValues = Record<string, unknown>>
+export interface LezzformProps<T extends FieldValues = Record<string, unknown>>
   extends UseFormProps<T> {
   onSubmit: (form: LezzformReturn<T>, values: T) => unknown;
   onSuccess?: (form: LezzformReturn<T>, values: unknown) => unknown;
@@ -30,7 +30,7 @@ function LezzformComponent<T extends FieldValues = Record<string, unknown>>({
   id,
   zodSchema,
   ...rest
-}: Props<T>) {
+}: LezzformProps<T>) {
   const form = useForm<T>({
     defaultValues,
     resolver: zodResolver(zodSchema),
@@ -38,9 +38,9 @@ function LezzformComponent<T extends FieldValues = Record<string, unknown>>({
     ...rest,
   });
 
-  const onSubmitRef = useRef<Props<T>["onSubmit"]>();
-  const onSuccessRef = useRef<Props<T>["onSuccess"]>();
-  const onErrorRef = useRef<Props<T>["onError"]>();
+  const onSubmitRef = useRef<LezzformProps<T>["onSubmit"]>();
+  const onSuccessRef = useRef<LezzformProps<T>["onSuccess"]>();
+  const onErrorRef = useRef<LezzformProps<T>["onError"]>();
 
   useEffect(() => {
     if (!onSubmit) return;
@@ -71,9 +71,22 @@ function LezzformComponent<T extends FieldValues = Record<string, unknown>>({
     [form],
   );
 
+  const isOnChange = !rest.mode || rest.mode === "onChange";
+
   return (
     <Form key={id} {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)}>{children(form)}</form>
+      <form
+        onSubmit={(e) => {
+          if (!isOnChange) return;
+          form.handleSubmit(handleSubmit)(e);
+        }}
+        onBlur={(e) => {
+          if (rest.mode !== "onBlur") return;
+          form.handleSubmit(handleSubmit)(e);
+        }}
+      >
+        {children(form)}
+      </form>
     </Form>
   );
 }
