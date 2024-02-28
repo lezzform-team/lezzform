@@ -43,6 +43,7 @@ export type DropdownItemApi = {
   path: {
     value: string;
     label: string;
+    data?: string;
   };
 };
 

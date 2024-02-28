@@ -1,5 +1,25 @@
 # @lezzform/react
 
+## 0.2.48
+
+### Patch Changes
+
+- lezzform onBlur experimental support
+
+## 0.2.47
+
+### Patch Changes
+
+- lezzform formProps support
+
+## 0.2.46
+
+### Patch Changes
+
+- support for data path dropdown and multiselect
+- Updated dependencies
+  - @lezzform/types@0.0.55
+
 ## 0.2.45
 
 ### Patch Changes
