@@ -26,7 +26,10 @@ export function TextSmall({
   return (
     <small
       style={styles?.root}
-      className={cn("text-sm font-medium leading-none", classNames?.root)}
+      className={cn(
+        "lf-text-sm lf-font-medium lf-leading-none",
+        classNames?.root,
+      )}
       {...props}
     >
       {children}

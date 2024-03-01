@@ -22,7 +22,10 @@ export const TwoColumn = ({
 }: Props) => {
   return (
     <div
-      className={cn("w-full grid grid-cols-2 gap-2", classNames?.root)}
+      className={cn(
+        "lf-w-full lf-grid lf-grid-cols-2 lf-gap-2",
+        classNames?.root,
+      )}
       style={styles?.root}
       {...props}
     >

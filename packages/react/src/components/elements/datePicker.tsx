@@ -77,10 +77,10 @@ export function DatePicker({
         <Button
           variant={"outline"}
           className={cn(
-            "w-full items-center justify-start text-left font-normal h-10 py-0 px-0",
-            !value && "text-lfui-muted-foreground",
-            !prefixAdornment && "pl-3",
-            !suffixAdornment && "pr-3",
+            "lf-w-full lf-items-center lf-justify-start lf-text-left lf-font-normal lf-h-10 lf-py-0 lf-px-0",
+            !value && "lf-text-muted-foreground",
+            !prefixAdornment && "lf-pl-3",
+            !suffixAdornment && "lf-pr-3",
             classNames?.root,
           )}
           disabled={disabled || readOnly}
@@ -89,7 +89,7 @@ export function DatePicker({
           {Boolean(prefixAdornment?.icon) && (
             <div
               className={cn(
-                "px-3 flex-shrink-0",
+                "lf-px-3 lf-flex-shrink-0",
                 classNames?.prefixAdornment?.icon,
               )}
               style={styles?.prefixAdornment?.icon}
@@ -99,7 +99,7 @@ export function DatePicker({
           )}
           <div
             className={cn(
-              "h-full flex items-center flex-grow",
+              "lf-h-full lf-flex lf-items-center lf-flex-grow",
               classNames?.content,
             )}
             style={styles?.content}
@@ -109,7 +109,7 @@ export function DatePicker({
           {Boolean(suffixAdornment?.icon) && (
             <div
               className={cn(
-                "px-3 flex-shrink-0",
+                "lf-px-3 lf-flex-shrink-0",
                 classNames?.suffixAdornment?.icon,
               )}
               style={styles?.suffixAdornment?.icon}
@@ -119,7 +119,7 @@ export function DatePicker({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
+      <PopoverContent className="lf-w-auto lf-p-0" align="start">
         <Calendar
           mode="single"
           selected={value}

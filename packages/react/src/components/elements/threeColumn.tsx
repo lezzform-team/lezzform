@@ -24,7 +24,7 @@ export const ThreeColumn = ({
   return (
     <div
       className={cn(
-        "w-full grid grid-cols-3 gap-2",
+        "lf-w-full lf-grid lf-grid-cols-3 lf-gap-2",
         className,
         classNames?.root,
       )}

@@ -26,7 +26,7 @@ export function TextMuted({
   return (
     <p
       style={styles?.root}
-      className={cn("text-sm text-lfui-muted-foreground", classNames?.root)}
+      className={cn("lf-text-sm lf-text-muted-foreground", classNames?.root)}
       {...props}
     >
       {children}

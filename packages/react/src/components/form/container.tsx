@@ -7,7 +7,10 @@ export const LezzformContainer = ({
   ...props
 }: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>) => {
   return (
-    <div className={cn("w-full flex flex-col gap-2", className)} {...props}>
+    <div
+      className={cn("lf-w-full lf-flex lf-flex-col lf-gap-2", className)}
+      {...props}
+    >
       {children}
     </div>
   );

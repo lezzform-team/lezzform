@@ -1,5 +1,17 @@
 # @lezzform/react
 
+## 0.2.50
+
+### Patch Changes
+
+- clean up packages
+
+## 0.2.49
+
+### Patch Changes
+
+- add tailwind prefix to all classes
+
 ## 0.2.48
 
 ### Patch Changes

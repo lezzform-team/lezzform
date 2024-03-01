@@ -26,7 +26,7 @@ export function TextParagraph({
   return (
     <p
       style={styles?.root}
-      className={cn("leading-7", classNames?.root)}
+      className={cn("lf-leading-7", classNames?.root)}
       {...props}
     >
       {children}

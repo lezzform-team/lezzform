@@ -54,9 +54,9 @@ export const Input = ({
   return (
     <div
       className={cn(
-        "flex items-center h-10 w-full rounded-md border border-lfui-input bg-lfui-background text-sm file:border file:border-lfui-border file:border-solid file:rounded file:outline-none file:shadow-none file:bg-lfui-muted file:text-sm file:font-medium file:px-2 placeholder:text-lfui-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
-        !prefixAdornment && "pl-3",
-        !suffixAdornment && "pr-3",
+        "lf-flex lf-items-center lf-h-10 lf-w-full lf-rounded-md lf-border lf-border-input lf-bg-background lf-text-sm file:lf-border file:lf-border-border file:lf-border-solid file:lf-rounded file:lf-outline-none file:lf-shadow-none file:lf-bg-muted file:lf-text-sm file:lf-font-medium file:lf-px-2 placeholder:lf-text-muted-foreground disabled:lf-cursor-not-allowed disabled:lf-opacity-50",
+        !prefixAdornment && "lf-pl-3",
+        !suffixAdornment && "lf-pr-3",
         classNames?.root,
       )}
       style={styles?.root}
@@ -64,7 +64,7 @@ export const Input = ({
       {Boolean(prefixAdornment?.text) && (
         <div
           className={cn(
-            "h-full bg-lfui-muted text-lfui-muted-foreground px-3 border-r rounded-l-md border-r-lfui-input flex items-center justify-start",
+            "lf-h-full lf-bg-muted lf-text-muted-foreground lf-px-3 lf-border-r lf-rounded-l-md lf-border-r-input lf-flex lf-items-center lf-justify-start",
             classNames?.prefixAdornment?.text,
           )}
           style={styles?.prefixAdornment?.text}
@@ -74,7 +74,7 @@ export const Input = ({
       )}
       {Boolean(prefixAdornment?.icon) && (
         <div
-          className={cn("px-3", classNames?.prefixAdornment?.icon)}
+          className={cn("lf-px-3", classNames?.prefixAdornment?.icon)}
           style={styles?.prefixAdornment?.icon}
         >
           {prefixAdornment?.icon}
@@ -85,7 +85,7 @@ export const Input = ({
         required={isRequired}
         style={styles?.input}
         className={cn(
-          "border-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 px-0 py-0 h-full rounded-none",
+          "lf-border-0 focus-visible:lf-outline-none focus-visible:lf-ring-0 focus-visible:lf-ring-offset-0 lf-px-0 lf-py-0 lf-h-full lf-rounded-none",
           classNames?.input,
         )}
         {...props}
@@ -93,7 +93,7 @@ export const Input = ({
 
       {Boolean(suffixAdornment?.icon) && (
         <div
-          className={cn("px-3", classNames?.suffixAdornment?.icon)}
+          className={cn("lf-px-3", classNames?.suffixAdornment?.icon)}
           style={styles?.suffixAdornment?.icon}
         >
           {suffixAdornment?.icon}
@@ -102,7 +102,7 @@ export const Input = ({
       {Boolean(suffixAdornment?.text) && (
         <div
           className={cn(
-            "h-full bg-lfui-muted text-lfui-muted-foreground px-2 border-l rounded-r-md border-l-lfui-input flex items-center justify-start",
+            "lf-h-full lf-bg-muted lf-text-muted-foreground lf-px-2 lf-border-l lf-rounded-r-md lf-border-l-input lf-flex lf-items-center lf-justify-start",
             classNames?.suffixAdornment?.text,
           )}
           style={styles?.suffixAdornment?.text}

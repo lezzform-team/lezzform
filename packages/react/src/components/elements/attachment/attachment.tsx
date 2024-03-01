@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { cn, splitUrlAndFilename, uploadFile } from "@/lib/utils";
-import { FileIcon, ExternalLinkIcon, ArrowUpIcon } from "@radix-ui/react-icons";
 import { AttachmentInput } from "./input";
+import { ArrowUpIcon, ExternalLinkIcon, FileIcon } from "lucide-react";
 
 export interface AttachmentPropsStyles {
   root: React.CSSProperties;
@@ -159,9 +159,9 @@ export function Attachment({
     <div
       {...getRootProps()}
       className={cn(
-        "border border-dashed border-lfui-border rounded-md text-center hover:bg-lfui-muted cursor-pointer",
-        (readonly || disabled) && "cursor-not-allowed",
-        disabled && "bg-lfui-border text-black",
+        "lf-border lf-border-dashed lf-border-border lf-rounded-md lf-text-center hover:lf-bg-muted lf-cursor-pointer",
+        (readonly || disabled) && "lf-cursor-not-allowed",
+        disabled && "lf-bg-border text-black",
         classNames?.root,
       )}
       style={styles?.root}
@@ -171,17 +171,17 @@ export function Attachment({
       {isShowEmpty && (
         <div
           className={cn(
-            "h-full w-full bg-lfui-muted/50 flex flex-col justify-center items-center gap-1 p-4",
+            "lf-h-full lf-w-full lf-bg-muted/50 lf-flex lf-flex-col lf-justify-center lf-items-center lf-gap-1 lf-p-4",
             classNames?.beforeUpload?.container,
           )}
           style={styles?.beforeUpload?.container}
         >
-          <div className="h-10 w-10 bg-lfui-background rounded-full shadow-sm flex items-center justify-center">
-            <FileIcon className="h-5 w-5" />
+          <div className="h-10 lf-w-10 lf-bg-background lf-rounded-full lf-shadow-sm lf-flex lf-items-center lf-justify-center">
+            <FileIcon className="lf-h-5 lf-w-5" />
           </div>
           <p
             className={cn(
-              "text-lfui-foreground font-medium",
+              "lf-text-foreground lf-font-medium",
               classNames?.beforeUpload?.titleText,
             )}
             style={styles?.beforeUpload?.titleText}
@@ -190,7 +190,7 @@ export function Attachment({
           </p>
           <small
             className={cn(
-              "text-sm text-lfui-muted-foreground",
+              "lf-text-sm lf-text-muted-foreground",
               classNames?.beforeUpload?.subText,
             )}
             style={styles?.beforeUpload?.subText}
@@ -203,17 +203,17 @@ export function Attachment({
       {isUploading && (
         <div
           className={cn(
-            "h-full w-full bg-lfui-muted/50 flex flex-col justify-center items-center gap-1 p-4",
+            "lf-h-full lf-w-full lf-bg-muted/50 lf-flex lf-flex-col lf-justify-center lf-items-center lf-gap-1 lf-p-4",
             classNames?.uploading?.container,
           )}
           style={styles?.uploading?.container}
         >
-          <div className="h-10 w-10 bg-lfui-background rounded-full shadow-sm flex items-center justify-center animate-bounce">
-            <ArrowUpIcon className="h-5 w-5" />
+          <div className="lf-h-10 lf-w-10 lf-bg-background lf-rounded-full lf-shadow-sm lf-flex lf-items-center lf-justify-center lf-animate-bounce">
+            <ArrowUpIcon className="lf-h-5 lf-w-5" />
           </div>
           <p
             className={cn(
-              "text-lfui-foreground font-medium",
+              "lf-text-foreground lf-font-medium",
               classNames?.uploading?.titleText,
             )}
             style={styles?.uploading?.titleText}
@@ -222,7 +222,7 @@ export function Attachment({
           </p>
           <small
             className={cn(
-              "text-sm text-lfui-muted-foreground",
+              "lf-text-sm lf-text-muted-foreground",
               classNames?.uploading?.subText,
             )}
             style={styles?.uploading?.subText}
@@ -245,7 +245,7 @@ export function Attachment({
 
             <p
               className={cn(
-                "text-sm text-lfui-foreground break-words max-w-full",
+                "text-sm text-foreground break-words max-w-full",
                 classNames?.afterUpload?.valueText,
               )}
               style={styles?.afterUpload?.valueText}
@@ -261,7 +261,7 @@ export function Attachment({
             }}
             type="button"
           >
-            <ExternalLinkIcon className="text-lfui-muted-foreground h-5 w-5" />
+            <ExternalLinkIcon className="text-muted-foreground h-5 w-5" />
           </button>
         </div>
       )}

@@ -7,6 +7,7 @@ module.exports = {
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
   ],
+  prefix: "lf-",
   theme: {
     container: {
       center: true,
@@ -17,53 +18,53 @@ module.exports = {
     },
     extend: {
       colors: {
-        ["lfui-border"]: "hsl(var(--lfui-border))",
-        ["lfui-input"]: "hsl(var(--lfui-input))",
-        ["lfui-ring"]: "hsl(var(--lfui-ring))",
-        ["lfui-background"]: "hsl(var(--lfui-background))",
-        ["lfui-foreground"]: "hsl(var(--lfui-foreground))",
-        ["lfui-primary"]: {
-          DEFAULT: "hsl(var(--lfui-primary))",
-          foreground: "hsl(var(--lfui-primary-foreground))",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
-        ["lfui-secondary"]: {
-          DEFAULT: "hsl(var(--lfui-secondary))",
-          foreground: "hsl(var(--lfui-secondary-foreground))",
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
-        ["lfui-destructive"]: {
-          DEFAULT: "hsl(var(--lfui-destructive))",
-          foreground: "hsl(var(--lfui-destructive-foreground))",
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
-        ["lfui-muted"]: {
-          DEFAULT: "hsl(var(--lfui-muted))",
-          foreground: "hsl(var(--lfui-muted-foreground))",
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
-        ["lfui-accent"]: {
-          DEFAULT: "hsl(var(--lfui-accent))",
-          foreground: "hsl(var(--lfui-accent-foreground))",
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
-        ["lfui-popover"]: {
-          DEFAULT: "hsl(var(--lfui-popover))",
-          foreground: "hsl(var(--lfui-popover-foreground))",
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
-        ["lfui-card"]: {
-          DEFAULT: "hsl(var(--lfui-card))",
-          foreground: "hsl(var(--lfui-card-foreground))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
       },
       borderRadius: {
-        lg: "var(--lfui-radius)",
-        md: "calc(var(--lfui-radius) - 2px)",
-        sm: "calc(var(--lfui-radius) - 4px)",
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
         "accordion-down": {
-          from: { height: 0 },
+          from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
+          to: { height: "0" },
         },
       },
       animation: {

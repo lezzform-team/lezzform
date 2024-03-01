@@ -80,14 +80,14 @@ export function DateRangePicker({
             id="date"
             variant={"outline"}
             className={cn(
-              "w-full justify-start text-left font-normal",
-              !value && "text-muted-foreground",
+              "lf-w-full lf-justify-start lf-text-left lf-font-normal",
+              !value && "lf-text-muted-foreground",
               classNames?.root,
             )}
             disabled={disabled || readOnly}
             style={styles?.root}
           >
-            <CalendarIcon className="mr-2 h-4 w-4" />
+            <CalendarIcon className="lf-mr-2 lf-h-4 lf-w-4" />
             {value?.from ? (
               value.to ? (
                 <>
@@ -101,7 +101,7 @@ export function DateRangePicker({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
+        <PopoverContent className="lf-w-auto lf-p-0" align="start">
           <Calendar
             initialFocus
             mode="range"

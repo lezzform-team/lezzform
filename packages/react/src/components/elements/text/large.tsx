@@ -26,7 +26,7 @@ export function TextLarge({
   return (
     <div
       style={styles?.root}
-      className={cn("text-lg font-semibold", classNames?.root)}
+      className={cn("lf-text-lg lf-font-semibold", classNames?.root)}
       {...props}
     >
       {children}

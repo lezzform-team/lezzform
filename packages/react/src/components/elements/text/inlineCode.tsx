@@ -27,7 +27,7 @@ export function TextInlineCode({
     <code
       style={styles?.root}
       className={cn(
-        "relative rounded bg-lfui-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
+        "lf-relative lf-rounded lf-bg-muted lf-px-[0.3rem] lf-py-[0.2rem] lf-font-mono lf-text-sm lf-font-semibold",
         classNames?.root,
       )}
       {...props}

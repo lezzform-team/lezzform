@@ -26,7 +26,10 @@ export function TextHeading2({
   return (
     <h2
       style={styles?.root}
-      className={cn("text-3xl font-semibold tracking-tight", classNames?.root)}
+      className={cn(
+        "lf-text-3xl lf-font-semibold lf-tracking-tight",
+        classNames?.root,
+      )}
       {...props}
     >
       {children}

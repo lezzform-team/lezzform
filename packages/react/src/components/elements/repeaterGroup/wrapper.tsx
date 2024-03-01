@@ -55,7 +55,7 @@ function RepeaterGroupWrapperComponent<T extends FieldValues>({
   return (
     <div
       className={cn(
-        "w-full flex flex-col gap-2 border border-lfui-border rounded-md border-dashed p-2",
+        "lf-w-full lf-flex lf-flex-col lf-gap-2 lf-border lf-border-border lf-rounded-md lf-border-dashed lf-p-2",
         classNames?.root,
       )}
       style={styles?.root}
@@ -66,7 +66,7 @@ function RepeaterGroupWrapperComponent<T extends FieldValues>({
           type="button"
           variant="ghost"
           size="sm"
-          className={cn("w-full", classNames?.insertButton)}
+          className={cn("lf-w-full", classNames?.insertButton)}
           onClick={() =>
             field.insert(field.fields.length, {} as FieldArray<T, ArrayPath<T>>)
           }

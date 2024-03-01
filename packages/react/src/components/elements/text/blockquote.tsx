@@ -26,7 +26,7 @@ export function TextBlockquote({
   return (
     <blockquote
       style={styles?.root}
-      className={cn("border-l-2 pl-6 italic", classNames?.root)}
+      className={cn("lf-border-l-2 lf-pl-6 lf-italic", classNames?.root)}
       {...props}
     >
       {children}

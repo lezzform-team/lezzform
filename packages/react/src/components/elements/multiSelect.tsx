@@ -154,25 +154,25 @@ export function MultiSelect({
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "w-full",
-            !displayedItem && "justify-end",
-            displayedItem && "justify-between",
-            readOnly && "cursor-default",
-            !value && "text-lfui-muted-foreground",
+            "lf-w-full",
+            !displayedItem && "lf-justify-end",
+            displayedItem && "lf-justify-between",
+            readOnly && "lf-cursor-default",
+            !value && "lf-text-muted-foreground",
             classNames?.root,
           )}
           disabled={disabled}
           style={styles?.root}
         >
           {displayedItem}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="lf-ml-2 lf-h-4 lf-w-4 lf-shrink-0 lf-opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0 DropdownPopoverContent">
+      <PopoverContent className="lf-p-0 DropdownPopoverContent">
         <Command>
           <CommandInput placeholder={placeholder} />
           <CommandEmpty>No item found.</CommandEmpty>
-          <CommandGroup className="max-h-96 overflow-auto">
+          <CommandGroup className="lf-max-h-96 lf-overflow-auto">
             {items.map((framework) => (
               <CommandItem
                 key={framework.value}
@@ -181,10 +181,10 @@ export function MultiSelect({
               >
                 <Check
                   className={cn(
-                    "mr-2 h-4 w-4",
+                    "lf-mr-2 lf-h-4 lf-w-4",
                     value?.includes(framework.value)
-                      ? "opacity-100"
-                      : "opacity-0",
+                      ? "lf-opacity-100"
+                      : "lf-opacity-0",
                   )}
                 />
                 {framework.label}
