@@ -1,5 +1,11 @@
 # @lezzform/react
 
+## 0.2.51
+
+### Patch Changes
+
+- change css variable name to prefix
+
 ## 0.2.50
 
 ### Patch Changes
