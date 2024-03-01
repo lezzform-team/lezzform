@@ -26,7 +26,10 @@ export function TextHeading4({
   return (
     <h4
       style={styles?.root}
-      className={cn("text-xl font-semibold tracking-tight", classNames?.root)}
+      className={cn(
+        "lf-text-xl lf-font-semibold lf-tracking-tight",
+        classNames?.root,
+      )}
       {...props}
     >
       {children}

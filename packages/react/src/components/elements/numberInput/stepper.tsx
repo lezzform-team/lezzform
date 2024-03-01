@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { MinusIcon, PlusIcon } from "@radix-ui/react-icons";
+import { MinusIcon, PlusIcon } from "lucide-react";
 
 export interface NumberInputStepperStyles {
   root: React.CSSProperties;
@@ -42,9 +42,9 @@ export function NumberInputStepper({
   return (
     <div
       className={cn(
-        "h-10 flex items-center gap-4",
-        Boolean(disabled || readOnly) && "opacity-50",
-        disabled && "cursor-not-allowed",
+        "lf-h-10 lf-flex lf-items-center lf-gap-4",
+        Boolean(disabled || readOnly) && "lf-opacity-50",
+        disabled && "lf-cursor-not-allowed",
         classNames?.root,
       )}
       style={styles?.root}
@@ -52,7 +52,7 @@ export function NumberInputStepper({
       <Button
         variant="outline"
         className={cn(
-          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+          "lf-h-7 lf-w-7 lf-bg-transparent lf-p-0 lf-opacity-50 hover:lf-opacity-100",
           classNames?.stepButton,
         )}
         onClick={() =>
@@ -62,10 +62,10 @@ export function NumberInputStepper({
         type="button"
         style={styles?.stepButton}
       >
-        <MinusIcon className="h-4 w-4" />
+        <MinusIcon className="lf-h-4 lf-w-4" />
       </Button>
       <p
-        className={cn("text-sm", classNames?.valueText)}
+        className={cn("lf-text-sm", classNames?.valueText)}
         style={styles?.valueText}
       >
         {value}
@@ -73,7 +73,7 @@ export function NumberInputStepper({
       <Button
         variant="outline"
         className={cn(
-          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+          "lf-h-7 w-7 lf-bg-transparent lf-p-0 lf-opacity-50 hover:lf-opacity-100",
           classNames?.stepButton,
         )}
         onClick={() =>
@@ -83,7 +83,7 @@ export function NumberInputStepper({
         type="button"
         style={styles?.stepButton}
       >
-        <PlusIcon className="h-4 w-4" />
+        <PlusIcon className="lf-h-4 lf-w-4" />
       </Button>
     </div>
   );

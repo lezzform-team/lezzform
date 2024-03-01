@@ -34,7 +34,7 @@ export const Button = ({
     >
       {isLoading && (
         <>
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          <Loader2 className="lf-mr-2 lf-h-4 lf-w-4 lf-animate-spin" />
           Loading...
         </>
       )}

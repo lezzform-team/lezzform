@@ -5,18 +5,18 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const toggleVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-lfui-background transition-colors hover:bg-lfui-muted hover:text-lfui-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lfui-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-lfui-accent data-[state=on]:text-lfui-accent-foreground",
+  "lf-inline-flex lf-items-center lf-justify-center lf-rounded-md lf-text-sm lf-font-medium lf-ring-offset-background lf-transition-colors hover:lf-bg-muted hover:lf-text-muted-foreground focus-visible:lf-outline-none focus-visible:lf-ring-2 focus-visible:lf-ring-ring focus-visible:lf-ring-offset-2 disabled:lf-pointer-events-none disabled:lf-opacity-50 data-[state=on]:lf-bg-accent data-[state=on]:lf-text-accent-foreground",
   {
     variants: {
       variant: {
-        default: "bg-transparent",
+        default: "lf-bg-transparent",
         outline:
-          "border border-lfui-input bg-transparent hover:bg-lfui-accent hover:text-lfui-accent-foreground",
+          "lf-border lf-border-input lf-bg-transparent hover:lf-bg-accent hover:lf-text-accent-foreground",
       },
       size: {
-        default: "h-10 px-3",
-        sm: "h-9 px-2.5",
-        lg: "h-11 px-5",
+        default: "lf-h-10 lf-px-3",
+        sm: "lf-h-9 lf-px-2.5",
+        lg: "lf-h-11 lf-px-5",
       },
     },
     defaultVariants: {

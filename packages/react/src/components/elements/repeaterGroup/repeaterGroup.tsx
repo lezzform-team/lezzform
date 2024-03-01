@@ -36,7 +36,7 @@ export function RepeaterGroup<T extends FieldValues>({
   return (
     <div
       className={cn(
-        "w-full flex flex-col gap-2 p-2 border border-lfui-muted rounded-md relative",
+        "lf-w-full lf-flex lf-flex-col lf-gap-2 lf-p-2 lf-border lf-border-muted lf-rounded-md lf-relative",
         className,
         classNames?.root,
       )}
@@ -49,12 +49,12 @@ export function RepeaterGroup<T extends FieldValues>({
           type="button"
           onClick={onDelete}
           className={cn(
-            "px-2 py-1 text-xs rounded-sm bg-red-100 text-red-500 absolute top-1 right-1",
+            "lf-px-2 lf-py-1 lf-text-xs lf-rounded-sm lf-bg-red-100 lf-text-red-500 lf-absolute lf-top-1 lf-right-1",
             classNames?.deleteButton,
           )}
           style={styles?.deleteButton}
         >
-          <Trash className="text-xs" size={14} />
+          <Trash className="lf-text-xs" size={14} />
         </button>
       )}
     </div>

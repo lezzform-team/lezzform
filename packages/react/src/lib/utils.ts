@@ -1,10 +1,12 @@
 import axios, { AxiosError } from "axios";
 import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { extendTailwindMerge } from "tailwind-merge";
 import lodashGet from "lodash.get";
 
+const customTwMerge = extendTailwindMerge({ prefix: "lf-" });
+
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return customTwMerge(clsx(inputs));
 }
 
 export function splitUrlAndFilename(url?: string): {

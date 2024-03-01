@@ -27,7 +27,7 @@ export function TextHeading1({
     <h1
       style={styles?.root}
       className={cn(
-        "text-4xl font-extrabold tracking-tight lg:text-5xl",
+        "lf-text-4xl lf-font-extrabold lf-tracking-tight lg:lf-text-5xl",
         classNames?.root,
       )}
       {...props}

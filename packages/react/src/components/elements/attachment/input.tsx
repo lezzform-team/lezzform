@@ -114,9 +114,9 @@ export function AttachmentInput({
     <div
       {...getRootProps()}
       className={cn(
-        "border border-solid border-lfui-input rounded-md text-center hover:bg-lfui-muted cursor-pointer",
-        (readonly || disabled) && "cursor-not-allowed",
-        disabled && "bg-lfui-border text-black",
+        "lf-border lf-border-solid lf-border-input lf-rounded-md lf-text-center hover:lf-bg-muted lf-cursor-pointer",
+        (readonly || disabled) && "lf-cursor-not-allowed",
+        disabled && "lf-bg-border lf-text-black",
         classNames?.root,
       )}
       style={styles?.root}
@@ -126,14 +126,14 @@ export function AttachmentInput({
       {isShowEmpty && (
         <div
           className={cn(
-            "w-full h-10 flex justify-between gap-2 items-center px-3",
+            "lf-w-full lf-h-10 lf-flex lf-justify-between lf-gap-2 lf-items-center lf-px-3",
             classNames?.beforeUpload?.container,
           )}
           style={styles?.beforeUpload?.container}
         >
-          <div className="flex items-center gap-2">
+          <div className="lf-flex lf-items-center lf-gap-2">
             <Button
-              className="h-6 rounded px-3 bg-lfui-muted"
+              className="lf-h-6 lf-rounded lf-px-3 lf-bg-muted"
               variant="outline"
             >
               Browse...
@@ -141,7 +141,7 @@ export function AttachmentInput({
 
             <p
               className={cn(
-                "text-sm text-lfui-foreground break-words max-w-full",
+                "lf-text-sm lf-text-foreground lf-break-words lf-max-w-full",
                 classNames?.beforeUpload?.titleText,
               )}
               style={styles?.beforeUpload?.titleText}
@@ -149,7 +149,7 @@ export function AttachmentInput({
               {!placeholder ? "Upload your file here" : placeholder} -{" "}
               <span
                 className={cn(
-                  "text-xs text-lfui-muted-foreground",
+                  "lf-text-xs lf-text-muted-foreground",
                   classNames?.beforeUpload?.subText,
                 )}
                 style={styles?.beforeUpload?.subText}
@@ -172,7 +172,7 @@ export function AttachmentInput({
           <div className="flex items-center gap-2">
             <p
               className={cn(
-                "text-sm text-lfui-foreground break-words max-w-full",
+                "text-sm text-foreground break-words max-w-full",
                 classNames?.uploading?.titleText,
               )}
               style={styles?.uploading?.titleText}
@@ -192,16 +192,13 @@ export function AttachmentInput({
           style={styles?.afterUpload?.container}
         >
           <div className="flex items-center gap-2">
-            <Button
-              className="h-6 rounded px-3 bg-lfui-muted"
-              variant="outline"
-            >
+            <Button className="h-6 rounded px-3 bg-muted" variant="outline">
               Browse...
             </Button>
 
             <p
               className={cn(
-                "text-sm text-lfui-foreground break-words max-w-full",
+                "text-sm text-foreground break-words max-w-full",
                 classNames?.afterUpload?.valueText,
               )}
               style={styles?.afterUpload?.valueText}

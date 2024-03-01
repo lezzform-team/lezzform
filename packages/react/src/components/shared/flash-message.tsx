@@ -21,14 +21,14 @@ export function FlashMessage({
 
   return (
     <Alert variant="destructive">
-      <AlertCircle className="h-4 w-4" />
+      <AlertCircle className="lf-h-4 lf-w-4" />
       <AlertTitle>{title}</AlertTitle>
       {description && <AlertDescription>{description}</AlertDescription>}
-      <Separator className="my-2" />
-      <AlertDescription className="text-xs font-medium">
+      <Separator className="lf-my-2" />
+      <AlertDescription className="lf-text-xs lf-font-medium">
         Error Details:
       </AlertDescription>
-      <AlertDescription className="text-xs font-medium">
+      <AlertDescription className="lf-text-xs lf-font-medium">
         <ul>
           {Object.entries(errors).map(([key, value]) => (
             <li key={key}>

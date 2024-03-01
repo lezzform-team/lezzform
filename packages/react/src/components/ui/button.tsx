@@ -5,26 +5,26 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-lfui-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lfui-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "lf-inline-flex lf-items-center lf-justify-center lf-whitespace-nowrap lf-rounded-md lf-text-sm lf-font-medium lf-ring-offset-background lf-transition-colors focus-visible:lf-outline-none focus-visible:lf-ring-2 focus-visible:lf-ring-ring focus-visible:lf-ring-offset-2 disabled:lf-pointer-events-none disabled:lf-opacity-50",
   {
     variants: {
       variant: {
         default:
-          "bg-lfui-primary text-lfui-primary-foreground hover:bg-lfui-primary/90",
+          "lf-bg-primary lf-text-primary-foreground hover:lf-bg-primary/90",
         destructive:
-          "bg-lfui-destructive text-lfui-destructive-foreground hover:bg-lfui-destructive/90",
+          "lf-bg-destructive lf-text-destructive-foreground hover:lf-bg-destructive/90",
         outline:
-          "border border-lfui-input bg-lfui-background hover:bg-lfui-accent hover:text-lfui-accent-foreground",
+          "lf-border lf-border-input lf-bg-background hover:lf-bg-accent hover:lf-text-accent-foreground",
         secondary:
-          "bg-lfui-secondary text-lfui-secondary-foreground hover:bg-lfui-secondary/80",
-        ghost: "hover:bg-lfui-accent hover:text-lfui-accent-foreground",
-        link: "text-lfui-primary underline-offset-4 hover:underline",
+          "lf-bg-secondary lf-text-secondary-foreground hover:lf-bg-secondary/80",
+        ghost: "hover:lf-bg-accent hover:lf-text-accent-foreground",
+        link: "lf-text-primary lf-underline-offset-4 hover:lf-underline",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        default: "lf-h-10 lf-px-4 lf-py-2",
+        sm: "lf-h-9 lf-rounded-md lf-px-3",
+        lg: "lf-h-11 lf-rounded-md lf-px-8",
+        icon: "lf-h-10 lf-w-10",
       },
     },
     defaultVariants: {

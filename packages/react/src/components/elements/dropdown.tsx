@@ -155,12 +155,12 @@ export function Dropdown({
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "w-full items-center justify-start text-left font-normal h-10 py-0 px-0",
-            readOnly && "cursor-default",
-            !value && "text-lfui-muted-foreground",
-            disabled && "cursor-not-allowed",
-            !prefixAdornment && "pl-3",
-            !suffixAdornment && "pr-3",
+            "lf-w-full lf-items-center lf-justify-start lf-text-left lf-font-normal lf-h-10 lf-py-0 lf-px-0",
+            readOnly && "lf-cursor-default",
+            !value && "lf-text-muted-foreground",
+            disabled && "lf-cursor-not-allowed",
+            !prefixAdornment && "lf-pl-3",
+            !suffixAdornment && "lf-pr-3",
             classNames?.root,
           )}
           disabled={disabled}
@@ -169,7 +169,7 @@ export function Dropdown({
           {Boolean(prefixAdornment?.icon) && (
             <div
               className={cn(
-                "px-3 flex-shrink-0",
+                "lf-px-3 lf-flex-shrink-0",
                 classNames?.prefixAdornment?.icon,
               )}
               style={styles?.prefixAdornment?.icon}
@@ -179,7 +179,7 @@ export function Dropdown({
           )}
           <div
             className={cn(
-              "h-full flex items-center flex-grow",
+              "lf-h-full lf-flex lf-items-center lf-flex-grow",
               classNames?.content,
             )}
             style={styles?.content}
@@ -189,7 +189,7 @@ export function Dropdown({
           {Boolean(suffixAdornment?.icon) && (
             <div
               className={cn(
-                "px-3 flex-shrink-0",
+                "lf-px-3 lf-flex-shrink-0",
                 classNames?.suffixAdornment?.icon,
               )}
               style={styles?.suffixAdornment?.icon}
@@ -199,11 +199,11 @@ export function Dropdown({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0 DropdownPopoverContent">
+      <PopoverContent className="lf-p-0 DropdownPopoverContent">
         <Command>
           <CommandInput placeholder={placeholder} />
           <CommandEmpty>No item found.</CommandEmpty>
-          <CommandGroup className="max-h-96 overflow-auto">
+          <CommandGroup className="lf-max-h-96 lf-overflow-auto">
             {items.map((framework) => (
               <CommandItem
                 key={framework.value}
@@ -213,7 +213,9 @@ export function Dropdown({
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    value === framework.value ? "opacity-100" : "opacity-0",
+                    value === framework.value
+                      ? "lf-opacity-100"
+                      : "lf-opacity-0",
                   )}
                 />
                 {framework.label}

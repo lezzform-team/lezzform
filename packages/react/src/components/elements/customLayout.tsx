@@ -5,7 +5,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const CustomLayout = ({ children, ...props }: Props) => {
   return (
-    <div {...props} className={cn("w-full")}>
+    <div {...props} className={cn("lf-w-full")}>
       {children}
     </div>
   );
