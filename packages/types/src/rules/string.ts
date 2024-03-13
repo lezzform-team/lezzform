@@ -8,7 +8,7 @@ export type StringRule = {
 };
 
 export type StringRuleType = GeneralRulesType & {
-  format?: string;
+  format?: "alphabet" | "numeric" | "alphanumeric";
   minimum?: number;
   maximum?: number;
 };
