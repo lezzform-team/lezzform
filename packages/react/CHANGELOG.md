@@ -1,5 +1,11 @@
 # @lezzform/react
 
+## 0.2.52
+
+### Patch Changes
+
+- form label accept isRequired props
+
 ## 0.2.51
 
 ### Patch Changes
