@@ -129,9 +129,10 @@ export class DevCommand extends Command {
           description: "Project used in web browser using React or NextJS",
         },
         {
-          title: "Mobile 📱",
+          title: "Mobile 📱 (Coming Soon)",
           value: ProjectPlatform.Mobile,
           description: "Project used in mobile platform using React Native",
+          disabled: true,
         },
       ],
     };

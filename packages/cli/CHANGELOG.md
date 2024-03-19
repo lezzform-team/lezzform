@@ -1,5 +1,11 @@
 # @lezzform/cli
 
+## 0.2.11
+
+### Patch Changes
+
+- disable mobile generator
+
 ## 0.2.10
 
 ### Patch Changes
