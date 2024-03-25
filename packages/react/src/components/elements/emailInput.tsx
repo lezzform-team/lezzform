@@ -16,15 +16,9 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   classNames?: Partial<EmailInputClassNames>;
 }
 
-export const EmailInput = ({
-  isRequired,
-  styles,
-  classNames,
-  ...props
-}: Props) => {
+export const EmailInput = ({ styles, classNames, ...props }: Props) => {
   return (
     <ShadInput
-      required={isRequired}
       style={styles?.root}
       className={classNames?.root}
       {...props}

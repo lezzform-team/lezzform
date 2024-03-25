@@ -16,18 +16,8 @@ interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   classNames?: Partial<TextAreaClassNames>;
 }
 
-export const TextArea = ({
-  isRequired,
-  styles,
-  classNames,
-  ...props
-}: Props) => {
+export const TextArea = ({ styles, classNames, ...props }: Props) => {
   return (
-    <Textarea
-      required={isRequired}
-      className={classNames?.root}
-      style={styles?.root}
-      {...props}
-    />
+    <Textarea className={classNames?.root} style={styles?.root} {...props} />
   );
 };

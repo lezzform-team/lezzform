@@ -19,14 +19,12 @@ export interface PhoneNumberInputProps
 }
 
 export const PhoneNumberInput = ({
-  isRequired,
   styles,
   classNames,
   ...props
 }: PhoneNumberInputProps) => {
   return (
     <ShadInput
-      required={isRequired}
       className={cn(classNames?.root)}
       style={styles?.root}
       {...props}
