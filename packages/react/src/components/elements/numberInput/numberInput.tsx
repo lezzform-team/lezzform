@@ -20,14 +20,12 @@ export interface NumberInputProps
 }
 
 export const NumberInput = ({
-  isRequired,
   styles,
   classNames,
   ...props
 }: NumberInputProps) => {
   return (
     <ShadInput
-      required={isRequired}
       className={cn(classNames?.root)}
       style={styles?.root}
       {...props}
