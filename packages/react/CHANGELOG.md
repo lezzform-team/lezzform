@@ -1,5 +1,17 @@
 # @lezzform/react
 
+## 0.2.54
+
+### Patch Changes
+
+- build package
+
+## 0.2.53
+
+### Patch Changes
+
+- remove html required
+
 ## 0.2.52
 
 ### Patch Changes

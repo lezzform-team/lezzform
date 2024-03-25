@@ -31,7 +31,6 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = ({
-  isRequired,
   styles,
   classNames,
   prefixAdornment,
@@ -42,12 +41,7 @@ export const Input = ({
 
   if (!isUsingAdornment) {
     return (
-      <ShadInput
-        required={isRequired}
-        style={styles?.root}
-        className={classNames?.root}
-        {...props}
-      />
+      <ShadInput style={styles?.root} className={classNames?.root} {...props} />
     );
   }
 
@@ -82,7 +76,6 @@ export const Input = ({
       )}
 
       <ShadInput
-        required={isRequired}
         style={styles?.input}
         className={cn(
           "lf-border-0 focus-visible:lf-outline-none focus-visible:lf-ring-0 focus-visible:lf-ring-offset-0 lf-px-0 lf-py-0 lf-h-full lf-rounded-none",
