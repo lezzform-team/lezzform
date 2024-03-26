@@ -4,10 +4,13 @@ import {
   LezzformElementCategory,
 } from "../..";
 import { StringRule } from "../../rules";
+import { ElementAdornmentAttributesType } from "../../shared";
 import { GeneralStyleMetadata } from "../../styles";
 
 export type PhoneNumberInputType = GenericLezzformElement<
-  GenericFieldAttributes & PhoneNumberInputAttributesType,
+  GenericFieldAttributes &
+    PhoneNumberInputAttributesType &
+    ElementAdornmentAttributesType,
   PhoneNumberInputStyleType
 > & {
   type: "PhoneNumberInput";

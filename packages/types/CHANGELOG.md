@@ -1,5 +1,11 @@
 # @lezzform/types
 
+## 0.0.58
+
+### Patch Changes
+
+- add missing inputs adornment properties
+
 ## 0.0.57
 
 ### Patch Changes

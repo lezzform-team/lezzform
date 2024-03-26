@@ -4,10 +4,13 @@ import {
   LezzformElementCategory,
 } from "../..";
 import { IntegerRule } from "../../rules";
+import { ElementAdornmentAttributesType } from "../../shared";
 import { GeneralStyleMetadata } from "../../styles";
 
 export type NumberInputType = GenericLezzformElement<
-  GenericFieldAttributes & NumberInputAttributesType,
+  GenericFieldAttributes &
+    NumberInputAttributesType &
+    ElementAdornmentAttributesType,
   NumberInputStyleType
 > & {
   type: "NumberInput";

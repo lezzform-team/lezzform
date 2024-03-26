@@ -4,10 +4,11 @@ import {
   LezzformElementCategory,
 } from "../..";
 import { StringRule } from "../../rules";
+import { ElementAdornmentAttributesType } from "../../shared";
 import { GeneralStyleMetadata } from "../../styles";
 
 export type EmailInputType = GenericLezzformElement<
-  GenericFieldAttributes,
+  GenericFieldAttributes & ElementAdornmentAttributesType,
   EmailInputStyleType
 > & {
   type: "EmailInput";
