@@ -34,7 +34,7 @@ function LezzformComponent<T extends FieldValues = Record<string, unknown>>({
   const form = useForm<T>({
     defaultValues,
     resolver: zodResolver(zodSchema),
-    mode: "onChange",
+    mode: "onSubmit",
     ...rest,
   });
 
@@ -71,13 +71,10 @@ function LezzformComponent<T extends FieldValues = Record<string, unknown>>({
     [form],
   );
 
-  const isOnChange = !rest.mode || rest.mode === "onChange";
-
   return (
     <Form key={id} {...form}>
       <form
         onSubmit={(e) => {
-          if (!isOnChange) return;
           form.handleSubmit(handleSubmit)(e);
         }}
         onBlur={(e) => {

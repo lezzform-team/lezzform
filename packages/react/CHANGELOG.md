@@ -1,5 +1,11 @@
 # @lezzform/react
 
+## 0.2.56
+
+### Patch Changes
+
+- fix form preventDefault not working on other mode
+
 ## 0.2.55
 
 ### Patch Changes
