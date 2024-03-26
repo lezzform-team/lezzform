@@ -1,21 +1,12 @@
 import React from "react";
-import { Input as ShadInput } from "../../ui/input";
-import { cn } from "@/lib/utils";
-
-export interface PhoneNumberInputStyles {
-  root: React.CSSProperties;
-}
-
-export interface PhoneNumberInputClassNames {
-  root: string;
-}
+import { InputWithAdornmentProps } from "@/types";
+import { Input } from "..";
 
 export interface PhoneNumberInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+  extends React.InputHTMLAttributes<HTMLInputElement>,
+    InputWithAdornmentProps {
   isRequired?: boolean;
   label?: string;
-  styles?: Partial<PhoneNumberInputStyles>;
-  classNames?: Partial<PhoneNumberInputClassNames>;
 }
 
 export const PhoneNumberInput = ({
@@ -24,9 +15,9 @@ export const PhoneNumberInput = ({
   ...props
 }: PhoneNumberInputProps) => {
   return (
-    <ShadInput
-      className={cn(classNames?.root)}
-      style={styles?.root}
+    <Input
+      styles={styles}
+      classNames={classNames}
       {...props}
       type="tel"
       inputMode="tel"

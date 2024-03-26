@@ -1,15 +1,21 @@
 import React from "react";
-import { Input as ShadInput } from "../../ui/input";
 import { NumberInputStepper } from "./stepper";
-import { cn } from "@/lib/utils";
+import { Input } from "..";
+import { ElementAdornmentType } from "@lezzform/types/dist/shared";
 
-export interface NumberInputStyles {
-  root: React.CSSProperties;
-}
+export type NumberInputStyles<T = React.CSSProperties> = {
+  root: T;
+  input: T;
+  prefixAdornment?: Partial<Record<keyof ElementAdornmentType, T>>;
+  suffixAdornment?: NumberInputStyles<T>["prefixAdornment"];
+};
 
-export interface NumberInputClassNames {
-  root: string;
-}
+export type NumberInputClassNames<T = string> = {
+  root: T;
+  input: T;
+  prefixAdornment?: Partial<Record<keyof ElementAdornmentType, T>>;
+  suffixAdornment?: NumberInputClassNames<T>["prefixAdornment"];
+};
 
 export interface NumberInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -17,17 +23,27 @@ export interface NumberInputProps
   label?: string;
   styles?: Partial<NumberInputStyles>;
   classNames?: Partial<NumberInputClassNames>;
+  prefixAdornment?: Partial<
+    Record<keyof ElementAdornmentType, React.JSX.Element>
+  >;
+  suffixAdornment?: Partial<
+    Record<keyof ElementAdornmentType, React.JSX.Element>
+  >;
 }
 
 export const NumberInput = ({
   styles,
   classNames,
+  prefixAdornment,
+  suffixAdornment,
   ...props
 }: NumberInputProps) => {
   return (
-    <ShadInput
-      className={cn(classNames?.root)}
-      style={styles?.root}
+    <Input
+      styles={styles}
+      classNames={classNames}
+      prefixAdornment={prefixAdornment}
+      suffixAdornment={suffixAdornment}
       {...props}
       type="number"
       pattern="[0-9]*"

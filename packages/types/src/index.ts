@@ -18,6 +18,7 @@ import { ArrayRule, ObjectRule, PrimitiveRule } from "./rules";
 import { GeneralStyleMetadata } from "./styles";
 import { ImageType } from "./elements/image";
 import { IconType } from "./elements/icon";
+import { PasswordInputType } from "./elements/passwordInput";
 
 export type GenericLezzformElement<
   Attributes = Record<string, unknown>,
@@ -70,7 +71,8 @@ export type LezzformElement =
   | TextType
   | ButtonType
   | ImageType
-  | IconType;
+  | IconType
+  | PasswordInputType;
 
 export type LezzformElementRule = PrimitiveRule | ObjectRule | ArrayRule;
 
