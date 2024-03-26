@@ -12,7 +12,7 @@ program
   .version("1.0.0")
   .name("LezzForm CLI")
   .description(
-    "LezzForm is not just a “form-builder”. Build your form by drag and drop, then generate it natively into React, NextJs, and React Native!"
+    "LezzForm is not just a “form-builder”. Build your form by drag and drop, then generate it natively into React, NextJs, and React Native!",
   );
 
 const devOptionSchema = z.object({ url: z.string().url(), debug: z.boolean() });
@@ -80,6 +80,28 @@ program
         isDebugMode: options.debug,
         config,
       }).login();
+    } catch (error) {
+      handleError(error);
+    }
+  });
+
+program
+  .command("logout")
+  .description("CLI logout")
+  .option("-u, --url <url>", "url for debugging", configs.SERVER_URL)
+  .option("-d --debug", "debug mode", false)
+  .action(async (opts) => {
+    try {
+      const options = authOptionSchema.parse(opts);
+
+      const config = new ConfigClient({ isDebugMode: options.debug });
+      await config.init();
+
+      new AuthCommand({
+        url: options.url,
+        isDebugMode: options.debug,
+        config,
+      }).logout();
     } catch (error) {
       handleError(error);
     }

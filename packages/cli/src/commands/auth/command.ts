@@ -2,13 +2,14 @@ import { LoginDto } from "./dto";
 import prompts from "prompts";
 import { AuthCommandConfiguration, AuthCommandEvents } from "./types";
 import { Command } from "../command";
-import { Logger, handleError } from "@/utils";
+import { FileAndDirectoryUtility, Logger, handleError } from "@/utils";
 import { AuthClient } from "@/clients/auth";
 import { Maybe } from "@/types";
 
 export class AuthCommand extends Command {
   private logger: Logger;
   private authClient: AuthClient;
+  private fileAndDirectoryUtility: FileAndDirectoryUtility;
 
   constructor(config: AuthCommandConfiguration) {
     super({
@@ -24,6 +25,9 @@ export class AuthCommand extends Command {
       url: this.url,
       api: this.api,
     });
+    this.fileAndDirectoryUtility = new FileAndDirectoryUtility(
+      this.isDebugMode,
+    );
   }
 
   async login(): Promise<boolean> {
@@ -41,6 +45,30 @@ export class AuthCommand extends Command {
       handleError(error);
       return false;
     }
+  }
+
+  async logout(): Promise<boolean> {
+    try {
+      this._configPathAuthCheck();
+
+      const removeAuthConfig = await this.fileAndDirectoryUtility.delete({
+        fileName: this.configPath.auth,
+      });
+      this.logger.success("Logout success!");
+
+      return removeAuthConfig;
+    } catch (error) {
+      if (this.isDebugMode) this.logger.error(error);
+      return false;
+    }
+  }
+
+  private _configPathAuthCheck() {
+    const isNotContainLezzformPath =
+      !this.configPath.auth.includes(".lezzform");
+
+    if (isNotContainLezzformPath)
+      throw new Error(`Invalid path: ${this.configPath.auth}`);
   }
 
   async init(): Promise<boolean> {
@@ -96,9 +124,10 @@ export class AuthCommand extends Command {
       if (!this.config.auth) return false;
       this.setApiToken(this.config.auth.accessToken);
 
-      return this.authClient.verify();
+      return await this.authClient.verify();
     } catch (error) {
-      this.logger.error(error);
+      this.logger.error("Unauthorized");
+      if (this.isDebugMode) this.logger.error(error);
       return false;
     }
   }
