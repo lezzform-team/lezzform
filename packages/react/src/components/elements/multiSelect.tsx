@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import lodashGet from "lodash.get";
+import { InputClassNames, InputStyles, InputWithAdornmentProps } from "@/types";
 
 interface Item {
   label: string;
@@ -25,15 +26,16 @@ interface Item {
   data?: string;
 }
 
-export interface MultiSelectStyles {
-  root: React.CSSProperties;
+export interface MultiSelectStyles<T = React.CSSProperties>
+  extends InputStyles<T> {
+  content: React.CSSProperties;
 }
 
-export interface MultiSelectClassNames {
-  root: string;
+export interface MultiSelectClassNames<T = string> extends InputClassNames<T> {
+  content: string;
 }
 
-interface Props {
+interface Props extends Omit<InputWithAdornmentProps, "styles" | "classNames"> {
   items?: Item[];
   placeholder?: string;
   url?: string;
@@ -60,6 +62,8 @@ export function MultiSelect({
   disabled,
   styles,
   classNames,
+  suffixAdornment,
+  prefixAdornment,
 }: Props) {
   const [open, setOpen] = React.useState(false);
   const [apiItems, setApiItems] = React.useState<Props["items"] | null>(null);
@@ -154,18 +158,50 @@ export function MultiSelect({
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "lf-w-full",
+            "lf-w-full lf-items-center lf-justify-start lf-text-left lf-font-normal lf-h-10 lf-py-0 lf-px-0",
             !displayedItem && "lf-justify-end",
             displayedItem && "lf-justify-between",
             readOnly && "lf-cursor-default",
             !value && "lf-text-muted-foreground",
+            disabled && "lf-cursor-not-allowed",
+            !prefixAdornment && "lf-pl-3",
+            !suffixAdornment && "lf-pr-3",
             classNames?.root,
           )}
           disabled={disabled}
           style={styles?.root}
         >
-          {displayedItem}
-          <ChevronsUpDown className="lf-ml-2 lf-h-4 lf-w-4 lf-shrink-0 lf-opacity-50" />
+          {Boolean(prefixAdornment?.icon) && (
+            <div
+              className={cn(
+                "lf-px-3 lf-flex-shrink-0",
+                classNames?.prefixAdornment?.icon,
+              )}
+              style={styles?.prefixAdornment?.icon}
+            >
+              {prefixAdornment?.icon}
+            </div>
+          )}
+          <div
+            className={cn(
+              "lf-h-full lf-flex lf-items-center lf-flex-grow",
+              classNames?.content,
+            )}
+            style={styles?.content}
+          >
+            {displayedItem}
+          </div>
+          {Boolean(suffixAdornment?.icon) && (
+            <div
+              className={cn(
+                "lf-px-3 lf-flex-shrink-0",
+                classNames?.suffixAdornment?.icon,
+              )}
+              style={styles?.suffixAdornment?.icon}
+            >
+              {suffixAdornment?.icon}
+            </div>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="lf-p-0 DropdownPopoverContent">
