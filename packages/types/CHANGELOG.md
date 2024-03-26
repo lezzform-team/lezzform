@@ -1,5 +1,11 @@
 # @lezzform/types
 
+## 0.0.57
+
+### Patch Changes
+
+- support for password input type
+
 ## 0.0.56
 
 ### Patch Changes

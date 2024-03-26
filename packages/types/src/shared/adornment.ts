@@ -1,8 +1,12 @@
-import { InputIconType, InputImageType } from "../elements/input";
+import { IconType } from "../elements/icon";
+import { ImageType } from "../elements/image";
 import { TextType } from "../elements/text";
 
+export type AdornmentIconType = Pick<IconType, "type" | "attributes">;
+export type AdornmentImageType = Pick<ImageType, "type" | "attributes">;
+
 export type ElementAdornmentType = {
-  icon: InputIconType | InputImageType;
+  icon: AdornmentIconType | AdornmentImageType;
   text: Omit<TextType, "id">;
 };
 

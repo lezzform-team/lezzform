@@ -7,18 +7,19 @@ import { StringRule } from "../../rules";
 import { ElementAdornmentAttributesType } from "../../shared";
 import { GeneralStyleMetadata } from "../../styles";
 
-export type InputType = GenericLezzformElement<
+export type PasswordInputType = GenericLezzformElement<
   GenericFieldAttributes & ElementAdornmentAttributesType,
-  InputStyleType
+  PasswordInputStyleType
 > & {
-  type: "Input";
+  type: "PasswordInput";
   category: LezzformElementCategory.Field;
-  rule: InputRuleType;
+  rule: PasswordInputRuleType;
 };
 
-export type InputStyleType = GeneralStyleMetadata<InputStyleMetadataValuesType>;
+export type PasswordInputStyleType =
+  GeneralStyleMetadata<PasswordInputStyleMetadataValuesType>;
 
-export type InputStyleMetadataValuesType = {
+export type PasswordInputStyleMetadataValuesType = {
   input: Record<string, unknown>;
   prefixAdornment: {
     icon?: Record<string, unknown>;
@@ -30,4 +31,4 @@ export type InputStyleMetadataValuesType = {
   };
 };
 
-export type InputRuleType = StringRule;
+export type PasswordInputRuleType = StringRule;
