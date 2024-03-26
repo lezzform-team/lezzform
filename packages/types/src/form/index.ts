@@ -1,7 +1,15 @@
 export type LezzformConfiguration = {
   action: LezzformAction;
   errorMessage: LezzformErrorMessageType;
+  validateMode?: LezzformValidateMode;
 };
+
+export type LezzformValidateMode =
+  | "onSubmit"
+  | "onChange"
+  | "onBlur"
+  | "onTouched"
+  | "all";
 
 export type LezzformErrorMessageType =
   | ErrorMessageFlashMessageType
