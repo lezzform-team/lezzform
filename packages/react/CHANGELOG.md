@@ -1,5 +1,17 @@
 # @lezzform/react
 
+## 0.2.59
+
+### Patch Changes
+
+- remove unnecessary padding in multi select
+
+## 0.2.58
+
+### Patch Changes
+
+- adornment support for multi select
+
 ## 0.2.57
 
 ### Patch Changes
