@@ -1,5 +1,11 @@
 # @lezzform/cli
 
+## 0.2.12
+
+### Patch Changes
+
+- logout and auto logout on unauthorized
+
 ## 0.2.11
 
 ### Patch Changes

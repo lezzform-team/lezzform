@@ -16,7 +16,7 @@ export class ConfigPath {
 
     this.authRootDirectoryPath = path.join(
       os.homedir(),
-      mergeTexts(".lezzform", this.isDebugMode && "-debug")
+      mergeTexts(".lezzform", this.isDebugMode && "-debug"),
     );
     this.auth = path.join(this.authRootDirectoryPath, "config.json");
 
@@ -24,14 +24,3 @@ export class ConfigPath {
     this.project = path.join(this.projectRootDirectoryPath, "config.json");
   }
 }
-
-// configRootDirectoryPath: string;
-// configPath: string;
-// api: AxiosInstance = api;
-
-// constructor(url: string) {
-//   this.url = url;
-//   this.authCommand = new AuthCommand(this.url);
-//   this.configRootDirectoryPath = path.join(process.cwd(), "lezzform");
-//   this.configPath = path.join(this.configRootDirectoryPath, "config.json");
-// }
