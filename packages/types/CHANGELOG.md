@@ -1,5 +1,11 @@
 # @lezzform/types
 
+## 0.0.56
+
+### Patch Changes
+
+- form support change mode
+
 ## 0.0.55
 
 ### Patch Changes
