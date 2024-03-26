@@ -1,26 +1,27 @@
 import React from "react";
-import { Input as ShadInput } from "../ui/input";
+import { Input } from ".";
+import { InputWithAdornmentProps } from "@/types";
 
-export interface EmailInputStyles {
-  root: React.CSSProperties;
-}
-
-export interface EmailInputClassNames {
-  root: string;
-}
-
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+interface Props
+  extends React.InputHTMLAttributes<HTMLInputElement>,
+    InputWithAdornmentProps {
   isRequired?: boolean;
   label?: string;
-  styles?: Partial<EmailInputStyles>;
-  classNames?: Partial<EmailInputClassNames>;
 }
 
-export const EmailInput = ({ styles, classNames, ...props }: Props) => {
+export const EmailInput = ({
+  styles,
+  classNames,
+  prefixAdornment,
+  suffixAdornment,
+  ...props
+}: Props) => {
   return (
-    <ShadInput
-      style={styles?.root}
-      className={classNames?.root}
+    <Input
+      prefixAdornment={prefixAdornment}
+      suffixAdornment={suffixAdornment}
+      styles={styles}
+      classNames={classNames}
       {...props}
       type="email"
     />

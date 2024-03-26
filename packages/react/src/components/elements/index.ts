@@ -15,3 +15,4 @@ export * from "./phoneNumberInput";
 export * from "./customLayout";
 export * from "./text";
 export * from "./image";
+export * from "./passwordInput";

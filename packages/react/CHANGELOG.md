@@ -1,5 +1,13 @@
 # @lezzform/react
 
+## 0.2.57
+
+### Patch Changes
+
+- support for adornment all inputs and add password input
+- Updated dependencies
+  - @lezzform/types@0.0.57
+
 ## 0.2.56
 
 ### Patch Changes
